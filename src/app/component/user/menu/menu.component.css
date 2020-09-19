@@ -1,0 +1,22 @@
+.container-fluid .card{
+  margin-top: 10px;
+  text-align: center;
+}
+.container-fluid .card:hover{
+  transform: translateY(-15px);
+  box-shadow: 10px 12px 16px #016e34 !important;
+}
+.container-fluid img{
+  display:block;
+  margin:auto;
+  width: 250px;
+  height: 150px;
+}
+@media (min-width: 768px) and (max-width: 990px) {
+  .container-fluid img{
+    display:block;
+    margin:auto;
+    width: 180px;
+    height: 150px;
+  }
+}

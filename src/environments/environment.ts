@@ -6,6 +6,18 @@ export const environment = {
   production: false
 };
 
+const LOCALHOST = 'http://localhost:8080/';
+
+export const LOGIN = LOCALHOST.concat('login');
+
+export const ENDPOINT_USUARIOS = LOCALHOST.concat('usuario/');
+
+export const INSERTAR_ESTUDIANTE = ENDPOINT_USUARIOS.concat('nuevoestudiante');
+export const INSERTAR_ADMINISTRADOR = ENDPOINT_USUARIOS.concat('nuevoadministrador');
+export const LISTAR_ESTUDIANTES = ENDPOINT_USUARIOS.concat('listarestudiantes');
+export const LISTAR_ADMINISTRADORES = ENDPOINT_USUARIOS.concat('listaradministradores');
+export const ACTUALIZAR_USUARIO = ENDPOINT_USUARIOS.concat('actualizarusuario');
+export const ELIMINAR_USUARIO = ENDPOINT_USUARIOS.concat('eliminarusuario/');
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

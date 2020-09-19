@@ -1,0 +1,117 @@
+<div class="container">
+  <form class="needs-validation" novalidate [formGroup]="myFormGroup">
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label>Nombres</label>
+        <input type="text" class="form-control" formControlName="nombre" placeholder="Escribe un nombre" required>
+        <div class="invalid-feedback">
+          Por favor escriba sus Nombres.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Apellidos</label>
+        <input type="text" class="form-control" formControlName="apellido" placeholder="Escribe el apellido" required>
+        <div class="invalid-feedback">
+          Por favor escriba sus Apellidos.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="validationCustom05">Correo</label>
+        <input type="text" class="form-control" formControlName="correo" placeholder="Escribe el correo" required>
+        <div class="invalid-feedback">
+          Por favor ingrese su Correo.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Telefono</label>
+        <input type="number" class="form-control" formControlName="telefono" placeholder="Escribe un numero telefonico"
+          required>
+        <div class="invalid-feedback">
+          Por favor ingrese su Telefono.
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label>Identificacion</label>
+        <input type="number" class="form-control" formControlName="identificacion"
+          placeholder="Escribe la identificacion" required minlength="3">
+        <div class="invalid-feedback">
+          Por favor ingrese su identificacion.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Tipo de usuario</label>
+        <select formControlName="tipoUsuario" class="custom-select" required>
+          <option disabled selected value="">Seleccione un tipo de usuario</option>
+          <option value="ESTUDIANTE">ESTUDIANTE</option>
+          <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+        </select>
+        <div class="invalid-feedback">
+          Por favor seleccione el tipo de usuario
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label>Contraseña</label>
+        <input type="password" class="form-control" placeholder="Escribe una contraseña" formControlName="contrasena"
+          required>
+        <div class="invalid-feedback">
+          Por favor ingrese una contraseña con más de 8 caracteres.
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" formControlName="acceptTerms" type="checkbox" id="invalidCheck" value="true"
+              required>
+            <label class="form-check-label" for="invalidCheck">
+              Acepto Terminos y Condiciones
+            </label>
+            <div class="invalid-feedback">
+              Debe aceptar terminos y condiciones para poder enviar el contrato
+            </div>
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#condiciones" required>
+              Terminos y Condiciones
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="condiciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Terminos y condiciones</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <ul class="list-group">
+                      <li class="list-group-item active">Reglas para el ingreso a Santa Maria</li>
+                      <li class="list-group-item">Prohibido el consumo de Alcohol.</li>
+                      <li class="list-group-item">Prohibido el consumo de Alucinogenos.</li>
+                      <li class="list-group-item">Participar en las actividades.</li>
+                      <li class="list-group-item">Ayudar cuando sea requerido.</li>
+                      <li class="list-group-item">Mantener buenas relaciones interpersonales</li>
+                    </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button style="margin: 10px" class="btn btn-primary" type="submit" [disabled]="myFormGroup.invalid"
+              (click)="agregarUsuario()">Registrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

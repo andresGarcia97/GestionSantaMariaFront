@@ -1,0 +1,8 @@
+.container-fluido{
+  height: 135px;
+}
+@media (max-width: 992px) {
+  .container-fluido{
+    height: 120px;
+  }
+}

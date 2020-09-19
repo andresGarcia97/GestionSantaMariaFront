@@ -1,0 +1,117 @@
+<div class="container">
+  <h1 *ngIf="usuarios.length == 0">Listado de Usuarios</h1>
+  <div class="card">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+
+        <div class="card text-white bg-success mb-3" *ngIf="usuarios.length > 0">
+          <h2>Lista de de usuarios</h2>
+        </div>
+        <div class="card text-white bg-danger mb-3" *ngIf="usuarios.length == 0">
+          <h2>no hay información</h2>
+        </div>
+
+        <div *ngIf="usuarios.length > 0 ">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Identificacion</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Tipo de Usuario</th>
+                <th scope="col">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of usuarios">
+                <th>{{usuario.identificacion}}</th>
+                <td>{{usuario.nombre}}</td>
+                <td>{{usuario.apellido}}</td>
+                <td>+57 {{usuario.telefono}}</td>
+                <td>{{usuario.tipoUsuario}}</td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal"
+                    (click)="showPopup(usuario)">Eliminar</button>
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                    data-target="#modalActualizar" (click)="showPopup(usuario)">Editar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </blockquote>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content"  style ="text-align: center;">
+
+          <!-- Modal Header -->
+          <div class="modal-header"  style = "text-align: center">
+            <h4 class="modal-title">Eliminar</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            ¿Está seguro que desea eliminar al Usuario: {{ selectedUser.nombre}} {{selectedUser.apellido}}
+            identificado con: {{ selectedUser.identificacion}}?
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer" style ="justify-content: center;">
+            <button type="button" class="btn btn-danger" data-dismiss="modal"
+              (click)="delete(selectedUser)">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="modalActualizar">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Editar información correspondiente al usuario {{selectedUser.nombre}}
+              {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="nombre">Nombre</label>
+                <input type="text" [(ngModel)]="selectedUser.nombre" class="form-control" id="nombre"
+                  placeholder="Nombre" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="marca">Apellido</label>
+                <input type="text" [(ngModel)]="selectedUser.apellido" class="form-control" id="marca"
+                  placeholder="apellido" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="precioCompra">Telefono</label>
+                <input type="number" [(ngModel)]="selectedUser.telefono" class="form-control" id="precioCompra"
+                  placeholder="Ingrese el telefono" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="precioVenta">Correo electronico</label>
+                <input type="text" [(ngModel)]="selectedUser.correo" class="form-control" id="precioVenta"
+                  placeholder="Ingrese la Correo electronico" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer" *ngIf="!usuarioValido(selectedUser) disabled" style ="justify-content: center;">
+            <button type="button" class="btn btn-danger"  data-dismiss="modal" (click)="update()">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
