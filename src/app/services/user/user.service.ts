@@ -3,14 +3,15 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { LoginService } from '../login/login.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user/user';
-import { LISTAR_ESTUDIANTES, LISTAR_ADMINISTRADORES, INSERTAR_ADMINISTRADOR, INSERTAR_ESTUDIANTE, ELIMINAR_USUARIO, ACTUALIZAR_USUARIO } from 'src/environments/environment';
+import { LISTAR_ESTUDIANTES, LISTAR_ADMINISTRADORES, INSERTAR_ADMINISTRADOR,
+  INSERTAR_ESTUDIANTE, ELIMINAR_USUARIO, ACTUALIZAR_USUARIO } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private headersText = new HttpHeaders({ 'Content-Type': 'text/plain' });
-  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: 'Bearer ' + this.loginService.token});
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
   public listAllStudents(): Observable<User[]> {

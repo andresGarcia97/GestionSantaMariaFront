@@ -1,3 +1,4 @@
+import { UtilService } from './../../../services/util/util.service';
 import { LoginService } from './../../../services/login/login.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  usuarioLogueado: boolean;
-  constructor(private loginService: LoginService) { }
+  messageBoolean: boolean;
+  constructor(private util: UtilService, private loginService: LoginService) { }
 
   ngOnInit(): void {
-    this.usuarioLogueado = this.loginService.isAutenticated();
+    this.util.currentBooleanMessage.subscribe(messageBoolean => this.messageBoolean = messageBoolean);
+    this.messageBoolean = this.loginService.isAutenticated();
   }
   logout(): void{
     this.loginService.logout();
+    this.util.changeBooleanMessage(false);
     alert('Has cerrado sesión correctamente');
   }
-
 }

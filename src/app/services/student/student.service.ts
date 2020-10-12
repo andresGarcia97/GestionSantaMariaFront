@@ -9,12 +9,13 @@ import { LISTAR_ESTUDIANTES } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class StudentService {
+  /*
   private headersText = new HttpHeaders({ 'Content-Type': 'text/plain' });
   private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' });
-
+  */
   constructor(private http: HttpClient, private loginService: LoginService) { }
   public listAllStudents(): Observable< Student[]> {
-    let token = this.loginService.token;
+    const token = this.loginService.token;
     let httpHeaders = new HttpHeaders();
     if (token != null) {
       httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);

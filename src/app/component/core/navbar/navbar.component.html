@@ -6,25 +6,15 @@
               HJU Santa Maria
           </a>
           <div class="collapse navbar-collapse" id="navbarResponsive">
-              <ul class="navbar-nav ml-auto" *ngIf="usuarioLogueado;else login">
-                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/menu']" routerLinkActive="router-link-active">Imagenes</a></li>
-                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/registrousuario']" routerLinkActive="router-link-active">Registrar Usuario</a></li>
-                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/listarusuarios']" routerLinkActive="router-link-active">Listar Usuarios</a></li>
+              <ul class="navbar-nav ml-auto" *ngIf="messageBoolean;">
+                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/menu']" routerLinkActive="router-link-active">Menu</a></li>
                   <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/login']" (click)="logout()" routerLinkActive="router-link-active">Logout</a></li>
-                  <!--
-                    <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">Salidas</a></li>
-                    <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Reservas</a></li>
-                    <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Lavado de loza</a></li>
-                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Perfil</a></li>
-                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Logout</a></li>
-                  -->
+              </ul>
+
+                <ul class="navbar-nav ml-auto" *ngIf="!messageBoolean;">
+                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/login']" routerLinkActive="router-link-active">Login</a></li>
+                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/login']" (click)="logout()" routerLinkActive="router-link-active">Logout</a></li>
                 </ul>
-              <ng-template #login>
-                  <ul class="navbar-nav ml-auto">
-                    <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/login']" routerLinkActive="router-link-active">Login</a></li>
-                  <li class="nav-item mx-0 mx-lg-0"><a class="nav-link py-0 px-0 px-lg-3 rounded js-scroll-trigger" [routerLink]="['/login']" (click)="logout()" routerLinkActive="router-link-active">Logout</a></li>
-                  </ul>
-              </ng-template>
           </div>
       </div>
   </nav>

@@ -45,36 +45,34 @@ export class LoginService {
   guardarUsuario(accessToken: string): void {
     const payload = this.obtenerDatosToken(accessToken);
     this.usuario = new User();
-    this.tokenValid = accessToken;
     let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     if (accessToken != null) {
       httpHeaders = httpHeaders.append(
         'Authorization',
-        'Bearer ' + accessToken
+        accessToken
       );
     }
     httpHeaders.get('Authorization');
     httpHeaders.get('Content-Type');
-    //this.usuario.identificacion = payload.identificacion;
+    this.usuario.identificacion = payload.sub;
     //this.usuario.tipoUsuario = payload.tipo_usuario;
     sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
   }
 
-  guardarToken(accessToken: string): void {
-    this.tokenValid = accessToken;
-    sessionStorage.setItem('token', accessToken);
+  guardarToken(): void {
+    sessionStorage.setItem('token', this.tokenValid);
   }
 
   obtenerDatosToken(accessToken: string): any {
     if (accessToken != null) {
+      this.tokenValid = accessToken.split(' ')[1];
       return JSON.parse(atob(accessToken.split('.')[1]));
     }
     return null;
   }
 
   isAutenticated(): boolean {
-    const payload = this.obtenerDatosToken(this.token);
-    if (payload != null && payload.identificacion.length > 0) {
+    if (sessionStorage.getItem('token') != null){
       return true;
     }
     return false;
