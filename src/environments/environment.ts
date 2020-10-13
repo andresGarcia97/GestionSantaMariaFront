@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-const LOCALHOST = 'http://192.168.0.4:8080/';
+const LOCALHOST = 'http://localhost:8080/';
 
 export const LOGIN = LOCALHOST.concat('login');
 

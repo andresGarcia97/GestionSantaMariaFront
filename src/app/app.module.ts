@@ -15,6 +15,10 @@ import { NavbarComponent } from './component/core/navbar/navbar.component';
 import { PagenotfoundComponent } from './component/core/pagenotfound/pagenotfound.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShowdeparturesComponent } from './component/departures/showdepartures/showdepartures.component';
+import { ShowdishwashingComponent } from './component/dishwashing/showdishwashing/showdishwashing.component';
+import { BookwashingmachineComponent } from './component/washingmachine/bookwashingmachine/bookwashingmachine.component';
+import { ManagespacesComponent } from './component/spaces/managespaces/managespaces.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     HeaderComponent,
     NavbarComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    ShowdeparturesComponent,
+    ShowdishwashingComponent,
+    BookwashingmachineComponent,
+    ManagespacesComponent
   ],
   imports: [
     BrowserModule,
