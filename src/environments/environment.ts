@@ -16,7 +16,9 @@ export const INSERTAR_ESTUDIANTE = ENDPOINT_USUARIOS.concat('nuevoestudiante');
 export const INSERTAR_ADMINISTRADOR = ENDPOINT_USUARIOS.concat('nuevoadministrador');
 export const LISTAR_ESTUDIANTES = ENDPOINT_USUARIOS.concat('listarestudiantes');
 export const LISTAR_ADMINISTRADORES = ENDPOINT_USUARIOS.concat('listaradministradores');
+export const BUSCAR_USUARIO = ENDPOINT_USUARIOS.concat('buscarusuario');
 export const ACTUALIZAR_USUARIO = ENDPOINT_USUARIOS.concat('actualizarusuario');
+export const CAMBIAR_CONTRASEÑA = ENDPOINT_USUARIOS.concat('cambiarcontrasena');
 export const ELIMINAR_USUARIO = ENDPOINT_USUARIOS.concat('eliminarusuario/');
 /*
  * For easier debugging in development mode, you can import the following file

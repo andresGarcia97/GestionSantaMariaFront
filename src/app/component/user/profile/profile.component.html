@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron card card-block">
+				<h2>
+					Hola, {{user.nombre}} {{user.apellido}}!
+				</h2>
+				<p>
+					Nombre: {{user.nombre}}
+        </p>
+        <p>
+					Apellido: {{user.apellido}}
+				</p>
+				<p>
+					Documento de identidad: {{user.identificacion}}
+				</p>
+				<p>
+					Correo: {{user.correo}}
+				</p>
+				<p>
+					Teléfono: {{user.telefono}}
+				</p>
+        <p>
+					Tipo de usuario: {{user.tipoUsuario}}
+        </p>
+        <button type="button" class="btn btn-link" data-toggle="modal"
+        data-target="#modalActualizar">Cambiar contraseña</button>
+			</div>
+    </div>
+    <div class="col-md-12">
+      <app-update></app-update>
+    </div>
+  </div>
+  <br>
+</div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="modalActualizar">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Editar Contraseña: </h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="form-row justify-content-center">
+              <div class="form-group col-md-6">
+                <label for="Contraseña-actual">Contraseña actual</label>
+                <input type="text" [(ngModel)]="contrasenas.viejaContrasena" class="form-control"
+                  placeholder="Ingrese la contraseña actual" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="Repetir-contraseña">Contraseña nueva</label>
+                <input type="text" class="form-control" [(ngModel)]="contrasenas.nuevaContrasena"
+                  placeholder="Ingrese la contraseña nueva" required>
+              </div>
+              <div class="form-group col-md-8">
+                <label for="Repetir-contraseña2">Repite la contraseña nueva</label>
+                <input type="number" class="form-control" [(ngModel)]="contrasenas.repetirContrasena"
+                  placeholder="Ingrese la contraseña nueva" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer" style ="justify-content: center;">
+            <button type="button" class="btn btn-danger"  data-dismiss="modal" (click)="updatePassword()">Actualizar Contraseña</button>
+          </div>
+
+        </div>
+      </div>
+    </div>

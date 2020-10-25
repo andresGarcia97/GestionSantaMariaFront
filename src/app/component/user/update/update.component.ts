@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/model/user/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/model/user/user';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-update',
+  templateUrl: './update.component.html',
+  styleUrls: ['./update.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class UpdateComponent implements OnInit {
+
   usuario = new User();
   myFormGroup: FormGroup;
 
@@ -19,23 +20,15 @@ export class RegisterComponent implements OnInit {
       apellido: new FormControl('', Validators.required),
       identificacion: new FormControl('', Validators.required),
       telefono: new FormControl('', Validators.required),
-      correo: new FormControl('', [Validators.required, Validators.email]),
-      contrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      tipoUsuario: new FormControl('', Validators.required),
-      acceptTerms: new FormControl(false, Validators.requiredTrue)
+      correo: new FormControl('', [Validators.required, Validators.email])
     });
   }
   constructor(private usuarioService: UserService, private router: Router) {
   }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.myFormGroup = this.createFormGroup();
   }
-  showPopup(tipoUsuario: string ) {
-  //  this.usuario.tipoUsuario = tipoUsuario;
-  }
-
-  agregarUsuario() {
+  actualizarUsuario() {
     if (this.myFormGroup.valid) {
       alert('Datos correctos');
       this.usuario = this.myFormGroup.value;

@@ -3,7 +3,7 @@ import { GuardGuard } from './services/guard/guard.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UpdatePasswordComponent } from './component/user/update-password/update-password.component';
-import { MenuComponent } from './component/user/menu/menu.component';
+import { MenuComponent } from './component/core/menu/menu.component';
 import { LoginComponent } from './component/security/login/login.component';
 import { RegisterComponent } from './component/user/register/register.component';
 import { ListComponent } from './component/user/list/list.component';
@@ -11,6 +11,7 @@ import { PagenotfoundComponent } from './component/core/pagenotfound/pagenotfoun
 import { ShowdishwashingComponent } from './component/dishwashing/showdishwashing/showdishwashing.component';
 import { BookwashingmachineComponent } from './component/washingmachine/bookwashingmachine/bookwashingmachine.component';
 import { ManagespacesComponent } from './component/spaces/managespaces/managespaces.component';
+import { ProfileComponent } from './component/user/profile/profile.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'lavado_loza', component: ShowdishwashingComponent, canActivate: [GuardGuard]},
   { path: 'reservas_lavadora', component: BookwashingmachineComponent, canActivate: [GuardGuard]},
   { path: 'espacios', component: ManagespacesComponent, canActivate: [GuardGuard]},
+  { path: 'perfil', component: ProfileComponent, canActivate: [GuardGuard]},
   { path: '', redirectTo: '', pathMatch: 'full'},
   { path: '**', component: PagenotfoundComponent}
 ];

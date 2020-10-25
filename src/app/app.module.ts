@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/security/login/login.component';
 import { ListComponent } from './component/user/list/list.component';
-import { MenuComponent } from './component/user/menu/menu.component';
+import { MenuComponent } from './component/core/menu/menu.component';
 import { RegisterComponent } from './component/user/register/register.component';
 import { UpdatePasswordComponent } from './component/user/update-password/update-password.component';
 import { CarouselComponent } from './component/core/carousel/carousel.component';
@@ -19,6 +19,8 @@ import { ShowdeparturesComponent } from './component/departures/showdepartures/s
 import { ShowdishwashingComponent } from './component/dishwashing/showdishwashing/showdishwashing.component';
 import { BookwashingmachineComponent } from './component/washingmachine/bookwashingmachine/bookwashingmachine.component';
 import { ManagespacesComponent } from './component/spaces/managespaces/managespaces.component';
+import { ProfileComponent } from './component/user/profile/profile.component';
+import { UpdateComponent } from './component/user/update/update.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ManagespacesComponent } from './component/spaces/managespaces/managespa
     ShowdeparturesComponent,
     ShowdishwashingComponent,
     BookwashingmachineComponent,
-    ManagespacesComponent
+    ManagespacesComponent,
+    ProfileComponent,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,

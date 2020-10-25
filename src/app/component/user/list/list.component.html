@@ -28,7 +28,7 @@
                 <th>{{usuario.identificacion}}</th>
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.apellido}}</td>
-                <td>+57 {{usuario.telefono}}</td>
+                <td>{{usuario.telefono}}</td>
                 <td>{{usuario.tipoUsuario}}</td>
                 <td>
                   <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal"
@@ -89,18 +89,18 @@
                   placeholder="Nombre" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="marca">Apellido</label>
-                <input type="text" [(ngModel)]="selectedUser.apellido" class="form-control" id="marca"
+                <label for="apellido">Apellido</label>
+                <input type="text" [(ngModel)]="selectedUser.apellido" class="form-control"
                   placeholder="apellido" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="precioCompra">Telefono</label>
-                <input type="number" [(ngModel)]="selectedUser.telefono" class="form-control" id="precioCompra"
+                <label for="telefono">Telefono</label>
+                <input type="number" [(ngModel)]="selectedUser.telefono" class="form-control"
                   placeholder="Ingrese el telefono" required>
               </div>
               <div class="form-group col-md-6">
-                <label for="precioVenta">Correo electronico</label>
-                <input type="text" [(ngModel)]="selectedUser.correo" class="form-control" id="precioVenta"
+                <label for="correo">Correo electronico</label>
+                <input type="text" [(ngModel)]="selectedUser.correo" class="form-control"
                   placeholder="Ingrese la Correo electronico" required>
               </div>
             </div>
