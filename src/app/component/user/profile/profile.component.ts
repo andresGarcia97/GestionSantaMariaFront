@@ -19,9 +19,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.loginService.user;
     this.userService.getUsuario(this.user).subscribe(data => {
-      //Buscar la manera de solucionar esto aunque funcione.
-      this.usuarios = data;
-      this.user = this.usuarios[0];
+      // Buscar la manera de solucionar esto aunque funcione.
+      this.user = data;
       this.contrasenas.identificacion = this.user.identificacion;
       console.log(this.user);
       this.router.navigate(['/perfil']);

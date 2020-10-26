@@ -55,7 +55,7 @@ export class LoginService {
     httpHeaders.get('Authorization');
     httpHeaders.get('Content-Type');
     this.usuario.identificacion = payload.sub;
-    //this.usuario.tipoUsuario = payload.tipo_usuario;
+    // this.usuario.tipoUsuario = payload.tipo_usuario;
     sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
   }
 

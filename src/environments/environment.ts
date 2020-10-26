@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-const LOCALHOST = 'http://localhost:8080/';
+export const LOCALHOST = 'http://localhost:8080/';
 
 export const LOGIN = LOCALHOST.concat('login');
 
@@ -20,11 +20,4 @@ export const BUSCAR_USUARIO = ENDPOINT_USUARIOS.concat('buscarusuario');
 export const ACTUALIZAR_USUARIO = ENDPOINT_USUARIOS.concat('actualizarusuario');
 export const CAMBIAR_CONTRASEÑA = ENDPOINT_USUARIOS.concat('cambiarcontrasena');
 export const ELIMINAR_USUARIO = ENDPOINT_USUARIOS.concat('eliminarusuario/');
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
