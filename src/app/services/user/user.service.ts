@@ -1,3 +1,4 @@
+import { Student } from 'src/app/model/student/student';
 import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -24,8 +25,8 @@ export class UserService {
   public getAdministrador(): Observable<User[]> {
     return this.http.get<User[]>(LISTAR_ADMINISTRADORES, { headers: this.headersjson});
   }
-  public getUsuario(usuario: User): Observable<User[]> {
-    return this.http.post<User[]>(BUSCAR_USUARIO, usuario, { headers: this.headersjson});
+  public getUsuario(usuario: Student): Observable<Student> {
+    return this.http.post<Student>(BUSCAR_USUARIO, usuario, { headers: this.headersjson});
   }
   public createAdministrador(usuario: User): Observable<User> {
     return this.http.post<User>(INSERTAR_ADMINISTRADOR, usuario, { headers: this.headersjson });
@@ -36,8 +37,9 @@ export class UserService {
   public delete(id: number): Observable<User> {
     return this.http.delete<User>(ELIMINAR_USUARIO.concat(id.toString()), { headers: this.headersjson });
   }
-  public update(usuario: User): Observable<User> {
-    return this.http.put<User>(ACTUALIZAR_USUARIO, usuario, { headers: this.headersjson });
+  public update(usuario: Student): Observable<Student> {
+    console.log(usuario);
+    return this.http.put<Student>(ACTUALIZAR_USUARIO, usuario, { headers: this.headersjson });
   }
   public updatePassword(newPassword: DtoChangePassword): Observable<User> {
     return this.http.put<User>(CAMBIAR_CONTRASEÑA, newPassword, { headers: this.headersjson });

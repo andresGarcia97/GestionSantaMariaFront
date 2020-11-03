@@ -1,3 +1,4 @@
+import { Student } from 'src/app/model/student/student';
 import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
 import { LoginService } from 'src/app/services/login/login.service';
 import { User } from 'src/app/model/user/user';
@@ -11,21 +12,17 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: User;
-  usuarios: User[];
+  user: Student;
   contrasenas: DtoChangePassword = new DtoChangePassword();
   constructor(private userService: UserService, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
-    this.user = this.loginService.user;
+    this.user = this.loginService.user as Student;
     this.userService.getUsuario(this.user).subscribe(data => {
-      // Buscar la manera de solucionar esto aunque funcione.
-      this.user = data;
-      this.contrasenas.identificacion = this.user.identificacion;
-      console.log(this.user);
-      this.router.navigate(['/perfil']);
+        this.user = data as Student;
+        this.contrasenas.identificacion = this.user.identificacion;
     }, err => {
-      alert('Error al ingresar el administrador, verifique que no exista');
+      alert('Error al ver tu perfil');
   }
     );
   }

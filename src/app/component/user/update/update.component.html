@@ -1,50 +1,58 @@
 <div class="container">
   <form class="needs-validation" novalidate [formGroup]="myFormGroup">
-    <div class="form-row">
+    <div class="row">
       <div class="col-md-6 mb-3">
         <label>Nombres</label>
-        <input type="text" class="form-control" formControlName="nombre" placeholder="Escribe un nombre" required>
+        <input type="text" class="form-control" formControlName="nombre" [ngModel]="usuario.nombre" placeholder="Escribe un nombre" required>
         <div class="invalid-feedback">
           Por favor escriba sus Nombres.
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label>Apellidos</label>
-        <input type="text" class="form-control" formControlName="apellido" placeholder="Escribe el apellido" required>
+        <input type="text" class="form-control" formControlName="apellido" [ngModel]="usuario.apellido" placeholder="Escribe el apellido" required>
         <div class="invalid-feedback">
           Por favor escriba sus Apellidos.
         </div>
       </div>
     </div>
-    <div class="form-row">
+    <div class="row">
       <div class="col-md-6 mb-3">
         <label for="validationCustom05">Correo</label>
-        <input type="text" class="form-control" formControlName="correo" placeholder="Escribe el correo" required>
+        <input type="text" class="form-control" formControlName="correo" [ngModel]="usuario.correo" placeholder="Escribe el correo" required>
         <div class="invalid-feedback">
           Por favor ingrese su Correo.
         </div>
       </div>
       <div class="col-md-6 mb-3">
         <label>Telefono</label>
-        <input type="number" class="form-control" formControlName="telefono" placeholder="Escribe un numero telefonico"
+        <input type="number" class="form-control" formControlName="telefono" [ngModel]="usuario.telefono" placeholder="Escribe un numero telefonico"
           required>
         <div class="invalid-feedback">
           Por favor ingrese su Telefono.
         </div>
       </div>
     </div>
-    <div class="form-row">
+    <div class="row justify-content-center">
       <div class="col-md-6 mb-3">
         <label>Identificacion</label>
-        <input type="number" class="form-control" formControlName="identificacion"
-          placeholder="Escribe la identificacion" required minlength="3">
+        <input type="number" class="form-control" formControlName="identificacion" [ngModel]="usuario.identificacion"
+          placeholder="Escribe la identificacion" required minlength="6">
         <div class="invalid-feedback">
           Por favor ingrese su identificacion.
         </div>
       </div>
+      <div *ngIf="!isAdministrador()" class="col-md-6 mb-3">
+        <label>Universidad</label>
+        <input type="text" class="form-control" formControlName="universidad" [ngModel]="usuario.universidad"
+          placeholder="Escribe la universidad">
+        <div class="invalid-feedback">
+          Por favor ingrese la universidad.
+        </div>
+      </div>
       <div class="col-md-6 mb-3">
-        <label></label>
-        <button style="margin: 8px" class="btn btn-primary btn-block" type="submit" [disabled]="myFormGroup.invalid"
+        <br>
+        <button style="margin-top: 7px" class="btn btn-primary btn-block" type="submit" [disabled]="myFormGroup.invalid"
         (click)="actualizarUsuario()">Actualizar</button>
       </div>
     </div>

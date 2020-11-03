@@ -21,6 +21,8 @@ import { BookwashingmachineComponent } from './component/washingmachine/bookwash
 import { ManagespacesComponent } from './component/spaces/managespaces/managespaces.component';
 import { ProfileComponent } from './component/user/profile/profile.component';
 import { UpdateComponent } from './component/user/update/update.component';
+import { ShowcourseComponent } from './component/course/showcourse/showcourse.component';
+import { LaborComponent } from './component/labor/labor.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { UpdateComponent } from './component/user/update/update.component';
     BookwashingmachineComponent,
     ManagespacesComponent,
     ProfileComponent,
-    UpdateComponent
+    UpdateComponent,
+    ShowcourseComponent,
+    LaborComponent
   ],
   imports: [
     BrowserModule,

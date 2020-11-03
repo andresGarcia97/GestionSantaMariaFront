@@ -1,1 +1,202 @@
-<p>showdishwashing works!</p>
+<div class="container">
+  <h1 *ngIf="usuarios.length == 0">Listado de estudiantes</h1>
+  <div class="card">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+
+        <div class="card text-white bg-success mb-3 text-center" *ngIf="usuarios.length > 0">
+          <h2>Lista de estudiantes, seleccione un estudiante para más opciones</h2>
+        </div>
+        <div class="card text-white bg-danger mb-3" *ngIf="usuarios.length == 0">
+          <h2>no hay información</h2>
+        </div>
+
+        <div *ngIf="usuarios.length > 0 ">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Identificacion</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Telefono</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of usuarios" data-toggle="modal"
+              data-target="#opciones" style="cursor: pointer;" (click)="showPopup(usuario)">
+                <th>{{usuario.identificacion}}</th>
+                <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                <td>{{usuario.telefono}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </blockquote>
+    </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="AsignarEstudianteAlLavadoLoza">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content"  style ="text-align: center;">
+
+          <!-- Modal Header -->
+          <div class="modal-header"  style = "text-align: center">
+            <h4 class="modal-title">
+              Asignar al estudiante {{ selectedUser.nombre}} {{selectedUser.apellido}}
+              identificado con: {{ selectedUser.identificacion}}?</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <label>Seleccione un día</label>
+            <select class="custom-select" [(ngModel)]="selectedDay">
+              <option *ngFor="let dia of dias">
+                {{dia}}
+              </option>
+            </select>
+            <label>Seleccione un turno</label>
+            <select class="custom-select" [(ngModel)]="selectedTurn">
+              <option *ngFor="let turno of turnos">
+                {{turno}}
+              </option>
+            </select>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer" style ="justify-content: center;">
+            <button type="button" class="btn btn-danger" data-dismiss="modal"
+              (click)="asignarHorarioLoza(selectedUser, selectedTurn, selectedDay)">Asignar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- The Modal -->
+  <div class="modal fade" id="opciones">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title text-center">Que deseas hacer con el usuario {{selectedUser.nombre}}
+            {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <td>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
+            data-target="#AsignarEstudianteAlLavadoLoza" data-dismiss="modal">Asignar al lavado loza</button>
+            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="showHorarios(selectedUser.identificacion)">Ver horario materias</button>
+          </td>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="card">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <div class="card text-white bg-success mb-3 text-center">
+          <h2>Horario de loza</h2>
+        </div>
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Dias</th>
+              <th scope="col">DESAYUNO</th>
+              <th scope="col">ALMUERZO</th>
+              <th scope="col">CENA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">LUNES</th>
+              <td *ngIf="horariosLozaDesayuno[0] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaDesayuno[0].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaAlmuerzo[0] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaAlmuerzo[0].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaCena[0] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaCena[0].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">MARTES</th>
+              <td *ngIf="horariosLozaDesayuno[1] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaDesayuno[1].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaAlmuerzo[1] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaAlmuerzo[1].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaCena[1] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaCena[1].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">MIERCOLES</th>
+              <td *ngIf="horariosLozaDesayuno[2] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaDesayuno[2].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaAlmuerzo[2] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaAlmuerzo[2].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaCena[2] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaCena[2].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">JUEVES</th>
+              <td *ngIf="horariosLozaDesayuno[3] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaDesayuno[3].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaAlmuerzo[3] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaAlmuerzo[3].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaCena[3] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaCena[3].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">VIERNES</th>
+              <td *ngIf="horariosLozaDesayuno[4] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaDesayuno[4].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaAlmuerzo[4] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaAlmuerzo[4].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaCena[4] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaCena[4].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">SABADO</th>
+              <td *ngIf="horariosLozaDesayuno[5] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaDesayuno[5].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaAlmuerzo[5] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaAlmuerzo[5].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaCena[5] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaCena[5].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">DOMINGO</th>
+              <td *ngIf="horariosLozaDesayuno[6] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaDesayuno[6].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaAlmuerzo[6] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaAlmuerzo[6].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+              <td *ngIf="horariosLozaCena[6] != null; else elseBlock">
+                <div *ngFor="let estudiante of horariosLozaCena[6].estudiantes">{{estudiante.nombre}}</div>
+              </td>
+            </tr>
+            <ng-template #elseBlock><td></td></ng-template>
+          </tbody>
+        </table>
+      </blockquote>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="crearHorario()">Crear Horario</button>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container">
+  <h1 *ngIf="materias.length == 0">Horario de materias</h1>
+  <div class="card">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+
+        <div class="card text-white bg-success mb-3" *ngIf="materias.length > 0">
+          <h2>Horario de materias</h2>
+        </div>
+        <div class="card text-white bg-danger mb-3" *ngIf="materias.length == 0">
+          <h2>no hay información</h2>
+        </div>
+
+        <div *ngIf="materias.length > 0 ">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Nombre materia</th>
+                <th scope="col">Dia</th>
+                <th scope="col">Hora inicial</th>
+                <th scope="col">Hora Final</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let materia of materias">
+                <td>{{materia.nombreMateria}}</td>
+                <td>{{materia.horarios[0].dia}}</td>
+                <td>{{materia.horarios[0].horaInicial}}</td>
+                <td>{{materia.horarios[0].horaFinal}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </blockquote>
+    </div>
+  </div>
+</div>

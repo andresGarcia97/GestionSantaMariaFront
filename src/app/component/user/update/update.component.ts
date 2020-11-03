@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Student } from 'src/app/model/student/student';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user/user';
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class UpdateComponent implements OnInit {
 
-  usuario = new User();
+  @Input() usuario: Student;
   myFormGroup: FormGroup;
 
   createFormGroup(){
@@ -20,7 +21,8 @@ export class UpdateComponent implements OnInit {
       apellido: new FormControl('', Validators.required),
       identificacion: new FormControl('', Validators.required),
       telefono: new FormControl('', Validators.required),
-      correo: new FormControl('', [Validators.required, Validators.email])
+      correo: new FormControl('', [Validators.required, Validators.email]),
+      universidad: new FormControl('')
     });
   }
   constructor(private usuarioService: UserService, private router: Router) {
@@ -32,28 +34,21 @@ export class UpdateComponent implements OnInit {
     if (this.myFormGroup.valid) {
       alert('Datos correctos');
       this.usuario = this.myFormGroup.value;
-      if ( this.myFormGroup.get('tipoUsuario').value === 'ESTUDIANTE' ){
-        this.usuarioService.createEstudiante(this.usuario)
-          .subscribe(data => {
-            // Entra aquí con respuesta del servicio correcta código http 200
-            alert('Ingreso exitoso del Estudiante');
-            this.router.navigate(['/listarusuarios']);
-        }, err => {
-            // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
-            alert('Error al ingresar el Estudiante, verifique que no exista');
-        });
-      } else{
-        this.usuarioService.createAdministrador(this.usuario)
+      this.usuarioService.update(this.usuario)
         .subscribe(data => {
-          alert('Ingreso exitoso del Administrador');
-          this.router.navigate(['/listarusuarios']);
+          // Entra aquí con respuesta del servicio correcta código http 200
+          window.location.reload();
+          alert('La actualizacion fue exitosa');
       }, err => {
-          alert('Error al ingresar el administrador, verifique que no exista');
+          // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
+          alert('Error al actualizar el usuario');
       });
-      }
     } else {
       alert('Datos invalidos');
     }
+  }
+  isAdministrador(): boolean{
+    return (this.usuario.tipoUsuario === 'ADMINISTRADOR');
   }
   convertFormGroupToUser(form: FormGroup) {
     this.usuario.nombre = form.get('nombre').value;
@@ -62,5 +57,6 @@ export class UpdateComponent implements OnInit {
     this.usuario.telefono = form.get('telefono').value;
     this.usuario.contrasena = form.get('contrasena').value;
     this.usuario.correo = form.get('correo').value;
+    this.usuario.universidad = form.get('universidad').value;
   }
 }

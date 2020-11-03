@@ -1,3 +1,4 @@
+import { Student } from 'src/app/model/student/student';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
@@ -39,7 +40,7 @@ export class ListComponent implements OnInit {
     );
   }
   update() {
-    this.userService.update(this.selectedUser)
+    this.userService.update(this.selectedUser as Student)
       .subscribe(data => {
         this.router.navigate(['/listarusuarios']);
         alert('Actualizacion exitosa del usuario');

@@ -1,3 +1,5 @@
+import { LaborComponent } from './component/labor/labor.component';
+import { ShowcourseComponent } from './component/course/showcourse/showcourse.component';
 import { ShowdeparturesComponent } from './component/departures/showdepartures/showdepartures.component';
 import { GuardGuard } from './services/guard/guard.guard';
 import { NgModule } from '@angular/core';
@@ -20,7 +22,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'registrousuario', component: RegisterComponent, canActivate: [GuardGuard]},
   { path: 'listarusuarios', component: ListComponent, canActivate: [GuardGuard]},
+  { path: 'labor', component: LaborComponent, canActivate: [GuardGuard]},
   { path: 'mostrarplanilla', component: ShowdeparturesComponent, canActivate: [GuardGuard]},
+  { path: 'mostrarmaterias', component: ShowcourseComponent, canActivate: [GuardGuard]},
   { path: 'lavado_loza', component: ShowdishwashingComponent, canActivate: [GuardGuard]},
   { path: 'reservas_lavadora', component: BookwashingmachineComponent, canActivate: [GuardGuard]},
   { path: 'espacios', component: ManagespacesComponent, canActivate: [GuardGuard]},
