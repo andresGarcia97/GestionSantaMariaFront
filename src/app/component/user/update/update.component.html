@@ -37,14 +37,14 @@
       <div class="col-md-6 mb-3">
         <label>Identificacion</label>
         <input type="number" class="form-control" formControlName="identificacion" [ngModel]="usuario.identificacion"
-          placeholder="Escribe la identificacion" required minlength="6">
+          placeholder="Escribe la identificacion" required minlength="6" readonly>
         <div class="invalid-feedback">
-          Por favor ingrese su identificacion.
+          Identificación
         </div>
       </div>
-      <div *ngIf="!isAdministrador()" class="col-md-6 mb-3">
+      <div *ngIf="isAdministrador()" class="col-md-6 mb-3">
         <label>Universidad</label>
-        <input type="text" class="form-control" formControlName="universidad" [ngModel]="usuario.universidad"
+        <input type="" class="form-control" formControlName="universidad" [ngModel]="usuario.universidad"
           placeholder="Escribe la universidad">
         <div class="invalid-feedback">
           Por favor ingrese la universidad.

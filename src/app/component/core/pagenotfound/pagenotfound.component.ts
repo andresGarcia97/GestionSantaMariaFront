@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-pagenotfound',
-  templateUrl: './pagenotfound.component.html',
-  styleUrls: ['./pagenotfound.component.css']
+  templateUrl: './pagenotfound.component.html'
 })
-export class PagenotfoundComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class PagenotfoundComponent {
 
 }

@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "GestionSantaMariaFront"
+    }
+  },
+  "defaultProject": "GestionSantaMariaFront",
+  "cli": {
+    "analytics": "ef139718-6a71-401e-a131-4e8212396eb0"
+  }
 }

@@ -1,6 +1,7 @@
 import { UtilService } from './../../../services/util/util.service';
 import { LoginService } from './../../../services/login/login.service';
 import { Component, OnInit } from '@angular/core';
+import { LOGOUT } from 'src/app/consts/messages';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +19,6 @@ export class NavbarComponent implements OnInit {
   logout(): void{
     this.loginService.logout();
     this.util.changeBooleanMessage(false);
-    alert('Has cerrado sesión correctamente');
+    alert(LOGOUT);
   }
 }

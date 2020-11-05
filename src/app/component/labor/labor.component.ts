@@ -1,10 +1,10 @@
-import { Student } from 'src/app/model/student/student';
-import { Labor } from './../../model/labor/labor';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { VERIFACION_DE_CAMPOS } from 'src/app/consts/messages';
+import { IDENTIFICACIONSTORAGE } from 'src/app/consts/StorageKeys';
+import { Student } from 'src/app/model/student/student';
 import { User } from 'src/app/model/user/user';
-import { DishwasherService } from 'src/app/services/dishwasher/dishwasher.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { Labor } from './../../model/labor/labor';
 
 @Component({
   selector: 'app-labor',
@@ -44,12 +44,12 @@ export class LaborComponent implements OnInit {
         this.labores.push(this.labor);
       }
       else{
-        alert('Por favor verifica que los campos estén correctamente');
+        alert(VERIFACION_DE_CAMPOS);
       }
       console.log(this.labores);
   }
   showHorarios(identificacion: number){
-    localStorage.setItem('identificacion', JSON.stringify(identificacion));
+    localStorage.setItem(IDENTIFICACIONSTORAGE, JSON.stringify(identificacion));
     window.open('mostrarmaterias');
   }
 }

@@ -9,7 +9,6 @@ import { LISTAR_ADMINISTRADORES, INSERTAR_ADMINISTRADOR } from 'src/environments
   providedIn: 'root'
 })
 export class AdminService {
-  private headersText = new HttpHeaders({ 'Content-Type': 'text/plain' });
   private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
@@ -18,7 +17,7 @@ export class AdminService {
     return this.http.get<Admin[]>(LISTAR_ADMINISTRADORES);
   }
   public createAdministrador(usuario: Admin): Observable<Admin> {
-    let token = this.loginService.token;
+    const token = this.loginService.token;
     let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     if (token != null) {
       httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);

@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/model/user/user';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user/user.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ESTUDIANTE } from 'src/app/consts/consts';
+import { DATOS_CORRECTOS, DATOS_INVALIDOS, INGRESO_ERRONEO_USUARIO, INGRESO_EXITOSO_ADMINISTRADOR, INGRESO_EXITOSO_ESTUDIANTE } from 'src/app/consts/messages';
+import { User } from 'src/app/model/user/user';
+import { UserService } from 'src/app/services/user/user.service';
+
+const RUTA_LISTA_USUARIOS = '/listarusuarios';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
   usuario = new User();
   myFormGroup: FormGroup;
 
-  createFormGroup(){
+  createFormGroup() {
     return new FormGroup({
       nombre: new FormControl('', Validators.required),
       apellido: new FormControl('', Validators.required),
@@ -31,35 +34,32 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.myFormGroup = this.createFormGroup();
   }
-  showPopup(tipoUsuario: string ) {
-  //  this.usuario.tipoUsuario = tipoUsuario;
-  }
 
   agregarUsuario() {
     if (this.myFormGroup.valid) {
-      alert('Datos correctos');
+      alert(DATOS_CORRECTOS);
       this.usuario = this.myFormGroup.value;
-      if ( this.myFormGroup.get('tipoUsuario').value === 'ESTUDIANTE' ){
+      if (this.myFormGroup.get('tipoUsuario').value === ESTUDIANTE) {
         this.usuarioService.createEstudiante(this.usuario)
-          .subscribe(data => {
+          .subscribe(() => {
             // Entra aquí con respuesta del servicio correcta código http 200
-            alert('Ingreso exitoso del Estudiante');
-            this.router.navigate(['/listarusuarios']);
-        }, err => {
+            alert(INGRESO_EXITOSO_ESTUDIANTE);
+            this.router.navigate([RUTA_LISTA_USUARIOS]);
+          }, () => {
             // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
-            alert('Error al ingresar el Estudiante, verifique que no exista');
-        });
-      } else{
+            alert(INGRESO_ERRONEO_USUARIO);
+          });
+      } else {
         this.usuarioService.createAdministrador(this.usuario)
-        .subscribe(data => {
-          alert('Ingreso exitoso del Administrador');
-          this.router.navigate(['/listarusuarios']);
-      }, err => {
-          alert('Error al ingresar el administrador, verifique que no exista');
-      });
+          .subscribe(() => {
+            alert(INGRESO_EXITOSO_ADMINISTRADOR);
+            this.router.navigate([RUTA_LISTA_USUARIOS]);
+          }, () => {
+            alert(INGRESO_ERRONEO_USUARIO);
+          });
       }
     } else {
-      alert('Datos invalidos');
+      alert(DATOS_INVALIDOS);
     }
   }
   convertFormGroupToUser(form: FormGroup) {

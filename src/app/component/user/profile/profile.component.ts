@@ -1,43 +1,41 @@
-import { Student } from 'src/app/model/student/student';
-import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
-import { LoginService } from 'src/app/services/login/login.service';
-import { User } from 'src/app/model/user/user';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ERRROR_CAMBIO_CONTRASENA, ERRROR_VISUALIZACION_PERFIL, VERIFICAR_CONTRASENA } from 'src/app/consts/messages';
+import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
+import { Student } from 'src/app/model/student/student';
+import { LoginService } from 'src/app/services/login/login.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
   user: Student;
   contrasenas: DtoChangePassword = new DtoChangePassword();
-  constructor(private userService: UserService, private loginService: LoginService, private router: Router) { }
+  constructor(private userService: UserService, private loginService: LoginService) { }
 
   ngOnInit(): void {
     this.user = this.loginService.user as Student;
     this.userService.getUsuario(this.user).subscribe(data => {
-        this.user = data as Student;
-        this.contrasenas.identificacion = this.user.identificacion;
-    }, err => {
-      alert('Error al ver tu perfil');
-  }
+      this.user = data as Student;
+      this.contrasenas.identificacion = this.user.identificacion;
+    }, () => {
+      alert(ERRROR_VISUALIZACION_PERFIL);
+    }
     );
   }
-  updatePassword(){
-    if (this.contrasenaValida(this.contrasenas)){
-        this.userService.updatePassword(this.contrasenas).subscribe(
-          data => {
-          }, err => {
-          alert('Error al cambiar la contraseña');
+  updatePassword() {
+    if (this.contrasenaValida(this.contrasenas)) {
+      this.userService.updatePassword(this.contrasenas).subscribe(
+        () => {
+        }, () => {
+          alert(ERRROR_CAMBIO_CONTRASENA);
         }
-        );
+      );
     }
-    else { alert('Por favor verfique la nueva contraseña'); }
-}
+    else { alert(VERIFICAR_CONTRASENA); }
+  }
   contrasenaValida(contrasena: DtoChangePassword): boolean {
-    return ((contrasena.nuevaContrasena == contrasena.repetirContrasena) && contrasena.nuevaContrasena.length >= 8);
+    return ((contrasena.nuevaContrasena === contrasena.repetirContrasena) && contrasena.nuevaContrasena.length >= 6);
   }
 }

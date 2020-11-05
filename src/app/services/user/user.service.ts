@@ -12,7 +12,6 @@ import { LISTAR_ESTUDIANTES, LISTAR_ADMINISTRADORES, INSERTAR_ADMINISTRADOR,
   providedIn: 'root'
 })
 export class UserService {
-  private headersText = new HttpHeaders({ 'Content-Type': 'text/plain' });
   private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: 'Bearer ' + this.loginService.token});
 
   constructor(private http: HttpClient, private loginService: LoginService) { }

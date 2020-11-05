@@ -1,13 +1,16 @@
-import { DepartureService } from './../../../services/departures/departure.service';
-import { Departure } from './../../../model/departure/departure';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { REGISTRO_SALIDA_ERRONEO, REGISTRO_SALIDA_ERROR, REGISTRO_SALIDA_SATISFACTORIO } from 'src/app/consts/messages';
+import { USUARIOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
+import { Departure } from './../../../model/departure/departure';
+import { DepartureService } from './../../../services/departures/departure.service';
+
+const RUTAMOSTRARPLANILLA = '/mostrarplanilla';
 
 @Component({
   selector: 'app-showdepartures',
-  templateUrl: './showdepartures.component.html',
-  styleUrls: ['./showdepartures.component.css']
+  templateUrl: './showdepartures.component.html'
 })
 export class ShowdeparturesComponent implements OnInit {
   user: User = new User();
@@ -15,7 +18,7 @@ export class ShowdeparturesComponent implements OnInit {
   salidas: Departure[] = [];
   constructor(private router: Router, private salidaService: DepartureService) { }
   ngOnInit(): void {
-    this.user = JSON.parse(sessionStorage.getItem('usuario')) as User;
+    this.user = JSON.parse(sessionStorage.getItem(USUARIOSTORAGE)) as User;
     this.salidaService.listAllSalidas().subscribe(
       (salidas) => {
         this.salidas = salidas;
@@ -24,19 +27,19 @@ export class ShowdeparturesComponent implements OnInit {
   }
   registrarSalida() {
     this.salidaUsuarioLogueado.estudianteSalida = this.user;
-    if (this.salidaValida(this.salidaUsuarioLogueado)){
-    this.salidaService.createSalida(this.salidaUsuarioLogueado)
-      .subscribe(data => {
-        this.router.navigate(['/mostrarplanilla']);
-        alert('Registro de la salida realizada satisfactoriamente');
-      }, err => {
-        this.router.navigate(['/mostrarplanilla']);
-        alert('Error al registar la salida, verifique que los campos no esten vacios');
-      });
-    this.router.navigate(['/mostrarplanilla']);
+    if (this.salidaValida(this.salidaUsuarioLogueado)) {
+      this.salidaService.createSalida(this.salidaUsuarioLogueado)
+        .subscribe(() => {
+          this.router.navigate([RUTAMOSTRARPLANILLA]);
+          alert(REGISTRO_SALIDA_SATISFACTORIO);
+        }, () => {
+          this.router.navigate([RUTAMOSTRARPLANILLA]);
+          alert(REGISTRO_SALIDA_ERRONEO);
+        });
+      this.router.navigate([RUTAMOSTRARPLANILLA]);
     }
-    else{
-      alert('No se pudo registrar la salida');
+    else {
+      alert(REGISTRO_SALIDA_ERROR);
     }
   }
   salidaValida(salida: Departure): boolean {

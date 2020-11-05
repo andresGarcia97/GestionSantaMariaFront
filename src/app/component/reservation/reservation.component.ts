@@ -1,9 +1,14 @@
-import { Reservation } from './../../model/reservation/reservation';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Departure } from 'src/app/model/departure/departure';
+import { LAVADORA, LAVANDERIA } from 'src/app/consts/consts';
+import { REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO } from 'src/app/consts/messages';
+import { USUARIOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { Reservation } from './../../model/reservation/reservation';
+
+const RUTAESPACIOS = '/espacios';
+const RUTALAVADORA = '/reservas_lavadora';
 
 @Component({
   selector: 'app-reservation',
@@ -15,14 +20,16 @@ export class ReservationComponent implements OnInit {
   reservacionUsuarioLogueado: Reservation = new Reservation();
   reservas: Reservation[] = [];
   ruta: Router;
+  lavadora = '';
   constructor(private router: Router, private reservationService: ReservationService) {
     this.ruta = router;
   }
   ngOnInit(): void {
-    if ((this.ruta.url === '/reservas_lavadora')){
-      this.reservacionUsuarioLogueado.espacio = 'LAVADORA';
+    if (this.ruta.url === RUTALAVADORA) {
+      this.reservacionUsuarioLogueado.espacio = LAVADORA;
+      this.lavadora = LAVANDERIA;
     }
-    this.user = JSON.parse(sessionStorage.getItem('usuario')) as User;
+    this.user = JSON.parse(sessionStorage.getItem(USUARIOSTORAGE)) as User;
     this.reservationService.getReservas().subscribe(
       (reservas) => {
         this.reservas = reservas;
@@ -31,23 +38,23 @@ export class ReservationComponent implements OnInit {
   }
   registrarReserva() {
     this.reservacionUsuarioLogueado.usuario = this.user;
-    if (this.reservaValida()){
+    if (this.reservaValida()) {
       this.reservationService.guardarReserva(this.reservacionUsuarioLogueado)
-      .subscribe( data => {
-        this.router.navigate(['/espacios']);
-        alert('Reserva realizada satisfactoriamente');
-      }, err => {
-        this.router.navigate(['/espacios']);
-        alert('Error al registar la reserva, verifique que los campos no esten vacios');
-      });
+        .subscribe(() => {
+          this.router.navigate([RUTAESPACIOS]);
+          alert(REGISTRO_RESERVA_EXITOSO);
+        }, () => {
+          this.router.navigate([RUTAESPACIOS]);
+          alert(REGISTRO_RESERVA_ERRONEO);
+        });
     }
-    else{
-      alert('No se pudo realizar el registro');
+    else {
+      alert();
     }
   }
   reservaValida(): boolean {
     return (this.reservacionUsuarioLogueado.espacio !== '' && this.reservacionUsuarioLogueado.espacio !== '' &&
-    this.reservacionUsuarioLogueado.fechaInicial !== null && this.reservacionUsuarioLogueado.fechaFinal !== null);
+      this.reservacionUsuarioLogueado.fechaInicial !== null && this.reservacionUsuarioLogueado.fechaFinal !== null);
   }
 
 }

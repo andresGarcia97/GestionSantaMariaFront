@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/model/user/user';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user/user.service';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DATOS_CORRECTOS, DATOS_INVALIDOS } from 'src/app/consts/messages';
 import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
+import { User } from 'src/app/model/user/user';
 
 @Component({
   selector: 'app-update-password',
-  templateUrl: './update-password.component.html',
-  styleUrls: ['./update-password.component.css']
+  templateUrl: './update-password.component.html'
 })
 export class UpdatePasswordComponent implements OnInit {
   usuario = new User();
   contrasenas = new DtoChangePassword();
   myFormGroup: FormGroup;
 
-  createFormGroup(){
+  createFormGroup() {
     return new FormGroup({
       nombre: new FormControl('', Validators.required),
       contrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -24,21 +22,19 @@ export class UpdatePasswordComponent implements OnInit {
       viejaContrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
-  constructor(private usuarioService: UserService, private router: Router) {
+  constructor() {
   }
 
   ngOnInit() {
     this.myFormGroup = this.createFormGroup();
     console.log(this.myFormGroup.value);
   }
-  showPopup(tipoUsuario: string ) {
-  //  this.usuario.tipoUsuario = tipoUsuario;
-  }
+
   updatePassword() {
     if (this.myFormGroup.valid) {
-      alert('Datos correctos');
+      alert(DATOS_CORRECTOS);
     } else {
-      alert('Datos invalidos');
+      alert(DATOS_INVALIDOS);
     }
   }
   convertFormGroupToDtoChanguePassword(form: FormGroup) {
@@ -47,6 +43,5 @@ export class UpdatePasswordComponent implements OnInit {
     this.contrasenas.nuevaContrasena = form.get('nuevaContrasena').value;
     this.contrasenas.repetirContrasena = form.get('repetirContrasena').value;
   }
-
 
 }

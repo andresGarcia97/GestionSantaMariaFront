@@ -24,6 +24,7 @@ import { UpdateComponent } from './component/user/update/update.component';
 import { ShowcourseComponent } from './component/course/showcourse/showcourse.component';
 import { LaborComponent } from './component/labor/labor.component';
 import { ReservationComponent } from './component/reservation/reservation.component';
+import { FiltroReservaPipePipe } from './pipes/filtroReservaPipe/filtro-reserva-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ReservationComponent } from './component/reservation/reservation.compon
     UpdateComponent,
     ShowcourseComponent,
     LaborComponent,
-    ReservationComponent
+    ReservationComponent,
+    FiltroReservaPipePipe
   ],
   imports: [
     BrowserModule,
