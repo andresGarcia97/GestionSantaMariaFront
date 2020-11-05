@@ -128,3 +128,22 @@
       </div>
     </div>
   </div>
+
+  <!-- The Modal -->
+<div class="modal fade" id="verMaterias">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Materias del estudiante {{selectedUser.nombre}}
+          {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <app-showcourse></app-showcourse>
+      </div>
+    </div>
+  </div>
+</div>

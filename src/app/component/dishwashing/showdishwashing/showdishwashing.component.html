@@ -32,66 +32,7 @@
         </div>
       </blockquote>
     </div>
-    <!-- The Modal -->
-    <div class="modal fade" id="AsignarEstudianteAlLavadoLoza">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content"  style ="text-align: center;">
-
-          <!-- Modal Header -->
-          <div class="modal-header"  style = "text-align: center">
-            <h4 class="modal-title">
-              Asignar al estudiante {{ selectedUser.nombre}} {{selectedUser.apellido}}
-              identificado con: {{ selectedUser.identificacion}}?</h4>
-            <button type="button" class="close" data-dismiss="modal">×</button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <label>Seleccione un día</label>
-            <select class="custom-select" [(ngModel)]="selectedDay">
-              <option *ngFor="let dia of dias">
-                {{dia}}
-              </option>
-            </select>
-            <label>Seleccione un turno</label>
-            <select class="custom-select" [(ngModel)]="selectedTurn">
-              <option *ngFor="let turno of turnos">
-                {{turno}}
-              </option>
-            </select>
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer" style ="justify-content: center;">
-            <button type="button" class="btn btn-danger" data-dismiss="modal"
-              (click)="asignarHorarioLoza(selectedUser, selectedTurn, selectedDay)">Asignar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- The Modal -->
-  <div class="modal fade" id="opciones">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title text-center">Que deseas hacer con el usuario {{selectedUser.nombre}}
-            {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <td>
-            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
-            data-target="#AsignarEstudianteAlLavadoLoza" data-dismiss="modal">Asignar al lavado loza</button>
-            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="showHorarios(selectedUser.identificacion)">Ver horario materias</button>
-          </td>
-      </div>
-    </div>
   </div>
-</div>
   <div class="card">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
@@ -197,6 +138,87 @@
         </table>
       </blockquote>
     </div>
-    <button type="button" class="btn btn-primary" (click)="crearHorario()">Crear Horario</button>
+    <button type="button" class="btn btn-primary" (click)="crearHorario()">Guardar Horario</button>
   </div>
 </div>
+
+<!-- The Modal -->
+<div class="modal fade" id="asignarEstudianteAlLavadoLoza">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"  style ="text-align: center;">
+
+      <!-- Modal Header -->
+      <div class="modal-header"  style = "text-align: center">
+        <h4 class="modal-title">
+          Asignar al estudiante {{ selectedUser.nombre}} {{selectedUser.apellido}}
+          identificado con: {{ selectedUser.identificacion}}?</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <label>Seleccione un día</label>
+        <select class="custom-select" [(ngModel)]="selectedDay">
+          <option *ngFor="let dia of dias">
+            {{dia}}
+          </option>
+        </select>
+        <label>Seleccione un turno</label>
+        <select class="custom-select" [(ngModel)]="selectedTurn">
+          <option *ngFor="let turno of turnos">
+            {{turno}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style ="justify-content: center;">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"
+          (click)="asignarHorarioLoza(selectedUser, selectedTurn, selectedDay)">Asignar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- The Modal -->
+<div class="modal fade" id="opciones">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Que deseas hacer con el usuario {{selectedUser.nombre}}
+          {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <td>
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
+          data-target="#asignarEstudianteAlLavadoLoza" data-dismiss="modal">Asignar al lavado loza</button>
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+          data-target="#verMaterias" data-dismiss="modal"  (click)="showHorarios(selectedUser.identificacion)">Ver horario materias</button>
+        </td>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- The Modal -->
+<div class="modal fade" id="verMaterias">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Materias del estudiante {{selectedUser.nombre}}
+          {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <app-showcourse></app-showcourse>
+      </div>
+    </div>
+  </div>
+</div>
+

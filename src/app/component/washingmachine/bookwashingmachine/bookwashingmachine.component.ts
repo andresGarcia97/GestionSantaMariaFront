@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bookwashingmachine.component.css']
 })
 export class BookwashingmachineComponent implements OnInit {
-
+  actividad: string;
   constructor() { }
 
   ngOnInit(): void {
+    this.actividad = 'LAVADORA';
   }
 
 }

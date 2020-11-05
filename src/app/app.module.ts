@@ -23,6 +23,7 @@ import { ProfileComponent } from './component/user/profile/profile.component';
 import { UpdateComponent } from './component/user/update/update.component';
 import { ShowcourseComponent } from './component/course/showcourse/showcourse.component';
 import { LaborComponent } from './component/labor/labor.component';
+import { ReservationComponent } from './component/reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { LaborComponent } from './component/labor/labor.component';
     ProfileComponent,
     UpdateComponent,
     ShowcourseComponent,
-    LaborComponent
+    LaborComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

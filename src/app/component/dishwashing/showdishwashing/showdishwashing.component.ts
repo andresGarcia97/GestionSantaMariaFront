@@ -422,7 +422,6 @@ export class ShowdishwashingComponent implements OnInit {
   }
   showHorarios(identificacion: number){
     localStorage.setItem('identificacion', JSON.stringify(identificacion));
-    window.open('mostrarmaterias');
   }
   crearHorario(){
     (this.horariosLozaDesayuno.concat(this.horariosLozaAlmuerzo, this.horariosLozaCena)).forEach(horario =>
@@ -430,6 +429,19 @@ export class ShowdishwashingComponent implements OnInit {
           this.horariosLoza.push(horario);
         }
     });
+    this.dishwasherService.guardarHorario(this.horariosLoza)
+        .subscribe(data => {
+          // Entra aquí con respuesta del servicio correcta código http 200
+          alert('Se ha registrado el horario satisfactoriamente');
+          this.router.navigate(['/lavado_loza']);
+      }, err => {
+          // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
+          alert('Error al ingresar el nuevo horario, Por favor intentalo nuevamente en unos minutos');
+      });
+ }
+  crearHorario2(horaloza: Dishwasher){
+    this.horariosLoza = [];
+    this.horariosLoza.push(horaloza);
     if ( this.horariosLoza === null ){
       this.dishwasherService.guardarHorario(this.horariosLoza)
         .subscribe(data => {
@@ -440,16 +452,7 @@ export class ShowdishwashingComponent implements OnInit {
           // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
           alert('Error al ingresar el nuevo horario, Por favor intentalo nuevamente en unos minutos');
       });
-    } else{
-      this.dishwasherService.updateHorario(this.horariosLoza)
-      .subscribe(data => {
-        alert('Exito al actualizar');
-        this.router.navigate(['/lavado_loza']);
-    }, err => {
-        alert('Error al actualizar el horario, Por favor intentalo nuevamente en unos minutos');
-    });
     }
-    console.log(this.horariosLoza);
   }
   usuarioValido(user: User): boolean {
     return (user.nombre === '' || user.apellido === '' || user.telefono === null || user.correo === '');

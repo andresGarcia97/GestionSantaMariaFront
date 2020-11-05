@@ -1,0 +1,84 @@
+<div class="container">
+  <h1 *ngIf="reservas.length == 0">Reservas</h1>
+  <div class="card">
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+
+        <div class="card text-white bg-success mb-3" *ngIf="reservas.length > 0">
+          <h2>Reservas realizadas</h2>
+        </div>
+        <div class="card text-white bg-danger mb-3" *ngIf="reservas.length == 0">
+          <h2>No hay reservas</h2>
+        </div>
+
+        <div *ngIf="reservas.length > 0 ">
+          <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">nombre</th>
+                <th scope="col">Fecha de inicial</th>
+                <th scope="col">Fecha de final</th>
+                <th scope="col">Lugar</th>
+                <th scope="col">Motivo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let reserva of reservas">
+                <th>{{reserva.usuario.nombre}}</th>
+                <td>{{reserva.fechaInicial}}</td>
+                <td>{{reserva.fechaFinal}}</td>
+                <td>{{reserva.espacio}}</td>
+                <td>{{reserva.actividad}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </blockquote>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida">Registrar nueva reserva</button>
+    <!-- The Modal -->
+    <div class="modal fade" id="modalAgregarSalida">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Editar información correspondiente al usuario identificado con {{user.identificacion}}:</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="form-row" style="display: flex; justify-content: center; align-items: center;">
+              <div class="form-group col-md-6">
+                <label for="fechaSalida">Fecha de inicio</label>
+                <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaInicial" class="form-control"
+                  placeholder="Fecha inicial de la reserva" required>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="FechaLlegada">Fecha de final</label>
+                <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaFinal" class="form-control"
+                  placeholder="Fecha final de la reserva" required>
+              </div>
+              <div class="form-group col-md-6" >
+                <label for="Motivo">Motivo o razón</label>
+                <input type="text" [(ngModel)]="reservacionUsuarioLogueado.actividad" class="form-control"
+                  placeholder="Ingrese el Motivo" required>
+              </div>
+              <div class="form-group col-md-6"  *ngIf="(reservacionUsuarioLogueado.espacio !== 'LAVADORA')">
+                <label for="lugar">Lugar</label>
+                <input type="text" [(ngModel)]="reservacionUsuarioLogueado.espacio" class="form-control"
+                  placeholder="Ingrese lugar" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer" *ngIf="reservaValida() disabled" style ="justify-content: center;">
+            <button type="button" class="btn btn-danger"  data-dismiss="modal" (click)="registrarReserva()">Hacer reserva</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
