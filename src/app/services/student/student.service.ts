@@ -18,7 +18,7 @@ export class StudentService {
     const token = this.loginService.token;
     let httpHeaders = new HttpHeaders();
     if (token != null) {
-      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+      httpHeaders = httpHeaders.append('Authorization', token);
     }
     httpHeaders.get('Authorization');
     return this.http.get<Student[]>(LISTAR_ESTUDIANTES);

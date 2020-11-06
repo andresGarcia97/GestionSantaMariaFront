@@ -15,8 +15,6 @@ export class UpdatePasswordComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      nombre: new FormControl('', Validators.required),
-      contrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
       nuevaContrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
       repetirContrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
       viejaContrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),

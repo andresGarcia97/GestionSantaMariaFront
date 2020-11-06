@@ -25,8 +25,8 @@
             <tbody>
               <tr *ngFor="let salida of salidas">
                 <th>{{salida.estudianteSalida.identificacion}}</th>
-                <td>{{salida.fechaSalida}}</td>
-                <td>{{salida.fechaLlegada}}</td>
+                <td>{{salida.fechaSalida | date:'MM/dd - HH:mm':'-0500'}}</td>
+                <td>{{salida.fechaLlegada | date:'MM/dd - HH:mm':'-0500'}}</td>
                 <td>{{salida.lugar}}</td>
                 <td>{{salida.razon}}</td>
               </tr>

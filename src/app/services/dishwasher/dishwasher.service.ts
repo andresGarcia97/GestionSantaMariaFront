@@ -14,7 +14,7 @@ const ELIMINAR_HORARIOS_LOZA = ENDPOINT_LAVADO_LOZA.concat('eliminarhorarios');
   providedIn: 'root'
 })
 export class DishwasherService {
-  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: 'Bearer ' + this.loginService.token});
+  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: this.loginService.token});
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   public getHorariosLoza(): Observable<Dishwasher[]> {

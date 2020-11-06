@@ -29,7 +29,7 @@ export class ReservationComponent implements OnInit {
       this.reservacionUsuarioLogueado.espacio = LAVADORA;
       this.lavadora = LAVANDERIA;
     }
-    this.user = JSON.parse(sessionStorage.getItem(USUARIOSTORAGE)) as User;
+    this.user = JSON.parse(localStorage.getItem(USUARIOSTORAGE)) as User;
     this.reservationService.getReservas().subscribe(
       (reservas) => {
         this.reservas = reservas;

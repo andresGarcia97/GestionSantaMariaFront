@@ -20,7 +20,7 @@ export class AdminService {
     const token = this.loginService.token;
     let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     if (token != null) {
-      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+      httpHeaders = httpHeaders.append('Authorization', token);
     }
     httpHeaders.get('Authorization');
     httpHeaders.get('Content-Type');

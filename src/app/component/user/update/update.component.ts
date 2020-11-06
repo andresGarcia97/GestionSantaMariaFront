@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ADMINISTRADOR } from 'src/app/consts/consts';
 import { ACTUALIZACION_ERRONEO_USUARIO, ACTUALIZACION_EXITOSA_USUARIO, DATOS_CORRECTOS, DATOS_INVALIDOS } from 'src/app/consts/messages';
 import { Student } from 'src/app/model/student/student';
 import { UserService } from 'src/app/services/user/user.service';
@@ -20,8 +19,7 @@ export class UpdateComponent implements OnInit {
       apellido: new FormControl('', Validators.required),
       identificacion: new FormControl('', Validators.required),
       telefono: new FormControl('', Validators.required),
-      correo: new FormControl('', [Validators.required, Validators.email]),
-      universidad: new FormControl('')
+      correo: new FormControl('', [Validators.required, Validators.email])
     });
   }
   constructor(private usuarioService: UserService) {
@@ -46,9 +44,7 @@ export class UpdateComponent implements OnInit {
       alert(DATOS_INVALIDOS);
     }
   }
-  isAdministrador(): boolean {
-    return (this.usuario.tipoUsuario === ADMINISTRADOR);
-  }
+
   convertFormGroupToUser(form: FormGroup) {
     this.usuario.nombre = form.get('nombre').value;
     this.usuario.apellido = form.get('apellido').value;
@@ -56,6 +52,5 @@ export class UpdateComponent implements OnInit {
     this.usuario.telefono = form.get('telefono').value;
     this.usuario.contrasena = form.get('contrasena').value;
     this.usuario.correo = form.get('correo').value;
-    this.usuario.universidad = form.get('universidad').value;
   }
 }

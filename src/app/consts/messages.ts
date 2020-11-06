@@ -26,4 +26,6 @@ export const ACTUALIZACION_ERRONEO_USUARIO = 'Error al actualizar el usuario';
 export const REGISTRO_RESERVA_EXITOSO = 'Reserva realizada satisfactoriamente';
 export const REGISTRO_RESERVA_ERRONEO = 'Error al registar la reserva, verifique que los campos no esten vacios';
 export const ERROR_REGISTRO = 'No se pudo realizar el registro';
+export const TIPO_DE_USUARIO = 'Usted se ha logueado como un: ';
+export const ERRROR_CONSULTAR_PERFIL = 'Error al consultar la información de su perfil';
 

@@ -2,113 +2,106 @@
   <div class="row">
     <div class="col-md-12">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="!tipoEstudiante">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/registrousuario']" type="button">
-            <img class="card-img-top" src="assets/img/menu/agregar_usuario.png"/>
+            <img class="card-img-top" src="assets/img/menu/agregar_usuario.png" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Agregar Usuario
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Agregar nuevos Usuarios, ya sean Administradores o estudiantes.
               </p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/listarusuarios']" type="button">
-            <img class="card-img-top" src="assets/img/menu/actualizar_usuario.png"/>
+            <img class="card-img-top" src="assets/img/menu/actualizar_usuario.png" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Actualizar Usuario
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Actualización de cualquier Usuario registrado.
               </p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/mostrarplanilla']" type="button">
-            <img class="card-img-top" src="assets/img/menu/Salir.jpg"/>
+            <img class="card-img-top" src="assets/img/menu/Salir.jpg" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Planilla De Salida
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Registro de todas las salidas de los estudiantes, además de la posibilidad de crearlas
               </p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/lavado_loza']" type="button">
-            <img class="card-img-top" src="assets/img/menu/lavaplatos.png"/>
+            <img class="card-img-top" src="assets/img/menu/lavaplatos.png" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Lavado de loza
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Horarios para el Lavado de loza del hogar, SOLO el administrador podra crearlos.
               </p>
             </div>
           </div>
-        </div><div class="col-md-4">
+        </div>
+        <div class="col-md-4">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/reservas_lavadora']" type="button">
-            <img class="card-img-top" src="assets/img/menu/Lavadora.jpg"/>
+            <img class="card-img-top" src="assets/img/menu/Lavadora.jpg" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Uso de la lavadora
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Consulta de reservas y creación de reservas para el uso de la lavadora.
               </p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/espacios']" type="button">
-            <img class="card-img-top" src= "assets/img/menu/espacios.jpg"/>
+            <img class="card-img-top" src="assets/img/menu/espacios.jpg" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Gestionar salas
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Consulta de reservas y creación de reservas para el uso de los espacios del hogar
               </p>
             </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/labor']" type="button">
-            <img class="card-img-top" src= "assets/img/menu/labores.png"/>
+            <img class="card-img-top" src="assets/img/menu/labores.png" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Gestionar labores
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Consulta de las labores asignadas, creación y edición de las labores del hogar.
               </p>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="tipoEstudiante">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/mostrarmaterias']" type="button">
-            <img class="card-img-top" src= "assets/img/menu/materias.jpg"/>
+            <img class="card-img-top" src="assets/img/menu/materias.jpg" />
             <div class="card-block">
               <h5 class="card-title text-center">
                 Gestionar materias
               </h5>
               <p class="card-text">
-                Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget
-                metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                Consulta de materias para de cada Estudiante de manera individual.
               </p>
             </div>
           </div>

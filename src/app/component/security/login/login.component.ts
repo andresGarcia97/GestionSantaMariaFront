@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
     if (this.myFormGroup.valid) {
       this.convertFormGroupToUser(this.myFormGroup);
       this.loginService.login(this.usuario).subscribe((response: any) => {
+        this.loginService.guardarToken(response.body.token);
         this.loginService.guardarUsuario(response.body.token);
-        this.loginService.guardarToken();
         this.usuario = this.loginService.user;
         this.util.changeBooleanMessage(true);
         this.router.navigate(['/menu']);

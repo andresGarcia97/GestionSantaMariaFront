@@ -12,7 +12,7 @@ const LISTAR_MATERIA = ENDPOINT_MATERIA.concat('listarmaterias');
   providedIn: 'root'
 })
 export class CourseService {
-  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: 'Bearer ' + this.loginService.token});
+  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: this.loginService.token});
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   public listAllMateriasUsuarioLogueado(usuario: User): Observable<Course[]> {

@@ -25,8 +25,8 @@
               <tr *ngFor="let materia of materias">
                 <td>{{materia.nombreMateria}}</td>
                 <td>{{materia.horarios[0].dia}}</td>
-                <td>{{materia.horarios[0].horaInicial}}</td>
-                <td>{{materia.horarios[0].horaFinal}}</td>
+                <td>{{materia.horarios[0].horaInicial | date:'HH':'-0500'}}</td>
+                <td>{{materia.horarios[0].horaFinal | date:'HH':'-0500'}}</td>
               </tr>
             </tbody>
           </table>

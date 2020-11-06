@@ -15,7 +15,7 @@ const ACTUALIZAR_RESERVAS = ENDPOINT_RESERVAS.concat('actualizarreserva');
   providedIn: 'root'
 })
 export class ReservationService {
-  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: 'Bearer ' + this.loginService.token});
+  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: this.loginService.token});
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   public getReservas(): Observable<Reservation[]> {

@@ -18,7 +18,7 @@ export class ShowdeparturesComponent implements OnInit {
   salidas: Departure[] = [];
   constructor(private router: Router, private salidaService: DepartureService) { }
   ngOnInit(): void {
-    this.user = JSON.parse(sessionStorage.getItem(USUARIOSTORAGE)) as User;
+    this.user = JSON.parse(localStorage.getItem(USUARIOSTORAGE)) as User;
     this.salidaService.listAllSalidas().subscribe(
       (salidas) => {
         this.salidas = salidas;

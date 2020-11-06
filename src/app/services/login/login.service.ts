@@ -17,8 +17,8 @@ export class LoginService {
   public get user(): User {
     if (this.usuario != null) {
       return this.usuario;
-    } else if (this.usuario == null && sessionStorage.getItem(USUARIOSTORAGE) != null) {
-      this.usuario = JSON.parse(sessionStorage.getItem(USUARIOSTORAGE)) as User;
+    } else if (this.usuario == null && localStorage.getItem(USUARIOSTORAGE) != null) {
+      this.usuario = JSON.parse(localStorage.getItem(USUARIOSTORAGE)) as User;
       return this.usuario;
     }
     return new User();
@@ -27,8 +27,8 @@ export class LoginService {
   public get token(): string {
     if (this.tokenValid != null) {
       return this.tokenValid;
-    } else if (this.tokenValid == null && sessionStorage.getItem(TKSTORAGE) != null) {
-      this.tokenValid = sessionStorage.getItem(TKSTORAGE);
+    } else if (this.tokenValid == null && localStorage.getItem(TKSTORAGE) != null) {
+      this.tokenValid = JSON.parse(localStorage.getItem(TKSTORAGE));
       return this.tokenValid;
     }
     return null;
@@ -50,25 +50,29 @@ export class LoginService {
     }
     httpHeaders.get('Authorization');
     httpHeaders.get('Content-Type');
-    this.usuario.identificacion = payload.sub;
-    // this.usuario.tipoUsuario = payload.tipo_usuario;
-    sessionStorage.setItem(USUARIOSTORAGE, JSON.stringify(this.usuario));
+    this.usuario.identificacion = payload;
+    localStorage.setItem(USUARIOSTORAGE, JSON.stringify(this.usuario));
   }
 
-  guardarToken(): void {
-    sessionStorage.setItem(TKSTORAGE, this.tokenValid);
+  guardarToken(accessToken: string): void {
+    localStorage.setItem(TKSTORAGE, JSON.stringify(accessToken));
   }
 
   obtenerDatosToken(accessToken: string): any {
     if (accessToken != null) {
-      this.tokenValid = accessToken.split(' ')[1];
-      return JSON.parse(atob(accessToken.split('.')[1]));
+      const deleteBearer = accessToken.substring(7);
+      const base64Url = deleteBearer.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload).sub;
     }
     return null;
   }
 
   isAutenticated(): boolean {
-    if (sessionStorage.getItem(TKSTORAGE) != null) {
+    if (JSON.parse(localStorage.getItem(TKSTORAGE)) != null) {
       return true;
     }
     return false;
@@ -77,8 +81,6 @@ export class LoginService {
   logout(): void {
     this.tokenValid = null;
     this.usuario = null;
-    sessionStorage.clear();
-    sessionStorage.removeItem(TKSTORAGE);
-    sessionStorage.removeItem(USUARIOSTORAGE);
+    localStorage.clear();
   }
 }

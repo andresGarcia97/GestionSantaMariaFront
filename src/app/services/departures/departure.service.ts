@@ -12,7 +12,7 @@ const LISTAR_SALIDAS = ENDPOINT_SALIDA.concat('consultar');
   providedIn: 'root'
 })
 export class DepartureService {
-  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: 'Bearer ' + this.loginService.token});
+  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: this.loginService.token});
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
