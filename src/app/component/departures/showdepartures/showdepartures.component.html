@@ -35,7 +35,8 @@
         </div>
       </blockquote>
     </div>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida">Registrar nueva salida</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida"
+    *ngIf="tipoUsuario">Registrar nueva salida</button>
     <!-- The Modal -->
     <div class="modal fade" id="modalAgregarSalida">
       <div class="modal-dialog">
@@ -43,7 +44,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Editar información correspondiente al usuario identificado con {{user.identificacion}}:</h4>
+            <h4 class="modal-title">Ingrese los todos los datos para crear una nueva salida {{user.nombre}}</h4>
             <button type="button" class="close" data-dismiss="modal">×</button>
           </div>
 

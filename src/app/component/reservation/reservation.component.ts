@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LAVADORA, LAVANDERIA } from 'src/app/consts/consts';
-import { REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO } from 'src/app/consts/messages';
-import { USUARIOSTORAGE } from 'src/app/consts/StorageKeys';
+import { REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO, VERIFACION_DE_CAMPOS } from 'src/app/consts/messages';
+import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { Reservation } from './../../model/reservation/reservation';
@@ -29,7 +29,7 @@ export class ReservationComponent implements OnInit {
       this.reservacionUsuarioLogueado.espacio = LAVADORA;
       this.lavadora = LAVANDERIA;
     }
-    this.user = JSON.parse(localStorage.getItem(USUARIOSTORAGE)) as User;
+    this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
     this.reservationService.getReservas().subscribe(
       (reservas) => {
         this.reservas = reservas;
@@ -49,7 +49,7 @@ export class ReservationComponent implements OnInit {
         });
     }
     else {
-      alert();
+      alert(VERIFACION_DE_CAMPOS);
     }
   }
   reservaValida(): boolean {

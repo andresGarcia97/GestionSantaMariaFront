@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TKSTORAGE, USUARIOSTORAGE } from 'src/app/consts/StorageKeys';
+import { IDENTIFICACIONSTORAGE, TIPOSTORAGE, TKSTORAGE } from 'src/app/consts/StorageKeys';
 import { LOGIN } from '../../../environments/environment';
 import { User } from '../../model/user/user';
 
@@ -17,8 +17,8 @@ export class LoginService {
   public get user(): User {
     if (this.usuario != null) {
       return this.usuario;
-    } else if (this.usuario == null && localStorage.getItem(USUARIOSTORAGE) != null) {
-      this.usuario = JSON.parse(localStorage.getItem(USUARIOSTORAGE)) as User;
+    } else if (this.usuario == null && localStorage.getItem(TIPOSTORAGE) != null) {
+      this.usuario = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
       return this.usuario;
     }
     return new User();
@@ -51,7 +51,7 @@ export class LoginService {
     httpHeaders.get('Authorization');
     httpHeaders.get('Content-Type');
     this.usuario.identificacion = payload;
-    localStorage.setItem(USUARIOSTORAGE, JSON.stringify(this.usuario));
+    localStorage.setItem(IDENTIFICACIONSTORAGE, JSON.stringify(this.usuario));
   }
 
   guardarToken(accessToken: string): void {

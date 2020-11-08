@@ -15,15 +15,15 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="!tipoEstudiante">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/listarusuarios']" type="button">
             <img class="card-img-top" src="assets/img/menu/actualizar_usuario.png" />
             <div class="card-block">
               <h5 class="card-title text-center">
-                Actualizar Usuario
+                Gestionar Usuarios
               </h5>
               <p class="card-text">
-                Actualización de cualquier Usuario registrado.
+                Actualización o Borrado de cualquier Usuario registrado.
               </p>
             </div>
           </div>
@@ -80,7 +80,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/labor']" type="button">
             <img class="card-img-top" src="assets/img/menu/labores.png" />
             <div class="card-block">
@@ -93,7 +93,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6" *ngIf="tipoEstudiante">
+        <div class="col-md-4" *ngIf="tipoEstudiante">
           <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/mostrarmaterias']" type="button">
             <img class="card-img-top" src="assets/img/menu/materias.jpg" />
             <div class="card-block">

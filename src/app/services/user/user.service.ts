@@ -54,7 +54,6 @@ export class UserService {
     return this.http.delete<User>(ELIMINAR_USUARIO.concat(id.toString()), { headers: this.headersjson });
   }
   public update(usuario: Student): Observable<Student> {
-    console.log(usuario);
     return this.http.put<Student>(ACTUALIZAR_USUARIO, usuario, { headers: this.headersjson });
   }
   public updatePassword(newPassword: DtoChangePassword): Observable<User> {

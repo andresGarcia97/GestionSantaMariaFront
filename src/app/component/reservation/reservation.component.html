@@ -25,8 +25,8 @@
             <tbody>
               <tr *ngFor="let reserva of reservas | filtroReservaPipe : lavadora">
                 <th>{{reserva.usuario.nombre}}</th>
-                <td>{{reserva.fechaInicial}}</td>
-                <td>{{reserva.fechaFinal}}</td>
+                <td>{{reserva.fechaInicial | date:'MM/dd - HH:mm':'-0500'}}</td>
+                <td>{{reserva.fechaFinal | date:'MM/dd - HH:mm':'-0500'}}</td>
                 <td>{{reserva.espacio}}</td>
                 <td>{{reserva.actividad}}</td>
               </tr>
@@ -44,8 +44,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Editar información correspondiente al usuario identificado con
-              {{user.identificacion}}:</h4>
+            <h4 class="modal-title">Crear nueva Reserva para el usuario: {{user.identificacion}}:</h4>
             <button type="button" class="close" data-dismiss="modal">×</button>
           </div>
 

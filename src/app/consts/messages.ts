@@ -9,7 +9,7 @@ export const REGISTRO_HORARIO_EXITOSO = 'Se ha registrado el horario satisfactor
 export const ACTUALIZACION_HORARIO_EXITOSO = 'Se ha actualizado el horario satisfactoriamente';
 export const REGISTRO_HORARIO_ERRONEO = 'Error al ingresar el nuevo horario, Por favor intentalo nuevamente en unos minutos';
 export const ACTUALIZACION_HORARIO_ERRONEO = 'Error al actualizar el horario, Por favor intentalo nuevamente en unos minutos';
-export const VERIFACION_DE_CAMPOS = 'Por favor verifica que los campos estén correctamente';
+export const VERIFACION_DE_CAMPOS = 'Por favor verifica que los campos estén correctamente dilingenciados';
 export const LOGIN_INCORRECTO = 'usuario o clave incorrectas';
 export const BORRADO_EXITOSO_USUARIO = 'Borrado exitoso del usuario';
 export const ACTUALIZACION_EXITOSA_USUARIO = 'Actualizacion exitosa del usuario';
@@ -28,4 +28,7 @@ export const REGISTRO_RESERVA_ERRONEO = 'Error al registar la reserva, verifique
 export const ERROR_REGISTRO = 'No se pudo realizar el registro';
 export const TIPO_DE_USUARIO = 'Usted se ha logueado como un: ';
 export const ERRROR_CONSULTAR_PERFIL = 'Error al consultar la información de su perfil';
+export const INGRESO_EXITOSO_LABOR = 'Ingreso exitoso de la nueva Labor';
+export const INGRESO_ERRONEO_LABOR = 'Error al ingresar la nueva Labor';
+
 

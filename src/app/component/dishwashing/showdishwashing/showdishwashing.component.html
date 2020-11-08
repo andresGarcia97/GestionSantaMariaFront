@@ -21,8 +21,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usuario of usuarios" data-toggle="modal"
-              data-target="#opciones" style="cursor: pointer;" (click)="showPopup(usuario)">
+              <tr *ngFor="let usuario of usuarios" data-toggle="modal" data-target="#opciones" style="cursor: pointer;"
+                (click)="showPopup(usuario)">
                 <th>{{usuario.identificacion}}</th>
                 <td>{{usuario.nombre}} {{usuario.apellido}}</td>
                 <td>{{usuario.telefono}}</td>
@@ -133,7 +133,9 @@
                 <div *ngFor="let estudiante of horariosLozaCena[6].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
-            <ng-template #elseBlock><td></td></ng-template>
+            <ng-template #elseBlock>
+              <td></td>
+            </ng-template>
           </tbody>
         </table>
       </blockquote>
@@ -145,10 +147,10 @@
 <!-- The Modal -->
 <div class="modal fade" id="asignarEstudianteAlLavadoLoza">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content"  style ="text-align: center;">
+    <div class="modal-content" style="text-align: center;">
 
       <!-- Modal Header -->
-      <div class="modal-header"  style = "text-align: center">
+      <div class="modal-header" style="text-align: center">
         <h4 class="modal-title">
           Asignar al estudiante {{ selectedUser.nombre}} {{selectedUser.apellido}}
           identificado con: {{ selectedUser.identificacion}}?</h4>
@@ -172,7 +174,7 @@
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer" style ="justify-content: center;">
+      <div class="modal-footer" style="justify-content: center;">
         <button type="button" class="btn btn-danger" data-dismiss="modal"
           (click)="asignarHorarioLoza(selectedUser, selectedTurn, selectedDay)">Asignar</button>
       </div>
@@ -195,9 +197,9 @@
       <div class="modal-body">
         <td>
           <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
-          data-target="#asignarEstudianteAlLavadoLoza" data-dismiss="modal">Asignar al lavado loza</button>
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-          data-target="#verMaterias" data-dismiss="modal"  (click)="showHorarios(selectedUser.identificacion)">Ver horario materias</button>
+            data-target="#asignarEstudianteAlLavadoLoza" data-dismiss="modal">Asignar al lavado loza</button>
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#verMaterias"
+            data-dismiss="modal">Ver horario materias</button>
         </td>
       </div>
     </div>
@@ -215,10 +217,9 @@
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body">
-        <app-showcourse></app-showcourse>
+      <div class="modal-body" *ngIf="usuarioSeleccionado">
+        <app-showcourse identificacion={{selectedUser.identificacion}}></app-showcourse>
       </div>
     </div>
   </div>
 </div>
-

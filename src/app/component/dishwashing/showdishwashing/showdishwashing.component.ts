@@ -4,7 +4,6 @@ import {
   ACTUALIZACION_HORARIO_ERRONEO, ACTUALIZACION_HORARIO_EXITOSO, El_USUARIO_ESTA_REGISTRADO_EN_TURNO_SELECCIONADO,
   REGISTRO_HORARIO_ERRONEO
 } from 'src/app/consts/messages';
-import { IDENTIFICACIONSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
 import { Dishwasher } from './../../../model/dishwasher/dishwasher';
@@ -18,6 +17,7 @@ const RUTALAVADOlOZA = '/lavado_loza';
   templateUrl: './showdishwashing.component.html'
 })
 export class ShowdishwashingComponent implements OnInit {
+
   usuarios: User[] = [];
   administradores: User[];
   dias: string[];
@@ -30,11 +30,15 @@ export class ShowdishwashingComponent implements OnInit {
   horariosLozaCena: Dishwasher[] = new Dishwasher()[7];
   horariosLoza: Dishwasher[] = [];
   dataservice: Dataservice;
+  usuarioSeleccionado = false;
+
   constructor(private userService: UserService, private dishwasherService: DishwasherService, private router: Router) { }
 
   showPopup(user: User) {
     this.selectedUser = user;
+    this.usuarioSeleccionado = true;
   }
+
   ngOnInit(): void {
     this.userService.listAllStudents().subscribe(
       (usuarios) => {
@@ -424,10 +428,6 @@ export class ShowdishwashingComponent implements OnInit {
         }
       }
     }
-  }
-
-  showHorarios(identificacion: number) {
-    localStorage.setItem(IDENTIFICACIONSTORAGE, JSON.stringify(identificacion));
   }
 
   crearHorario() {

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { IDENTIFICACIONSTORAGE, USUARIOSTORAGE } from 'src/app/consts/StorageKeys';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { IDENTIFICACIONSTORAGE, TIPOSTORAGE } from 'src/app/consts/StorageKeys';
+import { Student } from 'src/app/model/student/student';
 import { User } from 'src/app/model/user/user';
 import { CourseService } from 'src/app/services/course/course.service';
+import { UtilService } from 'src/app/services/util/util.service';
 import { Course, Horario } from './../../../model/course/course';
 
 @Component({
@@ -9,17 +11,35 @@ import { Course, Horario } from './../../../model/course/course';
   templateUrl: './showcourse.component.html'
 })
 
-export class ShowcourseComponent implements OnInit {
+export class ShowcourseComponent implements OnChanges, OnInit {
+
   user: User = new User();
+  estudiante: Student = new Student();
   materias: Course[] = [];
-  constructor(private courseService: CourseService) { }
+  @Input() identificacion: number;
+
+  constructor(private courseService: CourseService, private utilService: UtilService) { }
+
   ngOnInit(): void {
-    if (localStorage.getItem(IDENTIFICACIONSTORAGE) == null) {
-      this.user = JSON.parse(localStorage.getItem(USUARIOSTORAGE)) as User;
-    } else {
-      this.user.identificacion = Number(localStorage.getItem(IDENTIFICACIONSTORAGE));
-      localStorage.removeItem(IDENTIFICACIONSTORAGE);
+    this.estudiante = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as Student;
+    const tipoEstudiante = this.utilService.isEstudent(this.estudiante);
+    if (tipoEstudiante) {
+      this.user.identificacion = this.estudiante.identificacion;
+      this.consultarListaMaterias();
     }
+  }
+
+  ngOnChanges(): void {
+    if (!this.identificacion || this.identificacion == null) {
+      this.user = JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as User;
+    }
+    else {
+      this.user.identificacion = this.identificacion;
+    }
+    this.consultarListaMaterias();
+  }
+
+  private consultarListaMaterias() {
     this.courseService.listAllMateriasUsuarioLogueado(this.user).subscribe(
       (materias) => {
         this.materias = materias;

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   createFormGroup() {
     return new FormGroup({
       identificacion: new FormControl('', Validators.required),
-      contrasena: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      contrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
   constructor(private loginService: LoginService, private router: Router, private util: UtilService) {
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         this.util.changeBooleanMessage(true);
         this.router.navigate(['/menu']);
         alert('Bienvenido ' + this.usuario.identificacion + ', has iniciado sesión con éxito');
-      }, _ => {
+      }, () => {
         alert(LOGIN_INCORRECTO);
       });
     }

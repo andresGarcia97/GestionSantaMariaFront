@@ -12,6 +12,9 @@ export class UpdateComponent implements OnInit {
 
   @Input() usuario: Student;
   myFormGroup: FormGroup;
+  tipoUsuario = '';
+
+  constructor(private usuarioService: UserService) { }
 
   createFormGroup() {
     return new FormGroup({
@@ -22,11 +25,12 @@ export class UpdateComponent implements OnInit {
       correo: new FormControl('', [Validators.required, Validators.email])
     });
   }
-  constructor(private usuarioService: UserService) {
-  }
+
   ngOnInit(): void {
+    this.tipoUsuario = this.usuario.tipoUsuario;
     this.myFormGroup = this.createFormGroup();
   }
+
   actualizarUsuario() {
     if (this.myFormGroup.valid) {
       alert(DATOS_CORRECTOS);
@@ -34,7 +38,8 @@ export class UpdateComponent implements OnInit {
       this.usuarioService.update(this.usuario)
         .subscribe(() => {
           // Entra aquí con respuesta del servicio correcta código http 200
-          window.location.reload();
+          this.usuario.tipoUsuario = this.tipoUsuario;
+          this.usuarioService.guardarTipoUsuario(this.usuario);
           alert(ACTUALIZACION_EXITOSA_USUARIO);
         }, () => {
           // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
@@ -50,7 +55,6 @@ export class UpdateComponent implements OnInit {
     this.usuario.apellido = form.get('apellido').value;
     this.usuario.identificacion = form.get('identificacion').value;
     this.usuario.telefono = form.get('telefono').value;
-    this.usuario.contrasena = form.get('contrasena').value;
     this.usuario.correo = form.get('correo').value;
   }
 }

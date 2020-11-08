@@ -1,10 +1,10 @@
 <div class="container">
   <h1 *ngIf="usuarios.length == 0">Listado de estudiantes</h1>
-  <div class="card">
+  <div class="card" *ngIf="!tipoUsuario">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
         <div class="card text-white bg-success mb-3 text-center" *ngIf="usuarios.length > 0">
-          <h2>Lista de estudiantes, seleccione un estudiante para más opciones</h2>
+          <h2>Estudiantes, seleccione un estudiante para más opciones</h2>
         </div>
         <div class="card text-white bg-danger mb-3" *ngIf="usuarios.length == 0">
           <h2>no hay información</h2>
@@ -15,13 +15,13 @@
             <thead class="thead-dark">
               <tr>
                 <th scope="col">Identificacion</th>
-                <th scope="col">Nombre</th>
+                <th scope="col">Nombre Completo</th>
                 <th scope="col">Telefono</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usuario of usuarios" data-toggle="modal"
-              data-target="#opciones" style="cursor: pointer;" (click)="showPopup(usuario)">
+              <tr *ngFor="let usuario of usuarios" data-toggle="modal" data-target="#opciones" style="cursor: pointer;"
+                (click)="showPopup(usuario)">
                 <th>{{usuario.identificacion}}</th>
                 <td>{{usuario.nombre}} {{usuario.apellido}}</td>
                 <td>{{usuario.telefono}}</td>
@@ -31,10 +31,10 @@
         </div>
       </blockquote>
     </div>
-</div>
-<div class="container card" style="display: flex; justify-content: center; align-items: center;">
-  <h1 *ngIf="labores.length == 0">Labores</h1>
+  </div>
+  <br>
   <div class="card">
+    <h1 *ngIf="labores.length == 0">Labores</h1>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
 
@@ -57,8 +57,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let laborEstudiante of labores" data-toggle="modal"
-              data-target="#opciones" style="cursor: pointer;">
+              <tr *ngFor="let laborEstudiante of labores" data-toggle="modal" data-target="#editarlabor"
+                style="cursor: pointer;">
                 <th>{{laborEstudiante.estudianteLabor.identificacion}}</th>
                 <td>{{laborEstudiante.estudianteLabor.nombre}} {{laborEstudiante.estudianteLabor.apellido}}</td>
                 <td>{{laborEstudiante.espacio}}</td>
@@ -70,43 +70,43 @@
         </div>
       </blockquote>
     </div>
-    <button *ngIf="labores.length > 0" type="button" class="btn btn-primary btn-lg col-6" style="margin-left: 25%;">Guardar Labores</button>
-</div>
+  </div>
 
-<!-- The Modal -->
-<div class="modal fade" id="asignarLabor">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content"  style ="text-align: center;">
+  <!-- The Modal -->
+  <div class="modal fade" id="asignarLabor">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="text-align: center;">
 
-      <!-- Modal Header -->
-      <div class="modal-header"  style = "text-align: center">
-        <h4 class="modal-title">
-          Asignar al estudiante {{ selectedUser.nombre}} {{selectedUser.apellido}}
-          identificado con: {{ selectedUser.identificacion}}?</h4>
-        <button type="button" class="close" data-dismiss="modal">×</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="form-row">
-          <label>Espacio:</label>
-          <input type="text" placeholder="Asigne el lugar de la labor" class="form-control" [(ngModel)]="espacio">
-          <label>Descripcion:</label>
-          <input type="text" placeholder="Agregue una descripcion de la labor" class="form-control" [(ngModel)]="descripcion">
-          <label>Frecuencia:</label>
-          <input type="text" placeholder="Agregue una Frecuencia de la labor, ej: 2 días por semana"
-          class="form-control" [(ngModel)]="frecuencia">
+        <!-- Modal Header -->
+        <div class="modal-header" style="text-align: center">
+          <h4 class="modal-title">
+            Asignar al estudiante {{ selectedUser.nombre}} {{selectedUser.apellido}}
+            identificado con: {{ selectedUser.identificacion}}?</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
-      </div>
 
-      <!-- Modal footer -->
-      <div class="modal-footer" style ="justify-content: center;">
-        <button type="button" class="btn btn-danger" data-dismiss="modal"
-          (click)="asignarlabor(selectedUser, espacio, descripcion, frecuencia)">Asignar</button>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-row">
+            <label>Espacio:</label>
+            <input type="text" placeholder="Asigne el lugar de la labor" class="form-control" [(ngModel)]="espacio">
+            <label>Descripcion:</label>
+            <input type="text" placeholder="Agregue una descripcion de la labor" class="form-control"
+              [(ngModel)]="descripcion">
+            <label>Frecuencia:</label>
+            <input type="text" placeholder="Agregue una Frecuencia de la labor, ej: 2 días por semana"
+              class="form-control" [(ngModel)]="frecuencia">
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer" style="justify-content: center;">
+          <button type="button" class="btn btn-danger" data-dismiss="modal"
+            (click)="asignarlabor(selectedUser, espacio, descripcion, frecuencia)">Asignar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- The Modal -->
   <div class="modal fade" id="opciones">
@@ -122,28 +122,30 @@
 
         <!-- Modal body -->
         <div class="modal-body padreCentrarContenido">
-            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
-            data-target="#asignarLabor" data-dismiss="modal">Asignar labor</button>
-            <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="showHorarios(selectedUser.identificacion)">Ver horario materias</button>
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#asignarLabor"
+            data-dismiss="modal">Asignar labor</button>
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#verMaterias"
+            data-dismiss="modal">Ver horario materias</button>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- The Modal -->
-<div class="modal fade" id="verMaterias">
-  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title text-center">Materias del estudiante {{selectedUser.nombre}}
-          {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
-        <button type="button" class="close" data-dismiss="modal">×</button>
-      </div>
+  <div class="modal fade" id="verMaterias">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title text-center">Materias del estudiante {{selectedUser.nombre}}
+            {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        <app-showcourse></app-showcourse>
+        <!-- Modal body -->
+        <div class="modal-body" *ngIf="usuarioSeleccionado">
+          <app-showcourse identificacion={{selectedUser.identificacion}}></app-showcourse>
+        </div>
       </div>
     </div>
   </div>
-</div>
