@@ -11,8 +11,10 @@ import { UserService } from 'src/app/services/user/user.service';
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
+
   user: Student;
   contrasenas: DtoChangePassword = new DtoChangePassword();
+
   constructor(private userService: UserService, private loginService: LoginService) { }
 
   ngOnInit(): void {
@@ -27,10 +29,13 @@ export class ProfileComponent implements OnInit {
       }
       );
     }
-    else{
+    else {
       this.contrasenas.identificacion = this.user.identificacion;
     }
+  }
 
+  receiveUpdate(){
+    this.ngOnInit();
   }
 
   updatePassword() {
@@ -44,6 +49,7 @@ export class ProfileComponent implements OnInit {
     }
     else { alert(VERIFICAR_CONTRASENA); }
   }
+
   contrasenaValida(contrasena: DtoChangePassword): boolean {
     return ((contrasena.nuevaContrasena === contrasena.repetirContrasena) && contrasena.nuevaContrasena.length >= 6);
   }

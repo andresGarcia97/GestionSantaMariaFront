@@ -4,8 +4,11 @@ import {
   ACTUALIZACION_HORARIO_ERRONEO, ACTUALIZACION_HORARIO_EXITOSO, El_USUARIO_ESTA_REGISTRADO_EN_TURNO_SELECCIONADO,
   REGISTRO_HORARIO_ERRONEO
 } from 'src/app/consts/messages';
+import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
+import { Student } from 'src/app/model/student/student';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
+import { UtilService } from 'src/app/services/util/util.service';
 import { Dishwasher } from './../../../model/dishwasher/dishwasher';
 import { Dataservice } from './../../../model/util/dataservice';
 import { DishwasherService } from './../../../services/dishwasher/dishwasher.service';
@@ -31,8 +34,11 @@ export class ShowdishwashingComponent implements OnInit {
   horariosLoza: Dishwasher[] = [];
   dataservice: Dataservice;
   usuarioSeleccionado = false;
+  tipoEstudiante = false;
+  user: Student;
 
-  constructor(private userService: UserService, private dishwasherService: DishwasherService, private router: Router) { }
+  constructor(private userService: UserService, private dishwasherService: DishwasherService,
+    private router: Router, private utilService: UtilService) { }
 
   showPopup(user: User) {
     this.selectedUser = user;
@@ -40,11 +46,15 @@ export class ShowdishwashingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.listAllStudents().subscribe(
-      (usuarios) => {
-        this.usuarios = usuarios;
-      }
-    );
+    this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE));
+    this.tipoEstudiante = this.utilService.isEstudent(this.user);
+    if (!this.tipoEstudiante) {
+      this.userService.listAllStudents().subscribe(
+        (usuarios) => {
+          this.usuarios = usuarios;
+        }
+      );
+    }
     this.dataservice = new Dataservice();
     this.dias = this.dataservice.getDias();
     this.turnos = this.dataservice.getTurnos();

@@ -16,15 +16,32 @@ const ELIMINAR_LABOR = ENDPOINT_LABOR.concat('eliminarlabor');
 })
 export class LaborService {
 
-  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' , Authorization: this.loginService.token});
+  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: this.loginService.token });
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
-  public getReservas(): Observable<Labor[]> {
-    return this.http.get<Labor[]>(LISTAR_LABORES, { headers: this.headersjson});
+  public getLabores(): Observable<Labor[]> {
+    return this.http.get<Labor[]>(LISTAR_LABORES, { headers: this.headersjson });
   }
 
   public guardarLabor(labor: Labor): Observable<Labor> {
-    return this.http.post<Labor>(GUARDAR_LABOR, labor, { headers: this.headersjson});
+    return this.http.post<Labor>(GUARDAR_LABOR, labor, { headers: this.headersjson });
+  }
+
+  public updateLabor(labores: Labor[]): Observable<Labor[]> {
+    return this.http.put<Labor[]>(ACTUALIZAR_LABOR, labores, { headers: this.headersjson });
+  }
+
+  public deleteLabor(labor: Labor): Observable<Labor> {
+    const options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', Authorization: this.loginService.token }),
+      body: {
+        estudianteLabor: { identificacion: labor.estudianteLabor.identificacion },
+        descripcion: labor.descripcion,
+        espacio: labor.espacio,
+        frecuencia: labor.frecuencia
+      }
+    };
+    return this.http.delete<Labor>(ELIMINAR_LABOR, options);
   }
 }

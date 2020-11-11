@@ -29,7 +29,7 @@
 			</div>
     </div>
     <div class="col-md-12">
-      <app-update [usuario]="user"></app-update>
+      <app-update [usuario]="user" (updateEvent)="receiveUpdate()"></app-update>
     </div>
   </div>
   <br>

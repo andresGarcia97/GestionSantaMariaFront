@@ -4,6 +4,7 @@ import { IDENTIFICACIONSTORAGE, TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { Student } from 'src/app/model/student/student';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilService } from 'src/app/services/util/util.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-menu',
@@ -18,17 +19,17 @@ export class MenuComponent implements OnInit {
   constructor(private userService: UserService, private utilService: UtilService) {
   }
 
-  ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE));
+  async ngOnInit() {
+    this.user = await JSON.parse(localStorage.getItem(TIPOSTORAGE));
     if (this.user === null) {
-      this.user =  JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as Student;
+      this.user = JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as Student;
       this.userService.getUsuario(this.user).subscribe(data => {
         this.user = data as Student;
         this.userService.guardarTipoUsuario(this.user);
         this.tipoEstudiante = this.utilService.isEstudent(this.user);
-        alert(TIPO_DE_USUARIO.concat(this.user.tipoUsuario));
+        swal({ icon: 'info', title: TIPO_DE_USUARIO.concat(this.user.tipoUsuario) });
       }, () => {
-        alert(ERRROR_CONSULTAR_PERFIL);
+        swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });
       }
       );
     } else {

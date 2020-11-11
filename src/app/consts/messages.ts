@@ -30,5 +30,9 @@ export const TIPO_DE_USUARIO = 'Usted se ha logueado como un: ';
 export const ERRROR_CONSULTAR_PERFIL = 'Error al consultar la información de su perfil';
 export const INGRESO_EXITOSO_LABOR = 'Ingreso exitoso de la nueva Labor';
 export const INGRESO_ERRONEO_LABOR = 'Error al ingresar la nueva Labor';
+export const ACTUALIZACION_EXITOSO_LABOR = 'Actualización exitosa de la Labor';
+export const ACTUALIZACION_ERRONEO_LABOR = 'Error al actualizar la Labor';
+export const BORRADO_EXITOSO_LABOR = 'Borrado exitoso de la Labor';
+export const BORRADO_ERRONEO_LABOR = 'Error al borrar la Labor';
 
 

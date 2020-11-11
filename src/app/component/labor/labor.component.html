@@ -1,12 +1,11 @@
 <div class="container">
-  <h1 *ngIf="usuarios.length == 0">Listado de estudiantes</h1>
   <div class="card" *ngIf="!tipoUsuario">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
-        <div class="card text-white bg-success mb-3 text-center" *ngIf="usuarios.length > 0">
+        <div class="card text-white bg-success mb-3 text-center" *ngIf="usuarios.length > 0 && !tipoUsuario">
           <h2>Estudiantes, seleccione un estudiante para más opciones</h2>
         </div>
-        <div class="card text-white bg-danger mb-3" *ngIf="usuarios.length == 0">
+        <div class="card text-white bg-danger mb-3" *ngIf="usuarios.length == 0 && !tipoUsuario">
           <h2>no hay información</h2>
         </div>
 
@@ -57,13 +56,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let laborEstudiante of labores" data-toggle="modal" data-target="#editarlabor"
-                style="cursor: pointer;">
-                <th>{{laborEstudiante.estudianteLabor.identificacion}}</th>
-                <td>{{laborEstudiante.estudianteLabor.nombre}} {{laborEstudiante.estudianteLabor.apellido}}</td>
-                <td>{{laborEstudiante.espacio}}</td>
-                <td>{{laborEstudiante.descripcion}}</td>
-                <td>{{laborEstudiante.frecuencia}}</td>
+              <tr *ngFor="let labor of labores" data-toggle="modal" data-target="#opcionesEditar"
+                style="cursor: pointer;" (click)="showPopupUpdate(labor)">
+                <th>{{labor.estudianteLabor.identificacion}}</th>
+                <td>{{labor.estudianteLabor.nombre}} {{labor.estudianteLabor.apellido}}</td>
+                <td>{{labor.espacio}}</td>
+                <td>{{labor.descripcion}}</td>
+                <td>{{labor.frecuencia}}</td>
               </tr>
             </tbody>
           </table>
@@ -73,7 +72,7 @@
   </div>
 
   <!-- The Modal -->
-  <div class="modal fade" id="asignarLabor">
+  <div class="modal fade" id="asignarLabor" *ngIf="!tipoUsuario">
     <div class="modal-dialog modal-lg">
       <div class="modal-content" style="text-align: center;">
 
@@ -89,7 +88,9 @@
         <div class="modal-body">
           <div class="form-row">
             <label>Espacio:</label>
-            <input type="text" placeholder="Asigne el lugar de la labor" class="form-control" [(ngModel)]="espacio">
+            <select class="form-control custom-select" [(ngModel)]="espacio">
+              <option *ngFor="let l of lugares" [ngValue]="l.lugar">{{l.lugar}}</option>
+            </select>
             <label>Descripcion:</label>
             <input type="text" placeholder="Agregue una descripcion de la labor" class="form-control"
               [(ngModel)]="descripcion">
@@ -102,14 +103,14 @@
         <!-- Modal footer -->
         <div class="modal-footer" style="justify-content: center;">
           <button type="button" class="btn btn-danger" data-dismiss="modal"
-            (click)="asignarlabor(selectedUser, espacio, descripcion, frecuencia)">Asignar</button>
+            (click)="asignarlabor(selectedUser)">Asignar</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- The Modal -->
-  <div class="modal fade" id="opciones">
+  <div class="modal fade" id="opciones" *ngIf="!tipoUsuario">
     <div class="modal-dialog">
       <div class="modal-content">
 
@@ -132,7 +133,7 @@
   </div>
 
   <!-- The Modal -->
-  <div class="modal fade" id="verMaterias">
+  <div class="modal fade" id="verMaterias" *ngIf="!tipoUsuario">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <!-- Modal Header -->
@@ -149,3 +150,97 @@
       </div>
     </div>
   </div>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="editarLabor" *ngIf="!tipoUsuario">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="text-align: center;">
+
+        <!-- Modal Header -->
+        <div class="modal-header" style="text-align: center">
+          <h4 class="modal-title">
+            Editar la labor del estudiante {{userUpdate.nombre}} {{userUpdate.apellido}}
+            identificado con: {{ userUpdate.identificacion}}?</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-row">
+            <label>Espacio: (El mismo que ya tenia)</label>
+            <select class="form-control custom-select" [(ngModel)]="espacioUpdate">
+              <option *ngFor="let l of lugares" [ngValue]="l.lugar">{{l.lugar}}</option>
+            </select>
+            <label>Descripcion:</label>
+            <input type="text" placeholder="Agregue una descripcion de la labor" class="form-control"
+              [(ngModel)]="descripcionUpdate">
+            <label>Frecuencia:</label>
+            <input type="text" placeholder="Agregue una Frecuencia de la labor, ej: 2 días por semana"
+              class="form-control" [(ngModel)]="frecuenciaUpdate">
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer" style="justify-content: center;">
+          <button type="button" class="btn btn-danger" data-dismiss="modal"
+            (click)="editarlabor(laborUpdate)">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="opcionesEditar" *ngIf="!tipoUsuario">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Que deseas hacer con el usuario {{userUpdate.nombre}}
+            {{userUpdate.apellido}} identificado con {{userUpdate.identificacion}}:</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body padreCentrarContenido">
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#editarLabor"
+            data-dismiss="modal">Editar labor</button>
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#eliminarActividad"
+            data-dismiss="modal">Eliminar Labor Actual</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="eliminarActividad" *ngIf="!tipoUsuario">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title text-center"> ¿ Desea Borrar Esta labor de estudiante ? {{userUpdate.nombre}}
+            {{userUpdate.apellido}} con identificacion: {{userUpdate.identificacion}}</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <label>Espacio</label>
+          <input type="text" placeholder="Agregue una descripcion de la labor" class="form-control"
+            [(ngModel)]="espacioUpdate" readonly>
+          <label>Descripcion:</label>
+          <input type="text" placeholder="Agregue una descripcion de la labor" class="form-control"
+            [(ngModel)]="descripcionUpdate" readonly>
+          <label>Frecuencia:</label>
+          <input type="text" placeholder="Agregue una Frecuencia de la labor, ej: 2 días por semana"
+            class="form-control" [(ngModel)]="frecuenciaUpdate" readonly>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer" style="justify-content: center;">
+          <button type="button" class="btn btn-danger" data-dismiss="modal"
+            (click)="eliminarlabor(laborUpdate)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Optional, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ACTUALIZACION_ERRONEO_USUARIO, ACTUALIZACION_EXITOSA_USUARIO, DATOS_CORRECTOS, DATOS_INVALIDOS } from 'src/app/consts/messages';
 import { Student } from 'src/app/model/student/student';
@@ -13,6 +13,7 @@ export class UpdateComponent implements OnInit {
   @Input() usuario: Student;
   myFormGroup: FormGroup;
   tipoUsuario = '';
+  @Output() updateEvent = new EventEmitter<Optional>();
 
   constructor(private usuarioService: UserService) { }
 
@@ -41,6 +42,7 @@ export class UpdateComponent implements OnInit {
           this.usuario.tipoUsuario = this.tipoUsuario;
           this.usuarioService.guardarTipoUsuario(this.usuario);
           alert(ACTUALIZACION_EXITOSA_USUARIO);
+          this.updateEvent.emit();
         }, () => {
           // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
           alert(ACTUALIZACION_ERRONEO_USUARIO);

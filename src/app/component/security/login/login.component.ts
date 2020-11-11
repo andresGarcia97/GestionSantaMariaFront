@@ -5,6 +5,7 @@ import { LOGIN_INCORRECTO } from 'src/app/consts/messages';
 import { User } from 'src/app/model/user/user';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UtilService } from './../../../services/util/util.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-login',
@@ -34,14 +35,14 @@ export class LoginComponent implements OnInit {
     if (this.myFormGroup.valid) {
       this.convertFormGroupToUser(this.myFormGroup);
       this.loginService.login(this.usuario).subscribe((response: any) => {
+        swal({ icon: 'success', title: 'Bienvenido ' + this.usuario.identificacion + ', has iniciado sesión con éxito' });
         this.loginService.guardarToken(response.body.token);
         this.loginService.guardarUsuario(response.body.token);
         this.usuario = this.loginService.user;
         this.util.changeBooleanMessage(true);
         this.router.navigate(['/menu']);
-        alert('Bienvenido ' + this.usuario.identificacion + ', has iniciado sesión con éxito');
       }, () => {
-        alert(LOGIN_INCORRECTO);
+        swal({ icon: 'error', title: LOGIN_INCORRECTO });
       });
     }
   }

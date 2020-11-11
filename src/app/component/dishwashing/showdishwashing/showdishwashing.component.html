@@ -1,13 +1,11 @@
 <div class="container">
-  <h1 *ngIf="usuarios.length == 0">Listado de estudiantes</h1>
-  <div class="card">
+  <div class="card" *ngIf="!tipoEstudiante">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
-
-        <div class="card text-white bg-success mb-3 text-center" *ngIf="usuarios.length > 0">
+        <div class="card text-white bg-success mb-3 text-center" *ngIf="usuarios.length > 0 && !tipoEstudiante">
           <h2>Lista de estudiantes, seleccione un estudiante para más opciones</h2>
         </div>
-        <div class="card text-white bg-danger mb-3" *ngIf="usuarios.length == 0">
+        <div class="card text-white bg-danger mb-3" *ngIf="usuarios.length == 0 && !tipoEstudiante">
           <h2>no hay información</h2>
         </div>
 
@@ -33,6 +31,7 @@
       </blockquote>
     </div>
   </div>
+
   <div class="card">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
