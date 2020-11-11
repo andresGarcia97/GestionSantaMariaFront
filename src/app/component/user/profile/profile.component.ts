@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE));
-    if (this.user === null) {
+    if (this.user !== null) {
       this.user = this.loginService.user as Student;
       this.userService.getUsuario(this.user).subscribe(data => {
         this.user = data as Student;

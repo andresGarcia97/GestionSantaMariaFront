@@ -11,6 +11,7 @@ export const REGISTRO_HORARIO_ERRONEO = 'Error al ingresar el nuevo horario, Por
 export const ACTUALIZACION_HORARIO_ERRONEO = 'Error al actualizar el horario, Por favor intentalo nuevamente en unos minutos';
 export const VERIFACION_DE_CAMPOS = 'Por favor verifica que los campos estén correctamente dilingenciados';
 export const LOGIN_INCORRECTO = 'usuario o clave incorrectas';
+export const HORARIO_SIN_MODIFICAR = 'El horario se encuentra con las mismas modificaciones, por favor verifica';
 export const BORRADO_EXITOSO_USUARIO = 'Borrado exitoso del usuario';
 export const ACTUALIZACION_EXITOSA_USUARIO = 'Actualizacion exitosa del usuario';
 export const ACTUALIZACION_ERRONEA_USUARIO = 'Error al Actualizar el usuario, verifique que los campos no esten vacios';
