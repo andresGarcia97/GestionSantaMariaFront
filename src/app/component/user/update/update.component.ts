@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ACTUALIZACION_ERRONEO_USUARIO, ACTUALIZACION_EXITOSA_USUARIO, DATOS_CORRECTOS, DATOS_INVALIDOS } from 'src/app/consts/messages';
 import { Student } from 'src/app/model/student/student';
 import { UserService } from 'src/app/services/user/user.service';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-update',
@@ -34,21 +35,19 @@ export class UpdateComponent implements OnInit {
 
   actualizarUsuario() {
     if (this.myFormGroup.valid) {
-      alert(DATOS_CORRECTOS);
+      swal({ icon: 'info', title: DATOS_CORRECTOS });
       this.usuario = this.myFormGroup.value;
       this.usuarioService.update(this.usuario)
         .subscribe(() => {
-          // Entra aquí con respuesta del servicio correcta código http 200
           this.usuario.tipoUsuario = this.tipoUsuario;
           this.usuarioService.guardarTipoUsuario(this.usuario);
-          alert(ACTUALIZACION_EXITOSA_USUARIO);
+          swal({ icon: 'info', title: ACTUALIZACION_EXITOSA_USUARIO });
           this.updateEvent.emit();
         }, () => {
-          // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
-          alert(ACTUALIZACION_ERRONEO_USUARIO);
+          swal({ icon: 'info', title: ACTUALIZACION_ERRONEO_USUARIO });
         });
     } else {
-      alert(DATOS_INVALIDOS);
+      swal({ icon: 'warning', title: DATOS_INVALIDOS });
     }
   }
 

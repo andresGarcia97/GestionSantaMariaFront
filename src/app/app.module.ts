@@ -25,6 +25,7 @@ import { ShowcourseComponent } from './component/course/showcourse/showcourse.co
 import { LaborComponent } from './component/labor/labor.component';
 import { ReservationComponent } from './component/reservation/reservation.component';
 import { FiltroReservaPipePipe } from './pipes/filtroReservaPipe/filtro-reserva-pipe.pipe';
+import { LicencesComponent } from './component/core/licences/licences.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FiltroReservaPipePipe } from './pipes/filtroReservaPipe/filtro-reserva-
     ShowcourseComponent,
     LaborComponent,
     ReservationComponent,
-    FiltroReservaPipePipe
+    FiltroReservaPipePipe,
+    LicencesComponent
   ],
   imports: [
     BrowserModule,

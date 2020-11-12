@@ -2,17 +2,19 @@
 // tslint:disable-next-line: variable-name
 export const El_USUARIO_ESTA_REGISTRADO_EN_TURNO_SELECCIONADO = 'El usuario ya esta registrado en el turno seleccionado';
 export const LOGOUT = 'Has cerrado sesión correctamente';
+export const NO_LOGUEADO = 'Primero inicie sesión';
 export const REGISTRO_SALIDA_SATISFACTORIO = 'Registro de la salida realizada satisfactoriamente';
 export const REGISTRO_SALIDA_ERRONEO = 'Error al registar la salida, verifique que los campos no esten vacios';
 export const REGISTRO_SALIDA_ERROR = 'No se pudo registrar la salida';
 export const REGISTRO_HORARIO_EXITOSO = 'Se ha registrado el horario satisfactoriamente';
 export const ACTUALIZACION_HORARIO_EXITOSO = 'Se ha actualizado el horario satisfactoriamente';
-export const REGISTRO_HORARIO_ERRONEO = 'Error al ingresar el nuevo horario, Por favor intentalo nuevamente en unos minutos';
 export const ACTUALIZACION_HORARIO_ERRONEO = 'Error al actualizar el horario, Por favor intentalo nuevamente en unos minutos';
 export const VERIFACION_DE_CAMPOS = 'Por favor verifica que los campos estén correctamente dilingenciados';
 export const LOGIN_INCORRECTO = 'usuario o clave incorrectas';
+export const LOGIN_CORRECTO = 'Inicio de sesion Exitoso';
 export const HORARIO_SIN_MODIFICAR = 'El horario se encuentra con las mismas modificaciones, por favor verifica';
 export const BORRADO_EXITOSO_USUARIO = 'Borrado exitoso del usuario';
+export const BORRADO_ERRONEO_USUARIO = 'Borrado erroneo del usuario';
 export const ACTUALIZACION_EXITOSA_USUARIO = 'Actualizacion exitosa del usuario';
 export const ACTUALIZACION_ERRONEA_USUARIO = 'Error al Actualizar el usuario, verifique que los campos no esten vacios';
 export const ERRROR_VISUALIZACION_PERFIL = 'Error al ver tu perfil';
@@ -35,5 +37,3 @@ export const ACTUALIZACION_EXITOSO_LABOR = 'Actualización exitosa de la Labor';
 export const ACTUALIZACION_ERRONEO_LABOR = 'Error al actualizar la Labor';
 export const BORRADO_EXITOSO_LABOR = 'Borrado exitoso de la Labor';
 export const BORRADO_ERRONEO_LABOR = 'Error al borrar la Labor';
-
-

@@ -5,6 +5,7 @@ import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { Student } from 'src/app/model/student/student';
 import { User } from 'src/app/model/user/user';
 import { UtilService } from 'src/app/services/util/util.service';
+import swal from 'sweetalert';
 import { Departure } from './../../../model/departure/departure';
 import { DepartureService } from './../../../services/departures/departure.service';
 
@@ -39,17 +40,18 @@ export class ShowdeparturesComponent implements OnInit {
       this.salidaService.createSalida(this.salidaUsuarioLogueado)
         .subscribe(() => {
           this.router.navigate([RUTAMOSTRARPLANILLA]);
-          alert(REGISTRO_SALIDA_SATISFACTORIO);
+          swal({ icon: 'success', title: REGISTRO_SALIDA_SATISFACTORIO });
         }, () => {
           this.router.navigate([RUTAMOSTRARPLANILLA]);
-          alert(REGISTRO_SALIDA_ERRONEO);
+          swal({ icon: 'error', title: REGISTRO_SALIDA_ERRONEO });
         });
       this.router.navigate([RUTAMOSTRARPLANILLA]);
     }
     else {
-      alert(REGISTRO_SALIDA_ERROR);
+      swal({ icon: 'error', title: REGISTRO_SALIDA_ERROR });
     }
   }
+
   salidaValida(salida: Departure): boolean {
     return !(salida.fechaLlegada == null || salida.fechaSalida == null ||
       (salida.lugar === null || salida.lugar === '') || (salida.razon === null || salida.razon === ''));

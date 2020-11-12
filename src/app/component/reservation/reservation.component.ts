@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LAVADORA, LAVANDERIA } from 'src/app/consts/consts';
+import { ACADEMICO, AUDITORIO, LAVANDERIA, PERSONAL, RECREATIVO, SALA_INFORMATICA, SALA_TV, SALON3, SALON4, SALON_AMARILLO } from 'src/app/consts/consts';
 import { REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO, VERIFACION_DE_CAMPOS } from 'src/app/consts/messages';
 import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import swal from 'sweetalert';
 import { Reservation } from './../../model/reservation/reservation';
 
-const RUTAESPACIOS = '/espacios';
 const RUTALAVADORA = '/reservas_lavadora';
 
 @Component({
@@ -16,44 +16,75 @@ const RUTALAVADORA = '/reservas_lavadora';
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
+
   user: User = new User();
   reservacionUsuarioLogueado: Reservation = new Reservation();
   reservas: Reservation[] = [];
   ruta: Router;
   lavadora = '';
-  constructor(private router: Router, private reservationService: ReservationService) {
-    this.ruta = router;
-  }
+  lugares = [{ lugar: LAVANDERIA }, { lugar: SALA_TV }, { lugar: SALA_INFORMATICA }, { lugar: AUDITORIO },
+  { lugar: SALON_AMARILLO }, { lugar: SALON4 }, { lugar: SALON3 }];
+  motivos = [{ motivo: PERSONAL }, { motivo: ACADEMICO }, { motivo: RECREATIVO }];
+  rutaLavadora = false;
+
+  constructor(private router: Router, private reservationService: ReservationService) { }
+
   ngOnInit(): void {
-    if (this.ruta.url === RUTALAVADORA) {
-      this.reservacionUsuarioLogueado.espacio = LAVADORA;
+    this.ruta = this.router;
+    this.resetInputs();
+    this.rutaLavadora = this.ruta.url === RUTALAVADORA;
+    if (this.rutaLavadora) {
+      this.reservacionUsuarioLogueado.espacio = this.lugares[0].lugar;
+      this.reservacionUsuarioLogueado.actividad = this.motivos[0].motivo;
       this.lavadora = LAVANDERIA;
     }
     this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
+    this.consultarReservas();
+  }
+
+  private consultarReservas(): void {
     this.reservationService.getReservas().subscribe(
       (reservas) => {
         this.reservas = reservas;
       }
     );
   }
-  registrarReserva() {
-    this.reservacionUsuarioLogueado.usuario = this.user;
+
+  private resetInputs(): void {
+    this.reservacionUsuarioLogueado = new Reservation();
+    this.reservacionUsuarioLogueado.usuario = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
+    this.reservacionUsuarioLogueado.fechaInicial = null;
+    this.reservacionUsuarioLogueado.fechaFinal = null;
+    this.reservacionUsuarioLogueado.espacio = '';
+    this.reservacionUsuarioLogueado.actividad = '';
+  }
+
+  private cambiarFechas(): void {
+    this.reservacionUsuarioLogueado.fechaInicial = new Date(this.reservacionUsuarioLogueado.fechaInicial);
+    this.reservacionUsuarioLogueado.fechaFinal = new Date(this.reservacionUsuarioLogueado.fechaFinal);
+  }
+
+  registrarReserva(): void {
+    this.cambiarFechas();
+    console.log(this.reservacionUsuarioLogueado);
     if (this.reservaValida()) {
+      console.log(this.reservacionUsuarioLogueado);
       this.reservationService.guardarReserva(this.reservacionUsuarioLogueado)
         .subscribe(() => {
-          this.router.navigate([RUTAESPACIOS]);
-          alert(REGISTRO_RESERVA_EXITOSO);
+          swal({ icon: 'success', title: REGISTRO_RESERVA_EXITOSO });
+          this.resetInputs();
+          this.consultarReservas();
         }, () => {
-          this.router.navigate([RUTAESPACIOS]);
-          alert(REGISTRO_RESERVA_ERRONEO);
+          swal({ icon: 'error', title: REGISTRO_RESERVA_ERRONEO });
         });
     }
     else {
-      alert(VERIFACION_DE_CAMPOS);
+      swal({ icon: 'error', title: VERIFACION_DE_CAMPOS });
     }
   }
+
   reservaValida(): boolean {
-    return (this.reservacionUsuarioLogueado.espacio !== '' && this.reservacionUsuarioLogueado.espacio !== '' &&
+    return (this.reservacionUsuarioLogueado.espacio !== '' && this.reservacionUsuarioLogueado.actividad !== '' &&
       this.reservacionUsuarioLogueado.fechaInicial !== null && this.reservacionUsuarioLogueado.fechaFinal !== null);
   }
 

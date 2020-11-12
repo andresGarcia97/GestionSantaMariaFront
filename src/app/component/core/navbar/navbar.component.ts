@@ -1,7 +1,7 @@
 import { UtilService } from './../../../services/util/util.service';
 import { LoginService } from './../../../services/login/login.service';
 import { Component, OnInit } from '@angular/core';
-import { LOGOUT } from 'src/app/consts/messages';
+import { LOGOUT, NO_LOGUEADO } from 'src/app/consts/messages';
 import swal from 'sweetalert';
 
 @Component({
@@ -19,9 +19,15 @@ export class NavbarComponent implements OnInit {
     this.util.currentBooleanMessage.subscribe(messageBoolean => this.messageBoolean = messageBoolean);
     this.messageBoolean = this.loginService.isAutenticated();
   }
+
   logout(): void {
-    this.loginService.logout();
-    this.util.changeBooleanMessage(false);
-    swal({ icon: 'success', title: LOGOUT });
+    if (this.loginService.token === null) {
+      swal({ icon: 'error', title: NO_LOGUEADO });
+    }
+    else{
+      this.loginService.logout();
+      this.util.changeBooleanMessage(false);
+      swal({ icon: 'success', title: LOGOUT });
+    }
   }
 }

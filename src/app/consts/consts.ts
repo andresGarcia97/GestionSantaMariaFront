@@ -2,8 +2,6 @@
 export const ADMINISTRADOR = 'AMINISTRADOR';
 export const ESTUDIANTE = 'ESTUDIANTE';
 
-export const LAVADORA = 'LAVADORA';
-
 export const LAVANDERIA = 'LAVANDERIA';
 export const SALA_TV = 'SALA-TV';
 export const SALA_INFORMATICA = 'SALA-INFORMATICA';
@@ -16,6 +14,9 @@ export const CULTIVOS = 'CULTIVOS Y/0 JARDINERIA';
 export const ANIMALES = 'CUIDADO DE ANIMALES';
 export const COCINA = 'COCINA';
 export const BLOQUE_AZUL = 'BLOQUE-AZUL';
-export const PING_PONG = 'SALA-PING PONG';
 export const BLOQUES = 'BLOQUE-HABITACIONAL';
 export const OTRO = 'OTRO';
+
+export const PERSONAL = 'PERSONAL';
+export const RECREATIVO = 'RECREATIVO';
+export const ACADEMICO = 'ACADEMICO';

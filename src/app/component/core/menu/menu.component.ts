@@ -16,8 +16,7 @@ export class MenuComponent implements OnInit {
   user: Student;
   tipoEstudiante = false;
 
-  constructor(private userService: UserService, private utilService: UtilService) {
-  }
+  constructor(private userService: UserService, private utilService: UtilService) {}
 
   async ngOnInit() {
     this.user = await JSON.parse(localStorage.getItem(TIPOSTORAGE));
@@ -30,8 +29,7 @@ export class MenuComponent implements OnInit {
         swal({ icon: 'info', title: TIPO_DE_USUARIO.concat(this.user.tipoUsuario) });
       }, () => {
         swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });
-      }
-      );
+      });
     } else {
       this.tipoEstudiante = this.utilService.isEstudent(this.user);
     }

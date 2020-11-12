@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  ANIMALES, AUDITORIO, BLOQUES, BLOQUE_AZUL, COCINA, CULTIVOS, LAVANDERIA, OTRO, PING_PONG, SALA_INFORMATICA,
+  ANIMALES, AUDITORIO, BLOQUES, BLOQUE_AZUL, COCINA, CULTIVOS, LAVANDERIA, OTRO, SALA_INFORMATICA,
   SALA_TV, SALON3, SALON4, SALON_AMARILLO, ZONAS_VERDES
 } from 'src/app/consts/consts';
 import {
@@ -40,7 +40,7 @@ export class LaborComponent implements OnInit {
   lugares = [
     { lugar: SALA_TV }, { lugar: LAVANDERIA }, { lugar: SALA_INFORMATICA }, { lugar: AUDITORIO }, { lugar: SALON_AMARILLO },
     { lugar: SALON4 }, { lugar: SALON3 }, { lugar: ZONAS_VERDES }, { lugar: CULTIVOS }, { lugar: ANIMALES },
-    { lugar: COCINA }, { lugar: BLOQUE_AZUL }, { lugar: PING_PONG }, { lugar: BLOQUES }, { lugar: OTRO }
+    { lugar: COCINA }, { lugar: BLOQUE_AZUL }, { lugar: BLOQUES }, { lugar: OTRO }
   ];
 
   constructor(private userService: UserService, private utilService: UtilService, private laborService: LaborService) { }
@@ -90,7 +90,7 @@ export class LaborComponent implements OnInit {
       });
     }
     else {
-      alert(VERIFACION_DE_CAMPOS);
+      swal({ icon: 'warning', title: VERIFACION_DE_CAMPOS });
     }
   }
 

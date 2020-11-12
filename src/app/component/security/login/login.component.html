@@ -7,15 +7,16 @@
     </div>
     <div class="form-group">
       <label for="contrasena">Password:</label>
-      <input type="password" formControlName="contrasena" class="form-control mx-sm-3" aria-describedby="passwordHelpInline">
-      <small class="text-muted mx-sm-3">la longitud debe ser más de 8 caracteres.</small>
+      <input type="password" formControlName="contrasena" class="form-control mx-sm-3"
+        aria-describedby="passwordHelpInline" required>
+      <small class="text-muted mx-sm-3">la longitud debe ser más de 6 caracteres.</small>
     </div>
     <div class="form-group" id="Btn2">
-      <button class="btn-outline-primary rounded-pill" type="submit" [disabled]="myFormGroup.invalid" (click)="login()">Ingresar</button>
+      <button class="btn-outline-primary rounded-pill" type="submit" [disabled]="myFormGroup.invalid"
+        (click)="login()">Ingresar</button>
     </div>
     <!--<div class="form-group" id="Btn">
       <a type="button">Has olvidado la contraseña?</a>
-    </div>
-    -->
+    </div>-->
   </form>
 </div>

@@ -3,12 +3,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DATOS_CORRECTOS, DATOS_INVALIDOS } from 'src/app/consts/messages';
 import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
 import { User } from 'src/app/model/user/user';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-update-password',
   templateUrl: './update-password.component.html'
 })
 export class UpdatePasswordComponent implements OnInit {
+
   usuario = new User();
   contrasenas = new DtoChangePassword();
   myFormGroup: FormGroup;
@@ -20,8 +22,7 @@ export class UpdatePasswordComponent implements OnInit {
       viejaContrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
     this.myFormGroup = this.createFormGroup();
@@ -30,11 +31,12 @@ export class UpdatePasswordComponent implements OnInit {
 
   updatePassword() {
     if (this.myFormGroup.valid) {
-      alert(DATOS_CORRECTOS);
+      swal({ icon: 'info', title: DATOS_CORRECTOS });
     } else {
-      alert(DATOS_INVALIDOS);
+      swal({ icon: 'warning', title: DATOS_INVALIDOS });
     }
   }
+
   convertFormGroupToDtoChanguePassword(form: FormGroup) {
     this.usuario.identificacion = form.get('identificacion').value;
     this.contrasenas.viejaContrasena = form.get('viejaContrasena').value;

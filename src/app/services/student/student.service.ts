@@ -9,18 +9,12 @@ import { LoginService } from '../login/login.service';
   providedIn: 'root'
 })
 export class StudentService {
-  /*
-  private headersText = new HttpHeaders({ 'Content-Type': 'text/plain' });
-  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json' });
-  */
+
+  private headersjson = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: this.loginService.token });
+
   constructor(private http: HttpClient, private loginService: LoginService) { }
+
   public listAllStudents(): Observable<Student[]> {
-    const token = this.loginService.token;
-    let httpHeaders = new HttpHeaders();
-    if (token != null) {
-      httpHeaders = httpHeaders.append('Authorization', token);
-    }
-    httpHeaders.get('Authorization');
-    return this.http.get<Student[]>(LISTAR_ESTUDIANTES);
+    return this.http.get<Student[]>(LISTAR_ESTUDIANTES, { headers: this.headersjson });
   }
 }

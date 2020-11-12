@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LAVADORA } from 'src/app/consts/consts';
+import { LAVANDERIA } from 'src/app/consts/consts';
 
 @Component({
   selector: 'app-bookwashingmachine',
@@ -11,7 +11,7 @@ export class BookwashingmachineComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.actividad = LAVADORA;
+    this.actividad = LAVANDERIA;
   }
 
 }

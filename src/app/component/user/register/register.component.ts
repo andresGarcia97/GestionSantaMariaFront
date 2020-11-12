@@ -5,6 +5,7 @@ import { ESTUDIANTE } from 'src/app/consts/consts';
 import { DATOS_CORRECTOS, DATOS_INVALIDOS, INGRESO_ERRONEO_USUARIO, INGRESO_EXITOSO_ADMINISTRADOR, INGRESO_EXITOSO_ESTUDIANTE } from 'src/app/consts/messages';
 import { User } from 'src/app/model/user/user';
 import { UserService } from 'src/app/services/user/user.service';
+import swal from 'sweetalert';
 
 const RUTA_LISTA_USUARIOS = '/listarusuarios';
 
@@ -13,6 +14,7 @@ const RUTA_LISTA_USUARIOS = '/listarusuarios';
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
+
   usuario = new User();
   myFormGroup: FormGroup;
 
@@ -28,8 +30,8 @@ export class RegisterComponent implements OnInit {
       acceptTerms: new FormControl(false, Validators.requiredTrue)
     });
   }
-  constructor(private usuarioService: UserService, private router: Router) {
-  }
+
+  constructor(private usuarioService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.myFormGroup = this.createFormGroup();
@@ -37,31 +39,30 @@ export class RegisterComponent implements OnInit {
 
   agregarUsuario() {
     if (this.myFormGroup.valid) {
-      alert(DATOS_CORRECTOS);
+      swal({ icon: 'info', title: DATOS_CORRECTOS });
       this.usuario = this.myFormGroup.value;
       if (this.myFormGroup.get('tipoUsuario').value === ESTUDIANTE) {
         this.usuarioService.createEstudiante(this.usuario)
           .subscribe(() => {
-            // Entra aquí con respuesta del servicio correcta código http 200
-            alert(INGRESO_EXITOSO_ESTUDIANTE);
             this.router.navigate([RUTA_LISTA_USUARIOS]);
+            swal({ icon: 'success', title: INGRESO_EXITOSO_ESTUDIANTE });
           }, () => {
-            // Entra aquí si el servicio entrega un código http de error EJ: 404, 500
-            alert(INGRESO_ERRONEO_USUARIO);
+            swal({ icon: 'error', title: INGRESO_ERRONEO_USUARIO });
           });
       } else {
         this.usuarioService.createAdministrador(this.usuario)
           .subscribe(() => {
-            alert(INGRESO_EXITOSO_ADMINISTRADOR);
             this.router.navigate([RUTA_LISTA_USUARIOS]);
+            swal({ icon: 'success', title: INGRESO_EXITOSO_ADMINISTRADOR });
           }, () => {
-            alert(INGRESO_ERRONEO_USUARIO);
+            swal({ icon: 'error', title: INGRESO_ERRONEO_USUARIO });
           });
       }
     } else {
-      alert(DATOS_INVALIDOS);
+      swal({ icon: 'warning', title: DATOS_INVALIDOS });
     }
   }
+
   convertFormGroupToUser(form: FormGroup) {
     this.usuario.nombre = form.get('nombre').value;
     this.usuario.apellido = form.get('apellido').value;

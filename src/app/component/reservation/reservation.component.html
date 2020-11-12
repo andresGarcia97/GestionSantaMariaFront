@@ -1,5 +1,4 @@
 <div class="container">
-  <h1 *ngIf="reservas.length == 0">Reservas</h1>
   <div class="card">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
@@ -35,8 +34,8 @@
         </div>
       </blockquote>
     </div>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida">Registrar
-      nueva reserva</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida"
+      (click)="reservaValida()"> Registrar nueva reserva</button>
     <!-- The Modal -->
     <div class="modal fade" id="modalAgregarSalida">
       <div class="modal-dialog">
@@ -51,36 +50,57 @@
           <!-- Modal body -->
           <div class="modal-body">
             <div class="form-row" style="display: flex; justify-content: center; align-items: center;">
+
               <div class="form-group col-md-6">
                 <label for="fechaSalida">Fecha de inicio</label>
                 <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaInicial" class="form-control"
                   placeholder="Fecha inicial de la reserva" required>
               </div>
+
               <div class="form-group col-md-6">
                 <label for="FechaLlegada">Fecha de final</label>
                 <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaFinal" class="form-control"
                   placeholder="Fecha final de la reserva" required>
               </div>
-              <div class="form-group col-md-6">
+
+              <div class="form-group col-md-6" *ngIf="!rutaLavadora">
                 <label for="Motivo">Motivo o razón</label>
-                <input type="text" [(ngModel)]="reservacionUsuarioLogueado.actividad" class="form-control"
-                  placeholder="Ingrese el Motivo" required>
+                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.actividad">
+                  <option *ngFor="let m of motivos" [ngValue]="m.motivo">{{m.motivo}}</option>
+                </select>
               </div>
-              <div class="form-group col-md-6" *ngIf="(reservacionUsuarioLogueado.espacio !== 'LAVADORA')">
+
+              <div class="form-group col-md-6" *ngIf="rutaLavadora">
+                <label for="Motivo">Motivo o razón</label>
+                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.actividad">
+                  <option [ngValue]="reservacionUsuarioLogueado.actividad">{{reservacionUsuarioLogueado.actividad}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6" *ngIf="!rutaLavadora">
                 <label for="lugar">Lugar</label>
-                <input type="text" [(ngModel)]="reservacionUsuarioLogueado.espacio" class="form-control"
-                  placeholder="Ingrese lugar" required>
+                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.espacio">
+                  <option *ngFor="let l of lugares" [ngValue]="l.lugar">{{l.lugar}}</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6" *ngIf="rutaLavadora">
+                <label for="lugar">Lugar</label>
+                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.espacio">
+                  <option [ngValue]="reservacionUsuarioLogueado.espacio">{{reservacionUsuarioLogueado.espacio}}</option>
+                </select>
               </div>
             </div>
-          </div>
 
-          <!-- Modal footer -->
-          <div class="modal-footer" *ngIf="reservaValida() disabled" style="justify-content: center;">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="registrarReserva()">Hacer
-              reserva</button>
+            <!-- Modal footer -->
+            <div class="modal-footer" *ngIf="reservaValida() disabled" style="justify-content: center;">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="registrarReserva()">
+                Reservar</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  
