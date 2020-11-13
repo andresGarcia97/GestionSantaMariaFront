@@ -1,3 +1,4 @@
+import { AdminguardGuard } from './services/guard/adminguard.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LicencesComponent } from './component/core/licences/licences.component';
@@ -21,8 +22,8 @@ const routes: Routes = [
   { path: 'actualizarcontrasena', component: UpdatePasswordComponent, canActivate: [GuardGuard] },
   { path: 'menu', component: MenuComponent, canActivate: [GuardGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'registrousuario', component: RegisterComponent, canActivate: [GuardGuard] },
-  { path: 'listarusuarios', component: ListComponent, canActivate: [GuardGuard] },
+  { path: 'registrousuario', component: RegisterComponent, canActivate: [GuardGuard, AdminguardGuard] },
+  { path: 'listarusuarios', component: ListComponent, canActivate: [GuardGuard, AdminguardGuard] },
   { path: 'labor', component: LaborComponent, canActivate: [GuardGuard] },
   { path: 'mostrarplanilla', component: ShowdeparturesComponent, canActivate: [GuardGuard] },
   { path: 'mostrarmaterias', component: ShowcourseComponent, canActivate: [GuardGuard] },
