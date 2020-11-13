@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ACADEMICO, AUDITORIO, LAVANDERIA, PERSONAL, RECREATIVO, SALA_INFORMATICA, SALA_TV, SALON3, SALON4, SALON_AMARILLO } from 'src/app/consts/consts';
-import { REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO, VERIFACION_DE_CAMPOS } from 'src/app/consts/messages';
+import { ERROR_FECHA_RESERVACION, REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO, VERIFACION_DE_CAMPOS } from 'src/app/consts/messages';
 import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
@@ -22,6 +22,9 @@ export class ReservationComponent implements OnInit {
   reservas: Reservation[] = [];
   ruta: Router;
   lavadora = '';
+  fechaActual: Date;
+  mismoUsuario = false;
+  reservaUpdate: Reservation = new Reservation();
   lugares = [{ lugar: LAVANDERIA }, { lugar: SALA_TV }, { lugar: SALA_INFORMATICA }, { lugar: AUDITORIO },
   { lugar: SALON_AMARILLO }, { lugar: SALON4 }, { lugar: SALON3 }];
   motivos = [{ motivo: PERSONAL }, { motivo: ACADEMICO }, { motivo: RECREATIVO }];
@@ -86,6 +89,28 @@ export class ReservationComponent implements OnInit {
   reservaValida(): boolean {
     return (this.reservacionUsuarioLogueado.espacio !== '' && this.reservacionUsuarioLogueado.actividad !== '' &&
       this.reservacionUsuarioLogueado.fechaInicial !== null && this.reservacionUsuarioLogueado.fechaFinal !== null);
+  }
+
+  private verificarFechas(): boolean {
+    this.fechaActual = new Date();
+    const fechaNumber = this.fechaActual.valueOf();
+    return this.reservaUpdate.fechaInicial.valueOf() > fechaNumber &&
+      this.reservaUpdate.fechaFinal.valueOf() > fechaNumber;
+  }
+
+  showPopupUpdate(reserva: Reservation) {
+    this.reservaUpdate = reserva;
+    const esMismoUsuario = this.reservaUpdate.usuario.identificacion === this.user.identificacion;
+    if (!esMismoUsuario) {
+      this.mismoUsuario = false;
+    }
+    else if (this.mismoUsuario && !this.verificarFechas()) {
+      this.mismoUsuario = true;
+    }
+    else {
+      this.mismoUsuario = false;
+      swal({ icon: 'error', title: ERROR_FECHA_RESERVACION });
+    }
   }
 
 }

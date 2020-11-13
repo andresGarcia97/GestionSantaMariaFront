@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ESTUDIANTE } from 'src/app/consts/consts';
-import { Student } from 'src/app/model/student/student';
+import { User } from 'src/app/model/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class UtilService {
     this.messageBoolean.next(messageBoolean);
   }
 
-  isEstudent(user: Student): boolean {
+  isEstudent(user: User): boolean {
     if (user !== null && user.tipoUsuario !== '') {
       return user.tipoUsuario === ESTUDIANTE;
     }

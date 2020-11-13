@@ -22,7 +22,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let reserva of reservas | filtroReservaPipe : lavadora">
+              <tr *ngFor="let reserva of reservas | filtroReservaPipe : lavadora" data-toggle="modal"
+                data-target="#opciones" style="cursor: pointer;" (click)="showPopupUpdate(reserva)">
                 <th>{{reserva.usuario.nombre}}</th>
                 <td>{{reserva.fechaInicial | date:'MM/dd - HH:mm':'-0500'}}</td>
                 <td>{{reserva.fechaFinal | date:'MM/dd - HH:mm':'-0500'}}</td>
@@ -36,71 +37,113 @@
     </div>
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida"
       (click)="reservaValida()"> Registrar nueva reserva</button>
-    <!-- The Modal -->
-    <div class="modal fade" id="modalAgregarSalida">
-      <div class="modal-dialog">
-        <div class="modal-content">
+  </div>
 
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Crear nueva Reserva para el usuario: {{user.identificacion}}:</h4>
-            <button type="button" class="close" data-dismiss="modal">×</button>
+  <!-- The Modal -->
+  <div class="modal fade" id="modalAgregarSalida">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Crear nueva Reserva para el usuario: {{user.identificacion}}:</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-row" style="display: flex; justify-content: center; align-items: center;">
+
+            <div class="form-group col-md-6">
+              <label for="fechaSalida">Fecha de inicio</label>
+              <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaInicial" class="form-control"
+                placeholder="Fecha inicial de la reserva" required>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="FechaLlegada">Fecha de final</label>
+              <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaFinal" class="form-control"
+                placeholder="Fecha final de la reserva" required>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="!rutaLavadora">
+              <label for="Motivo">Motivo o razón</label>
+              <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.actividad">
+                <option *ngFor="let m of motivos" [ngValue]="m.motivo">{{m.motivo}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="rutaLavadora">
+              <label for="Motivo">Motivo o razón</label>
+              <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.actividad">
+                <option [ngValue]="reservacionUsuarioLogueado.actividad">{{reservacionUsuarioLogueado.actividad}}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="!rutaLavadora">
+              <label for="lugar">Lugar</label>
+              <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.espacio">
+                <option *ngFor="let l of lugares" [ngValue]="l.lugar">{{l.lugar}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-6" *ngIf="rutaLavadora">
+              <label for="lugar">Lugar</label>
+              <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.espacio">
+                <option [ngValue]="reservacionUsuarioLogueado.espacio">{{reservacionUsuarioLogueado.espacio}}</option>
+              </select>
+            </div>
           </div>
 
-          <!-- Modal body -->
-          <div class="modal-body">
-            <div class="form-row" style="display: flex; justify-content: center; align-items: center;">
-
-              <div class="form-group col-md-6">
-                <label for="fechaSalida">Fecha de inicio</label>
-                <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaInicial" class="form-control"
-                  placeholder="Fecha inicial de la reserva" required>
-              </div>
-
-              <div class="form-group col-md-6">
-                <label for="FechaLlegada">Fecha de final</label>
-                <input type="datetime-local" [(ngModel)]="reservacionUsuarioLogueado.fechaFinal" class="form-control"
-                  placeholder="Fecha final de la reserva" required>
-              </div>
-
-              <div class="form-group col-md-6" *ngIf="!rutaLavadora">
-                <label for="Motivo">Motivo o razón</label>
-                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.actividad">
-                  <option *ngFor="let m of motivos" [ngValue]="m.motivo">{{m.motivo}}</option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-6" *ngIf="rutaLavadora">
-                <label for="Motivo">Motivo o razón</label>
-                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.actividad">
-                  <option [ngValue]="reservacionUsuarioLogueado.actividad">{{reservacionUsuarioLogueado.actividad}}
-                  </option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-6" *ngIf="!rutaLavadora">
-                <label for="lugar">Lugar</label>
-                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.espacio">
-                  <option *ngFor="let l of lugares" [ngValue]="l.lugar">{{l.lugar}}</option>
-                </select>
-              </div>
-
-              <div class="form-group col-md-6" *ngIf="rutaLavadora">
-                <label for="lugar">Lugar</label>
-                <select class="form-control custom-select" [(ngModel)]="reservacionUsuarioLogueado.espacio">
-                  <option [ngValue]="reservacionUsuarioLogueado.espacio">{{reservacionUsuarioLogueado.espacio}}</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer" *ngIf="reservaValida() disabled" style="justify-content: center;">
-              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="registrarReserva()">
-                Reservar</button>
-            </div>
+          <!-- Modal footer -->
+          <div class="modal-footer" *ngIf="reservaValida() disabled" style="justify-content: center;">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="registrarReserva()">
+              Reservar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <div class="modal fade" id="opciones" *ngIf="mismoUsuario">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="row">
+            <div class="col-12">
+              <h4 class="modal-title">¿ Que deseas hacer con esta reserva ?</h4>
+            </div>
+            <div class="col-12">
+              <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Fecha de inicial</th>
+                    <th scope="col">Fecha de final</th>
+                    <th scope="col">Lugar</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td>{{reservaUpdate.fechaInicial | date:'MM/dd - HH:mm':'-0500'}}</td>
+                  <td>{{reservaUpdate.fechaFinal | date:'MM/dd - HH:mm':'-0500'}}</td>
+                  <td>{{reservaUpdate.espacio}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body padreCentrarContenido" style ="justify-content: center;">
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#asignarLabor"
+            data-dismiss="modal">Editar</button>
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#verMaterias"
+            data-dismiss="modal">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

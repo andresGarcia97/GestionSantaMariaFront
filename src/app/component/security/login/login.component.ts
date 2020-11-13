@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LOGIN_INCORRECTO } from 'src/app/consts/messages';
+import { ERRROR_CONSULTAR_PERFIL, LOGIN_INCORRECTO, TIPO_DE_USUARIO } from 'src/app/consts/messages';
 import { User } from 'src/app/model/user/user';
 import { LoginService } from 'src/app/services/login/login.service';
 import { UtilService } from './../../../services/util/util.service';
 import swal from 'sweetalert';
+import { UserService } from 'src/app/services/user/user.service';
+import { IDENTIFICACIONSTORAGE, TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 
 @Component({
   selector: 'app-login',
@@ -13,51 +15,68 @@ import swal from 'sweetalert';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   usuario: User;
   myFormGroup: FormGroup;
   messageBoolean: boolean;
   passwordType = 'password';
   hiddenPassword = false;
+
   createFormGroup() {
     return new FormGroup({
       identificacion: new FormControl('', Validators.required),
       contrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
-  constructor(private loginService: LoginService, private router: Router, private util: UtilService) {
-    this.usuario = new User();
-  }
+  constructor(private loginService: LoginService, private router: Router,
+    private util: UtilService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.usuario = new User();
     this.myFormGroup = this.createFormGroup();
     this.util.currentBooleanMessage.subscribe(messageBoolean => this.messageBoolean = messageBoolean);
   }
 
-  login(): void {
+  async login() {
     if (this.myFormGroup.valid) {
       this.convertFormGroupToUser(this.myFormGroup);
-      this.loginService.login(this.usuario).subscribe((response: any) => {
-        swal({ icon: 'success', title: 'Bienvenido ' + this.usuario.identificacion + ', has iniciado sesión con éxito' });
-        this.loginService.guardarToken(response.body.token);
-        this.loginService.guardarUsuario(response.body.token);
-        this.usuario = this.loginService.user;
-        this.util.changeBooleanMessage(true);
-        this.router.navigate(['/menu']);
-      }, () => {
+      await this.loginService.login(this.usuario);
+      this.usuario = await JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as User;
+      if (this.usuario === null) {
+        this.usuario = new User();
         swal({ icon: 'error', title: LOGIN_INCORRECTO });
-      });
+      }
+      else {
+        await this.userService.getUsuario(this.usuario);
+        this.usuario = await JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
+        if (this.usuario !== null) {
+          this.util.changeBooleanMessage(true);
+          swal({
+            icon: 'success',
+            title: 'Bienvenido, '.concat(this.usuario.nombre).concat(' ').concat(TIPO_DE_USUARIO.concat(this.usuario.tipoUsuario))
+          });
+          setTimeout(() => {
+            this.router.navigate(['/menu']);
+          }, 700);
+        }
+        else {
+          swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });
+        }
+      }
     }
   }
-  ocultarContrasena(){
-    if (this.hiddenPassword){
+
+  ocultarContrasena() {
+    if (this.hiddenPassword) {
       this.hiddenPassword = false;
       this.passwordType = 'password';
     }
-    else{
+    else {
       this.hiddenPassword = true;
       this.passwordType = 'text';
     }
   }
+
   convertFormGroupToUser(form: FormGroup) {
     this.usuario.identificacion = form.get('identificacion').value;
     this.usuario.contrasena = form.get('contrasena').value;

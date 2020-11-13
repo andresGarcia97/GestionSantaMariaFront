@@ -18,8 +18,7 @@ import { Labor } from './../../model/labor/labor';
 
 @Component({
   selector: 'app-labor',
-  templateUrl: './labor.component.html',
-  styleUrls: ['./labor.component.css']
+  templateUrl: './labor.component.html'
 })
 export class LaborComponent implements OnInit {
   usuarios: User[] = [];

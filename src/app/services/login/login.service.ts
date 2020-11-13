@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { IDENTIFICACIONSTORAGE, TIPOSTORAGE, TKSTORAGE } from 'src/app/consts/StorageKeys';
 import { LOGIN } from '../../../environments/environment';
 import { User } from '../../model/user/user';
@@ -9,6 +8,7 @@ import { User } from '../../model/user/user';
   providedIn: 'root',
 })
 export class LoginService {
+
   private usuario: User;
   private tokenValid: string;
 
@@ -34,22 +34,20 @@ export class LoginService {
     return null;
   }
 
-  login(usuario: User): Observable<any> {
-    return this.http.post<any>(LOGIN, usuario, { observe: 'response' });
+  async login(usuario: User) {
+    const headersjson = new HttpHeaders({ 'Content-Type': 'application/json' });
+    try {
+      const token = await this.http.post<any>(LOGIN, usuario, { headers: headersjson }).toPromise();
+      this.guardarToken(token.token);
+      this.guardarUsuario(token.token);
+    } catch (error) {
+      this.logout();
+    }
   }
 
   guardarUsuario(accessToken: string): void {
     const payload = this.obtenerDatosToken(accessToken);
     this.usuario = new User();
-    let httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    if (accessToken != null) {
-      httpHeaders = httpHeaders.append(
-        'Authorization',
-        accessToken
-      );
-    }
-    httpHeaders.get('Authorization');
-    httpHeaders.get('Content-Type');
     this.usuario.identificacion = payload;
     localStorage.setItem(IDENTIFICACIONSTORAGE, JSON.stringify(this.usuario));
   }

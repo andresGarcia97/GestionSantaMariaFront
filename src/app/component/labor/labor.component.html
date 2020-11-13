@@ -33,7 +33,6 @@
   </div>
   <br>
   <div class="card">
-    <h1 *ngIf="labores.length == 0">Labores</h1>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
 
@@ -117,7 +116,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Que deseas hacer con el usuario {{selectedUser.nombre}}
-            {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+            {{selectedUser.apellido}} con identificación {{selectedUser.identificacion}}</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
 
@@ -139,7 +138,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title text-center">Materias del estudiante {{selectedUser.nombre}}
-            {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+            {{selectedUser.apellido}} con identificación {{selectedUser.identificacion}}</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
 
@@ -196,7 +195,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Que deseas hacer con el usuario {{userUpdate.nombre}}
-            {{userUpdate.apellido}} identificado con {{userUpdate.identificacion}}:</h4>
+            {{userUpdate.apellido}} con identificación: {{userUpdate.identificacion}}</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
 

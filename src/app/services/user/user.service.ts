@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
-import { Student } from 'src/app/model/student/student';
 import { User } from 'src/app/model/user/user';
 import {
   ACTUALIZAR_USUARIO, BUSCAR_USUARIO, CAMBIAR_CONTRASEÑA, ELIMINAR_USUARIO, INSERTAR_ADMINISTRADOR,
@@ -16,21 +15,10 @@ import { LoginService } from '../login/login.service';
 })
 
 export class UserService {
-  private tipo: string;
 
   private headersjson = new HttpHeaders({ 'Content-Type': 'application/json', Authorization: this.loginService.token });
 
   constructor(private http: HttpClient, private loginService: LoginService) { }
-
-  public get tipoUsuario(): string {
-    if (this.tipo != null) {
-      return this.tipo;
-    } else if (this.tipo == null && localStorage.getItem(TIPOSTORAGE) != null) {
-      this.tipo = JSON.parse(localStorage.getItem(TIPOSTORAGE));
-      return this.tipo;
-    }
-    return null;
-  }
 
   public listAllStudents(): Observable<User[]> {
     return this.http.get<User[]>(LISTAR_ESTUDIANTES, { headers: this.headersjson });
@@ -41,8 +29,13 @@ export class UserService {
   public getAdministrador(): Observable<User[]> {
     return this.http.get<User[]>(LISTAR_ADMINISTRADORES, { headers: this.headersjson });
   }
-  public getUsuario(usuario: Student): Observable<Student> {
-    return this.http.post<Student>(BUSCAR_USUARIO, usuario, { headers: this.headersjson });
+  public async getUsuario(usuario: User) {
+    try {
+      const user = await this.http.post<User>(BUSCAR_USUARIO, usuario, { headers: this.headersjson }).toPromise();
+      this.guardarTipoUsuario(user);
+    } catch (error) {
+      this.removerTipoUsuario();
+    }
   }
   public createAdministrador(usuario: User): Observable<User> {
     return this.http.post<User>(INSERTAR_ADMINISTRADOR, usuario, { headers: this.headersjson });
@@ -53,17 +46,21 @@ export class UserService {
   public delete(id: number): Observable<User> {
     return this.http.delete<User>(ELIMINAR_USUARIO.concat(id.toString()), { headers: this.headersjson });
   }
-  public update(usuario: Student): Observable<Student> {
-    return this.http.put<Student>(ACTUALIZAR_USUARIO, usuario, { headers: this.headersjson });
+  public update(usuario: User): Observable<User> {
+    return this.http.put<User>(ACTUALIZAR_USUARIO, usuario, { headers: this.headersjson });
   }
   public updatePassword(newPassword: DtoChangePassword): Observable<User> {
     return this.http.put<User>(CAMBIAR_CONTRASEÑA, newPassword, { headers: this.headersjson });
   }
 
-  public guardarTipoUsuario(usuario: Student) {
+  public guardarTipoUsuario(usuario: User) {
     if (usuario !== null) {
       localStorage.setItem(TIPOSTORAGE, JSON.stringify(usuario));
     }
+  }
+
+  private removerTipoUsuario() {
+    localStorage.removeItem(TIPOSTORAGE);
   }
 
 }
