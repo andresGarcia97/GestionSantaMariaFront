@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ACADEMICO, AUDITORIO, LAVANDERIA, PERSONAL, RECREATIVO, SALA_INFORMATICA, SALA_TV, SALON3, SALON4, SALON_AMARILLO } from 'src/app/consts/consts';
-import { ERROR_FECHA_RESERVACION, REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO, VERIFACION_DE_CAMPOS } from 'src/app/consts/messages';
+import {
+  ACTUALIZACION_RESERVA_ERRONEO, ACTUALIZACION_RESERVA_EXITOSO, BORRADO_RESERVA_ERRONEO, BORRADO_RESERVA_EXITOSO, ERROR_FECHA_RESERVACION,
+  ERROR_RESERVACION_DIFERENTE_USUARIO, ORDEN_INCORRECTO_FECHAS, REGISTRO_RESERVA_ERRONEO, REGISTRO_RESERVA_EXITOSO,
+  VERIFACION_DE_CAMPOS, VERIFACION_DE_FECHAS
+} from 'src/app/consts/messages';
 import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { UtilService } from 'src/app/services/util/util.service';
 import swal from 'sweetalert';
 import { Reservation } from './../../model/reservation/reservation';
 
@@ -22,15 +27,16 @@ export class ReservationComponent implements OnInit {
   reservas: Reservation[] = [];
   ruta: Router;
   lavadora = '';
-  fechaActual: Date;
   mismoUsuario = false;
+  tipoUsuario = false;
+  nuevaReserva: Reservation = new Reservation();
   reservaUpdate: Reservation = new Reservation();
   lugares = [{ lugar: LAVANDERIA }, { lugar: SALA_TV }, { lugar: SALA_INFORMATICA }, { lugar: AUDITORIO },
   { lugar: SALON_AMARILLO }, { lugar: SALON4 }, { lugar: SALON3 }];
   motivos = [{ motivo: PERSONAL }, { motivo: ACADEMICO }, { motivo: RECREATIVO }];
   rutaLavadora = false;
 
-  constructor(private router: Router, private reservationService: ReservationService) { }
+  constructor(private router: Router, private reservationService: ReservationService, private utilService: UtilService) { }
 
   ngOnInit(): void {
     this.ruta = this.router;
@@ -42,15 +48,31 @@ export class ReservationComponent implements OnInit {
       this.lavadora = LAVANDERIA;
     }
     this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
+    this.tipoUsuario = this.utilService.isEstudent(this.user);
     this.consultarReservas();
   }
 
   private consultarReservas(): void {
-    this.reservationService.getReservas().subscribe(
-      (reservas) => {
-        this.reservas = reservas;
-      }
-    );
+    if (this.tipoUsuario) {
+      const reservaConsulta = new Reservation();
+      reservaConsulta.fechaInicial = new Date();
+      this.reservationService.reservasPorDia(reservaConsulta).subscribe(
+        (reservas) => {
+          this.reservas = reservas;
+        }
+      );
+    }
+    else {
+      this.reservationService.getReservas().subscribe(
+        (reservas) => {
+          this.reservas = reservas;
+        }
+      );
+    }
+  }
+
+  private convertDateToNumber(fecha: Date): number {
+    return new Date(fecha).valueOf();
   }
 
   private resetInputs(): void {
@@ -67,11 +89,25 @@ export class ReservationComponent implements OnInit {
     this.reservacionUsuarioLogueado.fechaFinal = new Date(this.reservacionUsuarioLogueado.fechaFinal);
   }
 
+  private fechaInicialMenorQueFinal(fechaInicial: Date, fechaFinal: Date): boolean {
+    const fechaInicio = this.convertDateToNumber(fechaInicial);
+    const fechaFin = this.convertDateToNumber(fechaFinal);
+    return fechaInicio < fechaFin;
+  }
+
   registrarReserva(): void {
     this.cambiarFechas();
     console.log(this.reservacionUsuarioLogueado);
-    if (this.reservaValida()) {
-      console.log(this.reservacionUsuarioLogueado);
+    if (!this.reservaValida()) {
+      swal({ icon: 'warning', title: VERIFACION_DE_CAMPOS });
+    }
+    else if (!this.verificarFechas(this.reservacionUsuarioLogueado.fechaInicial, this.reservacionUsuarioLogueado.fechaFinal)) {
+      swal({ icon: 'warning', title: VERIFACION_DE_FECHAS });
+    }
+    else if (!this.fechaInicialMenorQueFinal(this.reservacionUsuarioLogueado.fechaInicial, this.reservacionUsuarioLogueado.fechaFinal)) {
+      swal({ icon: 'warning', title: ORDEN_INCORRECTO_FECHAS });
+    }
+    else {
       this.reservationService.guardarReserva(this.reservacionUsuarioLogueado)
         .subscribe(() => {
           swal({ icon: 'success', title: REGISTRO_RESERVA_EXITOSO });
@@ -81,9 +117,6 @@ export class ReservationComponent implements OnInit {
           swal({ icon: 'error', title: REGISTRO_RESERVA_ERRONEO });
         });
     }
-    else {
-      swal({ icon: 'error', title: VERIFACION_DE_CAMPOS });
-    }
   }
 
   reservaValida(): boolean {
@@ -91,26 +124,92 @@ export class ReservationComponent implements OnInit {
       this.reservacionUsuarioLogueado.fechaInicial !== null && this.reservacionUsuarioLogueado.fechaFinal !== null);
   }
 
-  private verificarFechas(): boolean {
-    this.fechaActual = new Date();
-    const fechaNumber = this.fechaActual.valueOf();
-    return this.reservaUpdate.fechaInicial.valueOf() > fechaNumber &&
-      this.reservaUpdate.fechaFinal.valueOf() > fechaNumber;
+  private verificarFechas(fechaInicial: Date, fechaFinal: Date): boolean {
+    const fechaActual = this.convertDateToNumber(new Date());
+    const fechaInicio = this.convertDateToNumber(fechaInicial);
+    const fechaFin = this.convertDateToNumber(fechaFinal);
+    return fechaInicio > fechaActual && fechaFin > fechaActual;
+  }
+
+  private setNuevaReserva(): void {
+    this.nuevaReserva.fechaFinal = null;
+    this.nuevaReserva.fechaInicial = null;
+    this.nuevaReserva.usuario = this.reservaUpdate.usuario;
+    this.nuevaReserva.espacio = this.reservaUpdate.espacio;
+    this.nuevaReserva.actividad = this.reservaUpdate.actividad;
   }
 
   showPopupUpdate(reserva: Reservation) {
     this.reservaUpdate = reserva;
+    this.setNuevaReserva();
     const esMismoUsuario = this.reservaUpdate.usuario.identificacion === this.user.identificacion;
+    const verificarFechaPasada = this.verificarFechas(this.reservaUpdate.fechaInicial, this.reservaUpdate.fechaFinal);
     if (!esMismoUsuario) {
       this.mismoUsuario = false;
+      swal({ icon: 'error', title: ERROR_RESERVACION_DIFERENTE_USUARIO });
     }
-    else if (this.mismoUsuario && !this.verificarFechas()) {
+    else if (esMismoUsuario && verificarFechaPasada) {
       this.mismoUsuario = true;
     }
-    else {
+    else if (!verificarFechaPasada) {
       this.mismoUsuario = false;
       swal({ icon: 'error', title: ERROR_FECHA_RESERVACION });
     }
+  }
+
+  private cambiarFechasActulizacion(): void {
+    this.nuevaReserva.fechaInicial = new Date(this.nuevaReserva.fechaInicial);
+    this.nuevaReserva.fechaFinal = new Date(this.nuevaReserva.fechaFinal);
+  }
+
+  reservaValidaActualizacion(): boolean {
+    return (this.nuevaReserva.espacio !== '' && this.nuevaReserva.actividad !== '' &&
+      this.nuevaReserva.fechaInicial !== null && this.nuevaReserva.fechaFinal !== null);
+  }
+
+  private resetInputsUpdate(): void {
+    this.reservaUpdate = new Reservation();
+    this.mismoUsuario = false;
+  }
+
+  editarReserva(): void {
+    const reservas = [];
+    reservas.push(this.reservaUpdate);
+    this.cambiarFechasActulizacion();
+    console.log(this.nuevaReserva);
+    if (!this.reservaValidaActualizacion()) {
+      swal({ icon: 'warning', title: VERIFACION_DE_CAMPOS });
+    }
+    else if (!this.verificarFechas(this.nuevaReserva.fechaInicial, this.nuevaReserva.fechaFinal)) {
+      swal({ icon: 'warning', title: VERIFACION_DE_FECHAS });
+    }
+    else if (!this.fechaInicialMenorQueFinal(this.nuevaReserva.fechaInicial, this.nuevaReserva.fechaFinal)) {
+      swal({ icon: 'warning', title: ORDEN_INCORRECTO_FECHAS });
+    }
+    else {
+      reservas.push(this.nuevaReserva);
+      console.log(this.reservas);
+      this.reservationService.updateReservas(reservas)
+        .subscribe(() => {
+          swal({ icon: 'success', title: ACTUALIZACION_RESERVA_EXITOSO });
+          this.resetInputsUpdate();
+          this.consultarReservas();
+        }, (error) => {
+          console.log(error);
+          swal({ icon: 'error', title: ACTUALIZACION_RESERVA_ERRONEO });
+        });
+    }
+  }
+
+  eliminarReserva(): void {
+    this.reservationService.delete(this.reservaUpdate)
+      .subscribe(() => {
+        swal({ icon: 'success', title: BORRADO_RESERVA_EXITOSO });
+        this.resetInputsUpdate();
+        this.consultarReservas();
+      }, () => {
+        swal({ icon: 'error', title: BORRADO_RESERVA_ERRONEO });
+      });
   }
 
 }

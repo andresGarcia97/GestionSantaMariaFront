@@ -84,7 +84,7 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body">
+        <div class="modal-header">
           <div class="form-row">
             <label>Espacio:</label>
             <select class="form-control custom-select" [(ngModel)]="espacio">
@@ -100,7 +100,7 @@
         </div>
 
         <!-- Modal footer -->
-        <div class="modal-footer" style="justify-content: center;">
+        <div class="modal-header" style="justify-content: center;">
           <button type="button" class="btn btn-danger" data-dismiss="modal"
             (click)="asignarlabor(selectedUser)">Asignar</button>
         </div>
@@ -115,13 +115,13 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Que deseas hacer con el usuario {{selectedUser.nombre}}
+          <h4 class="modal-title">¿ Que deseas hacer con el usuario ? {{selectedUser.nombre}}
             {{selectedUser.apellido}} con identificación {{selectedUser.identificacion}}</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body padreCentrarContenido">
+        <div class="modal-header padreCentrarContenido">
           <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#asignarLabor"
             data-dismiss="modal">Asignar labor</button>
           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#verMaterias"
@@ -164,7 +164,7 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body">
+        <div class="modal-header">
           <div class="form-row">
             <label>Espacio:</label>
             <select class="form-control custom-select" [(ngModel)]="espacioUpdate">
@@ -180,7 +180,7 @@
         </div>
 
         <!-- Modal footer -->
-        <div class="modal-footer" style="justify-content: center;">
+        <div class="modal-header" style="justify-content: center;">
           <button type="button" class="btn btn-danger" data-dismiss="modal"
             (click)="editarlabor(laborUpdate)">Editar</button>
         </div>
@@ -194,16 +194,16 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Que deseas hacer con el usuario {{userUpdate.nombre}}
-            {{userUpdate.apellido}} con identificación: {{userUpdate.identificacion}}</h4>
+          <h4 class="modal-title"> ¿ Que deseas hacer con la labor de ?
+            {{userUpdate.nombre}} {{userUpdate.apellido}} </h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body padreCentrarContenido">
-          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#editarLabor"
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editarLabor"
             data-dismiss="modal">Editar labor</button>
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#eliminarActividad"
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#eliminarActividad"
             data-dismiss="modal">Eliminar Labor Actual</button>
         </div>
       </div>
@@ -216,8 +216,8 @@
       <div class="modal-content">
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title text-center"> ¿ Desea Borrar Esta labor de estudiante ? {{userUpdate.nombre}}
-            {{userUpdate.apellido}} con identificacion: {{userUpdate.identificacion}}</h4>
+          <h4 class="modal-title text-center"> ¿ Desea Borrar Esta labor del estudiante ?
+            {{userUpdate.nombre}} {{userUpdate.apellido}} con identificacion: {{userUpdate.identificacion}}</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
 
@@ -235,7 +235,7 @@
         </div>
 
         <!-- Modal footer -->
-        <div class="modal-footer" style="justify-content: center;">
+        <div class="modal-header" style="justify-content: center;">
           <button type="button" class="btn btn-danger" data-dismiss="modal"
             (click)="eliminarlabor(laborUpdate)">Eliminar</button>
         </div>

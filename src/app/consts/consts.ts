@@ -1,5 +1,5 @@
 
-export const ADMINISTRADOR = 'AMINISTRADOR';
+export const ADMINISTRADOR = 'ADMINISTRADOR';
 export const ESTUDIANTE = 'ESTUDIANTE';
 
 export const LAVANDERIA = 'LAVANDERIA';

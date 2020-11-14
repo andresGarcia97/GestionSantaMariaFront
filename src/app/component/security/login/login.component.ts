@@ -53,11 +53,9 @@ export class LoginComponent implements OnInit {
           this.util.changeBooleanMessage(true);
           swal({
             icon: 'success',
-            title: 'Bienvenido, '.concat(this.usuario.nombre).concat(' ').concat(TIPO_DE_USUARIO.concat(this.usuario.tipoUsuario))
+            title: 'Bienvenido,  '.concat(this.usuario.nombre).concat('  ').concat(TIPO_DE_USUARIO.concat(this.usuario.tipoUsuario))
           });
-          setTimeout(() => {
-            this.router.navigate(['/menu']);
-          }, 700);
+          this.router.navigate(['/menu']);
         }
         else {
           swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });

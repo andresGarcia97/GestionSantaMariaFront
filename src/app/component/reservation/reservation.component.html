@@ -35,24 +35,25 @@
         </div>
       </blockquote>
     </div>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida"
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarReserva"
       (click)="reservaValida()"> Registrar nueva reserva</button>
   </div>
 
   <!-- The Modal -->
-  <div class="modal fade" id="modalAgregarSalida">
+  <div class="modal fade" id="modalAgregarReserva">
     <div class="modal-dialog">
       <div class="modal-content">
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Crear nueva Reserva para el usuario: {{user.identificacion}}:</h4>
+          <h4 class="modal-title">Crear Reserva {{user.nombre}}</h4>
           <button type="button" class="close" data-dismiss="modal">×</button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
-          <div class="form-row" style="display: flex; justify-content: center; align-items: center;">
+
+          <div class="form-row padreCentrarContenido">
 
             <div class="form-group col-md-6">
               <label for="fechaSalida">Fecha de inicio</label>
@@ -114,7 +115,7 @@
         <div class="modal-header">
           <div class="row">
             <div class="col-12">
-              <h4 class="modal-title">¿ Que deseas hacer con esta reserva ?</h4>
+              <h4 class="modal-title">¿ Que deseas hacer ?</h4>
             </div>
             <div class="col-12">
               <table class="table table-striped">
@@ -132,18 +133,118 @@
                 </tr>
               </table>
             </div>
+            <div class="col-12 padreCentrarContenido">
+              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editarReserva"
+                data-dismiss="modal">Editar</button>
+              <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#eliminarReserva"
+                data-dismiss="modal">Eliminar</button>
+            </div>
           </div>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body padreCentrarContenido" style ="justify-content: center;">
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#asignarLabor"
-            data-dismiss="modal">Editar</button>
-          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#verMaterias"
-            data-dismiss="modal">Eliminar</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="editarReserva" *ngIf="mismoUsuario">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Solo se pueden editar las fechas</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-header">
+          <div class="form-row padreCentrarContenido">
+
+            <div class="modal-header">
+              <div class="form-group col-md-12">
+                <table class="table table-striped">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Fecha de inicial</th>
+                      <th scope="col">Fecha de final</th>
+                    </tr>
+                  </thead>
+                  <tr class="thead-dark">
+                    <td>{{reservaUpdate.fechaInicial | date:'MM/dd - HH:mm':'-0500'}}</td>
+                    <td>{{reservaUpdate.fechaFinal | date:'MM/dd - HH:mm':'-0500'}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="fechaInicial">Fecha inicial Actual: </label>
+              <input type="datetime-local" [(ngModel)]="nuevaReserva.fechaInicial" class="form-control" required>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="fechaSalida">Fecha Final Actual: </label>
+              <input type="datetime-local" [(ngModel)]="nuevaReserva.fechaFinal" class="form-control" required>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="Motivo">Motivo o razón</label>
+              <input type="text" [(ngModel)]="nuevaReserva.actividad" class="form-control" readonly>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="lugar">Lugar</label>
+              <input type="text" [(ngModel)]="nuevaReserva.espacio" class="form-control" readonly>
+            </div>
+
+            <div class="form-group col-md-6 padreCentrarContenido" *ngIf="reservaValidaActualizacion()">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="editarReserva()">
+                Editar Reserva</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="eliminarReserva" *ngIf="mismoUsuario">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title text-center"> ¿ Desea Borrar esta reserva ? {{reservaUpdate.usuario.nombre}}
+              {{reservaUpdate.usuario.apellido}}</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="form-group col-md-12">
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Fecha de inicial</th>
+                  <th scope="col">Fecha de final</th>
+                  <th scope="col">Lugar</th>
+                  <th scope="col">Motivo</th>
+                </tr>
+              </thead>
+              <tr class="thead-dark">
+                <td>{{reservaUpdate.fechaInicial | date:'MM/dd - HH:mm':'-0500'}}</td>
+                <td>{{reservaUpdate.fechaFinal | date:'MM/dd - HH:mm':'-0500'}}</td>
+                <td>{{reservaUpdate.espacio}}</td>
+                <td>{{reservaUpdate.actividad}}</td>
+              </tr>
+            </table>
+          </div>
+  
+          <!-- Modal footer -->
+          <div class="modal-footer" style="justify-content: center;">
+            <button type="button" class="btn btn-danger" data-dismiss="modal"
+              (click)="eliminarReserva()">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </div>

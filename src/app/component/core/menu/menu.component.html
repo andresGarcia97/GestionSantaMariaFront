@@ -1,3 +1,4 @@
+<br>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
@@ -35,8 +36,11 @@
               <h5 class="card-title text-center">
                 Planilla De Salida
               </h5>
-              <p class="card-text">
-                Registro de todas las salidas de los estudiantes, además de la posibilidad de crearlas
+              <p class="card-text" *ngIf="!tipoEstudiante">
+                Registro de todas las salidas de los estudiantes
+              </p>
+              <p class="card-text" *ngIf="tipoEstudiante">
+                Ingreso de Salidas
               </p>
             </div>
           </div>
@@ -48,8 +52,11 @@
               <h5 class="card-title text-center">
                 Lavado de loza
               </h5>
-              <p class="card-text">
-                Horarios para el Lavado de loza del hogar, SOLO el administrador podra crearlos.
+              <p class="card-text" *ngIf="!tipoEstudiante">
+                Creación, Edición y borrado de los horarios de Loza
+              </p>
+              <p class="card-text" *ngIf="tipoEstudiante">
+                Horarios de Loza asignados a cada Estudiante
               </p>
             </div>
           </div>
@@ -61,8 +68,11 @@
               <h5 class="card-title text-center">
                 Uso de la lavadora
               </h5>
-              <p class="card-text">
-                Consulta de reservas y creación de reservas para el uso de la lavadora.
+              <p class="card-text" *ngIf="!tipoEstudiante">
+                Consulta del historico de reservas y creación de reservas para el uso de la lavadora
+              </p>
+              <p class="card-text" *ngIf="tipoEstudiante">
+                Consulta de reservas proximas y creación de reservas para el uso de la lavadora
               </p>
             </div>
           </div>
@@ -74,8 +84,11 @@
               <h5 class="card-title text-center">
                 Gestionar salas
               </h5>
-              <p class="card-text">
-                Consulta de reservas y creación de reservas para el uso de los espacios del hogar
+              <p class="card-text" *ngIf="!tipoEstudiante">
+                Consulta del historico de reservas y creación de reservas para el uso de los espacios del hogar
+              </p>
+              <p class="card-text" *ngIf="tipoEstudiante">
+                Consulta de reservas proximas y creación de reservas para el uso de los espacios del hogar
               </p>
             </div>
           </div>
@@ -87,8 +100,11 @@
               <h5 class="card-title text-center">
                 Gestionar labores
               </h5>
-              <p class="card-text">
-                Consulta de las labores asignadas, creación y edición de las labores del hogar.
+              <p class="card-text" *ngIf="!tipoEstudiante">
+                Creación, Edición y Borrado de las labores del hogar
+              </p>
+              <p class="card-text" *ngIf="tipoEstudiante">
+                Consulta de las labores asignadas como estudiante
               </p>
             </div>
           </div>
@@ -101,7 +117,7 @@
                 Gestionar materias
               </h5>
               <p class="card-text">
-                Consulta de materias para de cada Estudiante de manera individual.
+                Consulta de mis materias
               </p>
             </div>
           </div>
