@@ -44,3 +44,6 @@ export const ERROR_FECHA_RESERVACION = 'Esta reserva ya sucedio ó ya empezo';
 export const ERROR_RESERVACION_DIFERENTE_USUARIO = 'Esta reserva corresponde a otro Usuario';
 export const VERIFACION_DE_FECHAS = 'Verifique las fechas, no hayan pasado todavia';
 export const ORDEN_INCORRECTO_FECHAS = 'La fecha Inicial debe ser antes de la fecha Final';
+export const NO_SE_PUDO_CARGAR_FIRMA = 'No se pudo cargar la firma del usuario';
+export const NO_TIENE_FIRMA = 'Usted no cuenta con una firma';
+

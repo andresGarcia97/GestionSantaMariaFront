@@ -1,5 +1,4 @@
 <div class="container">
-  <h1 *ngIf="salidas.length == 0">Planilla de salida</h1>
   <div class="card">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
@@ -8,7 +7,7 @@
           <h2>Planilla de salida</h2>
         </div>
         <div class="card text-white bg-danger mb-3" *ngIf="salidas.length == 0">
-          <h2>no hay información</h2>
+          <h2>no hay información, acerca de las salidas</h2>
         </div>
 
         <div *ngIf="salidas.length > 0 ">
@@ -23,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let salida of salidas">
+              <tr *ngFor="let salida of salidas | filtroSalida: tipoUsuario: user">
                 <th>{{salida.estudianteSalida.identificacion}}</th>
                 <td>{{salida.fechaSalida | date:'MM/dd - HH:mm':'-0500'}}</td>
                 <td>{{salida.fechaLlegada | date:'MM/dd - HH:mm':'-0500'}}</td>
@@ -36,7 +35,7 @@
       </blockquote>
     </div>
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarSalida"
-    *ngIf="tipoUsuario">Registrar nueva salida</button>
+      *ngIf="tipoUsuario">Registrar nueva salida</button>
     <!-- The Modal -->
     <div class="modal fade" id="modalAgregarSalida">
       <div class="modal-dialog">
@@ -75,8 +74,10 @@
           </div>
 
           <!-- Modal footer -->
-          <div class="modal-footer" *ngIf="salidaValida(salidaUsuarioLogueado) disabled" style ="justify-content: center;">
-            <button type="button" class="btn btn-danger"  data-dismiss="modal" (click)="registrarSalida()">Registrar salida</button>
+          <div class="modal-footer" *ngIf="salidaValida(salidaUsuarioLogueado) disabled"
+            style="justify-content: center;">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="registrarSalida()">Registrar
+              salida</button>
           </div>
         </div>
       </div>

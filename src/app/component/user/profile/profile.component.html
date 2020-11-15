@@ -1,31 +1,45 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!tipoEstudiante">
   <br>
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron card card-block">
-        <h2>
-          Hola, {{user.nombre}} {{user.apellido}} !
-        </h2>
-        <p>
-          Nombre: {{user.nombre}}
-        </p>
-        <p>
-          Apellido: {{user.apellido}}
-        </p>
-        <p>
-          Documento de identidad: {{user.identificacion}}
-        </p>
-        <p>
-          Correo: {{user.correo}}
-        </p>
-        <p>
-          Teléfono: {{user.telefono}}
-        </p>
-        <p>
-          Tipo de usuario: {{user.tipoUsuario}}
-        </p>
-        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalActualizar">Cambiar
-          contraseña</button>
+        <h2> Hola, {{user.nombre}} {{user.apellido}} !</h2>
+        <p> Nombre: {{user.nombre}} </p>
+        <p> Apellido: {{user.apellido}} </p>
+        <p> Documento de identidad: {{user.identificacion}} </p>
+        <p> Correo: {{user.correo}} </p>
+        <p> Teléfono: {{user.telefono}} </p>
+        <p> Tipo de usuario: {{user.tipoUsuario}} </p>
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalActualizar">
+          Cambiar contraseña</button>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <app-update [usuario]="user" (updateEvent)="receiveUpdate()"></app-update>
+    </div>
+  </div>
+  <br>
+</div>
+
+<div class="container-fluid" *ngIf="tipoEstudiante">
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron card card-block">
+        <h2> Hola, {{user.nombre}} {{user.apellido}} !</h2>
+        <p> Nombre: {{user.nombre}} </p>
+        <p> Apellido: {{user.apellido}} </p>
+        <p> Documento de identidad: {{user.identificacion}} </p>
+        <p> Correo: {{user.correo}} </p>
+        <p> Teléfono: {{user.telefono}} </p>
+        <p> Tipo de usuario: {{user.tipoUsuario}} </p>
+        <div class="padreCentrarContenido">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalActualizar">
+            Cambiar contraseña</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVerFirma"
+          *ngIf="tipoEstudiante && tieneFirma">
+            Firma actual</button>
+        </div>
       </div>
     </div>
     <div class="col-md-12">
@@ -68,8 +82,27 @@
       </div>
 
       <div class="modal-header" style="justify-content: center;">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="updatePassword()">Actualizar
-          Contraseña</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="updatePassword()">
+          Actualizar Contraseña</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalVerFirma">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="text-align: center;">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="text-align: center">
+        <h4 class="modal-title">Firma actual: </h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-header">
+        <img [src]="base64Image" alt="" class="img-fluid">
       </div>
 
     </div>

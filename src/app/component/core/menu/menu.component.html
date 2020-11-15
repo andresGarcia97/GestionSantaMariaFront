@@ -122,6 +122,19 @@
             </div>
           </div>
         </div>
+        <div class="col-md-4" *ngIf="!tipoEstudiante">
+          <div class="card shadow p-3 mb-5 bg-white rounded" [routerLink]="['/listarfirmas']" type="button">
+            <img class="card-img-top" src="assets/img/menu/firma.png" />
+            <div class="card-block">
+              <h5 class="card-title text-center">
+                Consulta de Firmas
+              </h5>
+              <p class="card-text">
+                Consulta de todas las firmas del hogar
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

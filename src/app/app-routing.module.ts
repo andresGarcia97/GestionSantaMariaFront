@@ -16,8 +16,10 @@ import { RegisterComponent } from './component/user/register/register.component'
 import { UpdatePasswordComponent } from './component/user/update-password/update-password.component';
 import { BookwashingmachineComponent } from './component/washingmachine/bookwashingmachine/bookwashingmachine.component';
 import { GuardGuard } from './services/guard/guard.guard';
+import { ListFirmComponent } from './component/user/list-firm/list-firm.component';
 
 const routes: Routes = [
+  { path: 'listarfirmas', component: ListFirmComponent, canActivate: [GuardGuard, AdminguardGuard] },
   { path: 'licenses', component: LicencesComponent },
   { path: 'actualizarcontrasena', component: UpdatePasswordComponent, canActivate: [GuardGuard] },
   { path: 'menu', component: MenuComponent, canActivate: [GuardGuard] },

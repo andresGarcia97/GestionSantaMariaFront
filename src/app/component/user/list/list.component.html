@@ -53,13 +53,13 @@
           </div>
 
           <!-- Modal body -->
-          <div class="modal-body">
-            ¿Está seguro que desea eliminar al Usuario: {{ selectedUser.nombre}} {{selectedUser.apellido}}
-            identificado con: {{ selectedUser.identificacion}}?
+          <div class="modal-header">
+            ¿ Está seguro que desea eliminar al Usuario ? {{ selectedUser.nombre}} {{selectedUser.apellido}}
+            con identificado : {{ selectedUser.identificacion}}?
           </div>
 
           <!-- Modal footer -->
-          <div class="modal-footer" style ="justify-content: center;">
+          <div class="modal-header" style ="justify-content: center;">
             <button type="button" class="btn btn-danger" data-dismiss="modal"
               (click)="delete(selectedUser)">Aceptar</button>
           </div>
