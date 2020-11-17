@@ -33,9 +33,7 @@ export class UserService {
     try {
       const user = await this.http.post<User>(BUSCAR_USUARIO, usuario, { headers: this.headersjson }).toPromise();
       this.guardarTipoUsuario(user);
-    } catch (error) {
-      this.removerTipoUsuario();
-    }
+    } catch (error) { }
   }
   public createAdministrador(usuario: User): Observable<User> {
     return this.http.post<User>(INSERTAR_ADMINISTRADOR, usuario, { headers: this.headersjson });
@@ -57,10 +55,6 @@ export class UserService {
     if (usuario !== null) {
       localStorage.setItem(TIPOSTORAGE, JSON.stringify(usuario));
     }
-  }
-
-  private removerTipoUsuario() {
-    localStorage.removeItem(TIPOSTORAGE);
   }
 
 }

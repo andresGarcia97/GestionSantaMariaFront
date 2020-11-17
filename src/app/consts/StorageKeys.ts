@@ -1,5 +1,5 @@
 
 export const IDENTIFICACIONSTORAGE = 'identificacion';
-export const TKSTORAGE = 'token';
+export const TKSTORAGE = 'sataw';
 export const TIPOSTORAGE = 'tipo';
 export const FIRMASTORAGE = 'firma';

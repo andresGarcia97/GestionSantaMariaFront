@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     });
   }
   constructor(private loginService: LoginService, private router: Router,
-              private util: UtilService, private userService: UserService) { }
+    private util: UtilService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.usuario = new User();
@@ -40,28 +40,32 @@ export class LoginComponent implements OnInit {
   async login() {
     if (this.myFormGroup.valid) {
       this.convertFormGroupToUser(this.myFormGroup);
-      await this.loginService.login(this.usuario);
-      this.usuario = await JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as User;
-      if (this.usuario === null) {
+      await this.loginService.login(this.usuario).finally(async () => {
+        await this.userService.getUsuario(this.usuario);
+      });
+      const usuarioIdentificacion = await JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as User;
+      const usuarioTipo = await JSON.parse(localStorage.getItem(TIPOSTORAGE));
+      console.log(usuarioTipo);
+      console.log(usuarioIdentificacion);
+      if (usuarioIdentificacion === null && usuarioTipo === null) {
         this.usuario = new User();
         swal({ icon: 'error', title: LOGIN_INCORRECTO });
       }
+      else if (usuarioIdentificacion === null) {
+        this.usuario = new User();
+        swal({ icon: 'error', title: LOGIN_INCORRECTO });
+      }
+      else if (usuarioTipo === null) {
+        this.usuario = new User();
+        swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });
+      }
       else {
-        await this.userService.getUsuario(this.usuario);
-        this.usuario = await JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
-        if (this.usuario !== null) {
-          this.util.changeBooleanMessage(true);
-          swal({
-            icon: 'success',
-            title: 'Bienvenido,  '.concat(this.usuario.nombre).concat('  ').concat(TIPO_DE_USUARIO.concat(this.usuario.tipoUsuario))
-          });
-          this.router.navigate(['/menu']);
-        }
-        else {
-          this.usuario = new User();
-          swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });
-          this.loginService.logout();
-        }
+        this.util.changeBooleanMessage(true);
+        swal({
+          icon: 'success',
+          title: 'Bienvenido,  '.concat(usuarioTipo.nombre).concat('  ').concat(TIPO_DE_USUARIO.concat(usuarioTipo.tipoUsuario))
+        });
+        this.router.navigate(['/menu']);
       }
     }
   }
