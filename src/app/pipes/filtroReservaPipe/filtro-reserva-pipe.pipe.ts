@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Reservation } from 'src/app/model/reservation/reservation';
 
 @Pipe({
-  name: 'filtroReservaPipe'
+  name: 'filtroReserva'
 })
-export class FiltroReservaPipePipe implements PipeTransform {
+export class FiltroReservaPipe implements PipeTransform {
 
   transform(arreglo: Reservation[], texto: string): any[] {
     if (texto === '') {

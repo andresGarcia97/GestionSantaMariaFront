@@ -20,3 +20,11 @@ export const OTRO = 'OTRO';
 export const PERSONAL = 'PERSONAL';
 export const RECREATIVO = 'RECREATIVO';
 export const ACADEMICO = 'ACADEMICO';
+
+export const DESAYUNO = 'DESAYUNO';
+export const ALMUERZO = 'ALMUERZO';
+export const CENA = 'CENA';
+
+export const HORA_DESAYUNO = 6;
+export const HORA_ALMUERZO = 12;
+export const HORA_CENA = 19;

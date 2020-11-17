@@ -17,8 +17,7 @@ const RUTALAVADORA = '/reservas_lavadora';
 
 @Component({
   selector: 'app-reservation',
-  templateUrl: './reservation.component.html',
-  styleUrls: ['./reservation.component.css']
+  templateUrl: './reservation.component.html'
 })
 export class ReservationComponent implements OnInit {
 
@@ -71,10 +70,6 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  private convertDateToNumber(fecha: Date): number {
-    return new Date(fecha).valueOf();
-  }
-
   private resetInputs(): void {
     this.reservacionUsuarioLogueado = new Reservation();
     this.reservacionUsuarioLogueado.usuario = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
@@ -90,8 +85,8 @@ export class ReservationComponent implements OnInit {
   }
 
   private fechaInicialMenorQueFinal(fechaInicial: Date, fechaFinal: Date): boolean {
-    const fechaInicio = this.convertDateToNumber(fechaInicial);
-    const fechaFin = this.convertDateToNumber(fechaFinal);
+    const fechaInicio = this.utilService.convertDateToNumber(fechaInicial);
+    const fechaFin = this.utilService.convertDateToNumber(fechaFinal);
     return fechaInicio < fechaFin;
   }
 
@@ -101,7 +96,7 @@ export class ReservationComponent implements OnInit {
     if (!this.reservaValida()) {
       swal({ icon: 'warning', title: VERIFACION_DE_CAMPOS });
     }
-    else if (!this.verificarFechas(this.reservacionUsuarioLogueado.fechaInicial, this.reservacionUsuarioLogueado.fechaFinal)) {
+    else if (!this.utilService.verificarFechas(this.reservacionUsuarioLogueado.fechaInicial, this.reservacionUsuarioLogueado.fechaFinal)) {
       swal({ icon: 'warning', title: VERIFACION_DE_FECHAS });
     }
     else if (!this.fechaInicialMenorQueFinal(this.reservacionUsuarioLogueado.fechaInicial, this.reservacionUsuarioLogueado.fechaFinal)) {
@@ -124,13 +119,6 @@ export class ReservationComponent implements OnInit {
       this.reservacionUsuarioLogueado.fechaInicial !== null && this.reservacionUsuarioLogueado.fechaFinal !== null);
   }
 
-  private verificarFechas(fechaInicial: Date, fechaFinal: Date): boolean {
-    const fechaActual = this.convertDateToNumber(new Date());
-    const fechaInicio = this.convertDateToNumber(fechaInicial);
-    const fechaFin = this.convertDateToNumber(fechaFinal);
-    return fechaInicio > fechaActual && fechaFin > fechaActual;
-  }
-
   private setNuevaReserva(): void {
     this.nuevaReserva.fechaFinal = null;
     this.nuevaReserva.fechaInicial = null;
@@ -143,7 +131,7 @@ export class ReservationComponent implements OnInit {
     this.reservaUpdate = reserva;
     this.setNuevaReserva();
     const esMismoUsuario = this.reservaUpdate.usuario.identificacion === this.user.identificacion;
-    const verificarFechaPasada = this.verificarFechas(this.reservaUpdate.fechaInicial, this.reservaUpdate.fechaFinal);
+    const verificarFechaPasada = this.utilService.verificarFechas(this.reservaUpdate.fechaInicial, this.reservaUpdate.fechaFinal);
     if (!esMismoUsuario) {
       this.mismoUsuario = false;
       swal({ icon: 'error', title: ERROR_RESERVACION_DIFERENTE_USUARIO });
@@ -180,7 +168,7 @@ export class ReservationComponent implements OnInit {
     if (!this.reservaValidaActualizacion()) {
       swal({ icon: 'warning', title: VERIFACION_DE_CAMPOS });
     }
-    else if (!this.verificarFechas(this.nuevaReserva.fechaInicial, this.nuevaReserva.fechaFinal)) {
+    else if (!this.utilService.verificarFechas(this.nuevaReserva.fechaInicial, this.nuevaReserva.fechaFinal)) {
       swal({ icon: 'warning', title: VERIFACION_DE_FECHAS });
     }
     else if (!this.fechaInicialMenorQueFinal(this.nuevaReserva.fechaInicial, this.nuevaReserva.fechaFinal)) {

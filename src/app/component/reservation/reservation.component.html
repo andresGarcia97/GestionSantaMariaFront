@@ -6,8 +6,11 @@
         <div class="card text-white bg-success mb-3" *ngIf="reservas.length > 0">
           <h2>Reservas realizadas</h2>
         </div>
-        <div class="card text-white bg-danger mb-3" *ngIf="reservas.length == 0">
+        <div class="card text-white bg-danger mb-3" *ngIf="reservas.length == 0 && !tipoUsuario">
           <h2>No hay reservas</h2>
+        </div>
+        <div class="card text-white bg-danger mb-3" *ngIf="reservas.length == 0 && tipoUsuario">
+          <h2>No hay reservas Proximas</h2>
         </div>
 
         <div *ngIf="reservas.length > 0 ">
@@ -22,7 +25,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let reserva of reservas | filtroReservaPipe : lavadora" data-toggle="modal"
+              <tr *ngFor="let reserva of reservas | filtroReserva : lavadora" data-toggle="modal"
                 data-target="#opciones" style="cursor: pointer;" (click)="showPopupUpdate(reserva)">
                 <th>{{reserva.usuario.nombre}}</th>
                 <td>{{reserva.fechaInicial | date:'MM/dd - HH:mm':'-0500'}}</td>
@@ -51,7 +54,7 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-body">
+        <div class="modal-header">
 
           <div class="form-row padreCentrarContenido">
 

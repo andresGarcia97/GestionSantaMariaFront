@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ERRROR_CONSULTAR_PERFIL, LOGIN_INCORRECTO, TIPO_DE_USUARIO } from 'src/app/consts/messages';
+import { IDENTIFICACIONSTORAGE, TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { LoginService } from 'src/app/services/login/login.service';
-import { UtilService } from './../../../services/util/util.service';
-import swal from 'sweetalert';
 import { UserService } from 'src/app/services/user/user.service';
-import { IDENTIFICACIONSTORAGE, TIPOSTORAGE } from 'src/app/consts/StorageKeys';
+import swal from 'sweetalert';
+import { UtilService } from './../../../services/util/util.service';
 
 @Component({
   selector: 'app-login',
@@ -58,7 +58,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/menu']);
         }
         else {
+          this.usuario = new User();
           swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });
+          this.loginService.logout();
         }
       }
     }

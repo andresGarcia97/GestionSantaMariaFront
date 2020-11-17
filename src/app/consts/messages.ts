@@ -46,4 +46,7 @@ export const VERIFACION_DE_FECHAS = 'Verifique las fechas, no hayan pasado todav
 export const ORDEN_INCORRECTO_FECHAS = 'La fecha Inicial debe ser antes de la fecha Final';
 export const NO_SE_PUDO_CARGAR_FIRMA = 'No se pudo cargar la firma del usuario';
 export const NO_TIENE_FIRMA = 'Usted no cuenta con una firma';
+export const REGISTRO_INASISTECIA_EXITOSO = 'Inasistencia realizada satisfactoriamente';
+export const REGISTRO_INASISTENCIA_ERRONEO = 'Error al registar la Inasistencia';
+export const ERROR_HORA_INASISTENCIA = 'La hora actual no permite la reservacion para: ';
 

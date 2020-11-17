@@ -22,10 +22,21 @@ export class UtilService {
     this.messageBoolean.next(messageBoolean);
   }
 
-  isEstudent(user: User): boolean {
+  public isEstudent(user: User): boolean {
     if (user !== null && user.tipoUsuario !== '') {
       return user.tipoUsuario === ESTUDIANTE;
     }
     return false;
+  }
+
+  public convertDateToNumber(fecha: Date): number {
+    return new Date(fecha).valueOf();
+  }
+
+  public verificarFechas(fechaInicial: Date, fechaFinal: Date): boolean {
+    const fechaActual = this.convertDateToNumber(new Date());
+    const fechaInicio = this.convertDateToNumber(fechaInicial);
+    const fechaFin = this.convertDateToNumber(fechaFinal);
+    return fechaInicio > fechaActual && fechaFin > fechaActual;
   }
 }

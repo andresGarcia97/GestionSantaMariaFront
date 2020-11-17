@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+
+                <div class="card text-white bg-success mb-3" *ngIf="inasistencias.length > 0">
+                    <h2>Inasistencias realizadas</h2>
+                </div>
+                <div class="card text-white bg-danger mb-3" *ngIf="inasistencias.length == 0 && !tipoUsuario">
+                    <h2>No hay inasistencias de los estudiantes</h2>
+                </div>
+                <div class="card text-white bg-danger mb-3" *ngIf="inasistencias.length == 0 && tipoUsuario">
+                    <h2>No tiene Inasistencias</h2>
+                </div>
+
+                <div *ngIf="inasistencias.length > 0 ">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Fecha Inasistencia</th>
+                                <th scope="col">Hora Inasistencia</th>
+                                <th scope="col">Motivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let inasistencia of inasistencias | filtroInasistencia: tipoUsuario: user">
+                                <th>{{inasistencia.estudianteInasistencia.nombre}}</th>
+                                <td>{{inasistencia.fecha | date:'yyyy/MM/dd':'-0500'}}</td>
+                                <td>{{inasistencia.horaAlimentacion}}</td>
+                                <td>{{inasistencia.motivo}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </blockquote>
+        </div>
+        <button *ngIf="tipoUsuario" type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+            data-target="#modalAgregarInasistencia"> Registrar nueva inasistencia</button>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="modalAgregarInasistencia" *ngIf="tipoUsuario">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Llena todos lo campos para Crear una Inasistencia {{user.nombre}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-header">
+
+                    <div class="form-row padreCentrarContenido">
+
+                        <div class="form-group col-md-6">
+                            <label for="fechaSalida">Fecha Inasistencia</label>
+                            <input type="datetime-local" [(ngModel)]="inasistencia.fecha" class="form-control"
+                                placeholder="Fecha inicial de la reserva" required>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="Motivo">Motivo o razón</label>
+                            <select class="form-control custom-select" [(ngModel)]="inasistencia.motivo">
+                                <option *ngFor="let m of motivos" [ngValue]="m.motivo">{{m.motivo}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="lugar">Horario</label>
+                            <select class="form-control custom-select" [(ngModel)]="inasistencia.horaAlimentacion">
+                                <option *ngFor="let h of horarios" [ngValue]="h.hora">{{h.hora}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6" *ngIf="inasistenciaValida()">
+                            <label for="boton"></label>
+                            <br>
+                            <button type="button" class="btn btn-danger btn-block padreCentrarContenido"
+                                data-dismiss="modal" (click)="registrarInasistencia()"> Crear Inasistencia</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

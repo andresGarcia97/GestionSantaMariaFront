@@ -25,8 +25,10 @@ import { RegisterComponent } from './component/user/register/register.component'
 import { UpdatePasswordComponent } from './component/user/update-password/update-password.component';
 import { UpdateComponent } from './component/user/update/update.component';
 import { BookwashingmachineComponent } from './component/washingmachine/bookwashingmachine/bookwashingmachine.component';
-import { FiltroReservaPipePipe } from './pipes/filtroReservaPipe/filtro-reserva-pipe.pipe';
+import { FiltroReservaPipe } from './pipes/filtroReservaPipe/filtro-reserva-pipe.pipe';
 import { FiltroSalidaPipe } from './pipes/filtroSalidaPipe/filtro-reserva-salida.pipe';
+import { AbsencesComponent } from './component/absences/absences.component';
+import { FiltroInasistenciaPipe } from './pipes/filtroInasistenciaPipe/filtro-inasistencia-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -50,10 +52,12 @@ import { FiltroSalidaPipe } from './pipes/filtroSalidaPipe/filtro-reserva-salida
     ShowcourseComponent,
     LaborComponent,
     ReservationComponent,
-    FiltroReservaPipePipe,
+    FiltroReservaPipe,
     LicencesComponent,
     ListFirmComponent,
-    FiltroSalidaPipe
+    FiltroSalidaPipe,
+    AbsencesComponent,
+    FiltroInasistenciaPipe
   ],
   imports: [
     BrowserModule,
