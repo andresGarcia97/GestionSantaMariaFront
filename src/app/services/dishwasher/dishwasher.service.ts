@@ -29,7 +29,11 @@ export class DishwasherService {
     return this.http.put<Dishwasher[]>(ACTUALIZAR_HORARIOS_LOZA, horario, { headers: this.headersjson });
   }
 
-  public delete(): Observable<Dishwasher> {
-    return this.http.delete<Dishwasher>(ELIMINAR_HORARIOS_LOZA, { headers: this.headersjson });
+  public delete(horario: Dishwasher): Observable<Dishwasher> {
+    const options = {
+      headers: this.headersjson,
+      body: horario
+    };
+    return this.http.delete<Dishwasher>(ELIMINAR_HORARIOS_LOZA , options);
   }
 }

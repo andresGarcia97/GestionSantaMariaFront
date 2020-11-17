@@ -1,7 +1,8 @@
+import { async } from '@angular/core/testing';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  ACTUALIZACION_HORARIO_ERRONEO, ACTUALIZACION_HORARIO_EXITOSO, El_USUARIO_ESTA_REGISTRADO_EN_TURNO_SELECCIONADO,
+  ACTUALIZACION_HORARIO_ERRONEO, ACTUALIZACION_HORARIO_EXITOSO, ELEMINAR_HORARIO_ERRONEO, ELIMINAR_HORARIO_EXITOSO, El_USUARIO_ESTA_REGISTRADO_EN_TURNO_SELECCIONADO,
   HORARIO_SIN_MODIFICAR
 } from 'src/app/consts/messages';
 import { TIPOSTORAGE } from 'src/app/consts/StorageKeys';
@@ -29,6 +30,8 @@ export class ShowdishwashingComponent implements OnInit {
   selectedDay: string;
   selectedTurn: string;
   selectedUser: User = new User();
+  selectHorario: Dishwasher = new Dishwasher();
+  indice: number;
   horariosLozaDesayuno: Dishwasher[] = new Dishwasher()[7];
   horariosLozaAlmuerzo: Dishwasher[] = new Dishwasher()[7];
   horariosLozaCena: Dishwasher[] = new Dishwasher()[7];
@@ -36,18 +39,19 @@ export class ShowdishwashingComponent implements OnInit {
   nuevoHorariosLoza: Dishwasher[] = [];
   horarioNuevo: Dishwasher;
   dataservice: Dataservice;
-  usuarioSeleccionado = false;
   tipoEstudiante = false;
   user: Student;
 
   constructor(private userService: UserService, private dishwasherService: DishwasherService,
-    private router: Router, private utilService: UtilService) { }
+              private router: Router, private utilService: UtilService) { }
 
   showPopup(user: User) {
     this.selectedUser = user;
-    this.usuarioSeleccionado = true;
   }
-
+  horarioSeleccionado(horarioSeleccionado: Dishwasher, indice: number){
+    this.selectHorario = horarioSeleccionado;
+    this.indice = indice;
+  }
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE));
     this.tipoEstudiante = this.utilService.isEstudent(this.user);
@@ -614,7 +618,6 @@ export class ShowdishwashingComponent implements OnInit {
 
   crearHorario() {
     if (this.horariosLoza.length === 0) {
-      console.log('entro');
       (this.horariosLozaDesayuno.concat(this.horariosLozaAlmuerzo, this.horariosLozaCena)).forEach(horario => {
         if (!(horario == null || typeof horario === 'undefined')) {
           this.horariosLoza.push(horario);
@@ -622,8 +625,6 @@ export class ShowdishwashingComponent implements OnInit {
       });
       if (this.horariosLoza.length > 0) {
         this.agregarHorarionuevo(this.horariosLoza);
-        console.log('creando horario');
-        console.log(this.horariosLoza);
       }
     }
     else {
@@ -639,11 +640,57 @@ export class ShowdishwashingComponent implements OnInit {
   agregarHorarionuevo(horariosLoza: Dishwasher[]) {
     this.dishwasherService.guardarHorario(horariosLoza)
       .subscribe(() => {
-        swal({ icon: 'success', title: ACTUALIZACION_HORARIO_EXITOSO });
         this.router.navigate([RUTALAVADOlOZA]);
+        swal({ icon: 'success', title: ACTUALIZACION_HORARIO_EXITOSO });
       }, () => {
         swal({ icon: 'error', title: ACTUALIZACION_HORARIO_ERRONEO });
       });
   }
+  quitarEstudiante(user: User){
+    let horarioActualizado = new Dishwasher();
+    horarioActualizado = JSON.parse(JSON.stringify(this.selectHorario));
+    horarioActualizado.estudiantes = [];
+    this.nuevoHorariosLoza = [];
+    horarioActualizado.estudiantes.push(user);
+    if (this.selectHorario.turno === this.turnos[0]){
+      this.eliminarObjetoArray(this.horariosLozaDesayuno[this.indice].estudiantes, user);
+    }
+    else if (this.selectHorario.turno === this.turnos[1]){
+      this.eliminarObjetoArray(this.horariosLozaAlmuerzo[this.indice].estudiantes, user);
+    }
+    else{
+      this.eliminarObjetoArray(this.horariosLozaCena[this.indice].estudiantes, user);
+    }
+    this.dishwasherService.delete(horarioActualizado).subscribe( async () => {
+    }, () => {
+      swal({ icon: 'error', title: ACTUALIZACION_HORARIO_ERRONEO });
+    });
+  }
+  deleteHorario(){
+    if (this.selectHorario.turno === this.turnos[0]){
+      this.eliminarObjetoArray(this.nuevoHorariosLoza, this.horariosLozaDesayuno[this.indice]);
+      this.horariosLozaDesayuno[this.indice] = null;
+    }
+    else if (this.selectHorario.turno === this.turnos[1]){
+      this.eliminarObjetoArray(this.nuevoHorariosLoza, this.horariosLozaAlmuerzo[this.indice]);
+      this.horariosLozaAlmuerzo[this.indice] = null;
+    }
+    else{
+      this.eliminarObjetoArray(this.nuevoHorariosLoza, this.horariosLozaCena[this.indice]);
+      this.horariosLozaCena[this.indice] = null;
+    }
 
+    this.dishwasherService.delete(this.selectHorario).subscribe( async () => {
+      swal({ icon: 'success', title: ELIMINAR_HORARIO_EXITOSO });
+      this.router.navigate([RUTALAVADOlOZA]);
+    }, () => {
+      swal({ icon: 'error', title: ELEMINAR_HORARIO_ERRONEO });
+    });
+  }
+  eliminarObjetoArray( array, objeto ) {
+    const i = array.indexOf( objeto );
+    if ( i !== -1 ) {
+      array.splice( i, 1 );
+    }
+}
 }

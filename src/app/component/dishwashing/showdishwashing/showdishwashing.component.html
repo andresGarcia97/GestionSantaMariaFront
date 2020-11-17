@@ -38,6 +38,7 @@
         <div class="card text-white bg-success mb-3 text-center">
           <h2>Horarios lavado de loza</h2>
         </div>
+        <h6 *ngIf="(nuevoHorariosLoza.length > 0)">Nota: Se ha realizado una modificacion recuerda guardarla</h6>
         <table class="table table-striped table-bordered">
           <thead class="thead-dark">
             <tr>
@@ -50,85 +51,85 @@
           <tbody>
             <tr>
               <th scope="row">LUNES</th>
-              <td *ngIf="horariosLozaDesayuno[0] != null; else elseBlock">
+              <td *ngIf="horariosLozaDesayuno[0] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaDesayuno[0],0)">
                 <div *ngFor="let estudiante of horariosLozaDesayuno[0].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaAlmuerzo[0] != null; else elseBlock">
+              <td *ngIf="horariosLozaAlmuerzo[0] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaAlmuerzo[0],0)">
                 <div *ngFor="let estudiante of horariosLozaAlmuerzo[0].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaCena[0] != null; else elseBlock">
+              <td *ngIf="horariosLozaCena[0] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaCena[0],0)">
                 <div *ngFor="let estudiante of horariosLozaCena[0].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
             <tr>
               <th scope="row">MARTES</th>
-              <td *ngIf="horariosLozaDesayuno[1] != null; else elseBlock">
+              <td *ngIf="horariosLozaDesayuno[1] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaDesayuno[1],1)">
                 <div *ngFor="let estudiante of horariosLozaDesayuno[1].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaAlmuerzo[1] != null; else elseBlock">
+              <td *ngIf="horariosLozaAlmuerzo[1] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaAlmuerzo[1],1)">
                 <div *ngFor="let estudiante of horariosLozaAlmuerzo[1].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaCena[1] != null; else elseBlock">
+              <td *ngIf="horariosLozaCena[1] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaCena[1],1)">
                 <div *ngFor="let estudiante of horariosLozaCena[1].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
             <tr>
               <th scope="row">MIERCOLES</th>
-              <td *ngIf="horariosLozaDesayuno[2] != null; else elseBlock">
+              <td *ngIf="horariosLozaDesayuno[2] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaDesayuno[2],2)">
                 <div *ngFor="let estudiante of horariosLozaDesayuno[2].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaAlmuerzo[2] != null; else elseBlock">
+              <td *ngIf="horariosLozaAlmuerzo[2] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaAlmuerzo[2],2)">
                 <div *ngFor="let estudiante of horariosLozaAlmuerzo[2].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaCena[2] != null; else elseBlock">
+              <td *ngIf="horariosLozaCena[2] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaCena[2],2)">
                 <div *ngFor="let estudiante of horariosLozaCena[2].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
             <tr>
               <th scope="row">JUEVES</th>
-              <td *ngIf="horariosLozaDesayuno[3] != null; else elseBlock">
+              <td *ngIf="horariosLozaDesayuno[3] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaDesayuno[3],3)">
                 <div *ngFor="let estudiante of horariosLozaDesayuno[3].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaAlmuerzo[3] != null; else elseBlock">
+              <td *ngIf="horariosLozaAlmuerzo[3] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaAlmuerzo[3],3)">
                 <div *ngFor="let estudiante of horariosLozaAlmuerzo[3].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaCena[3] != null; else elseBlock">
+              <td *ngIf="horariosLozaCena[3] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaCena[3],3)">
                 <div *ngFor="let estudiante of horariosLozaCena[3].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
             <tr>
               <th scope="row">VIERNES</th>
-              <td *ngIf="horariosLozaDesayuno[4] != null; else elseBlock">
+              <td *ngIf="horariosLozaDesayuno[4] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaDesayuno[4],4)">
                 <div *ngFor="let estudiante of horariosLozaDesayuno[4].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaAlmuerzo[4] != null; else elseBlock">
+              <td *ngIf="horariosLozaAlmuerzo[4] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaAlmuerzo[4],4)">
                 <div *ngFor="let estudiante of horariosLozaAlmuerzo[4].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaCena[4] != null; else elseBlock">
+              <td *ngIf="horariosLozaCena[4] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaCena[4],4)">
                 <div *ngFor="let estudiante of horariosLozaCena[4].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
             <tr>
               <th scope="row">SABADO</th>
-              <td *ngIf="horariosLozaDesayuno[5] != null; else elseBlock">
+              <td *ngIf="horariosLozaDesayuno[5] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaDesayuno[5],5)">
                 <div *ngFor="let estudiante of horariosLozaDesayuno[5].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaAlmuerzo[5] != null; else elseBlock">
+              <td *ngIf="horariosLozaAlmuerzo[5] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaAlmuerzo[5],5)">
                 <div *ngFor="let estudiante of horariosLozaAlmuerzo[5].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaCena[5] != null; else elseBlock">
+              <td *ngIf="horariosLozaCena[5] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaCena[5],5)">
                 <div *ngFor="let estudiante of horariosLozaCena[5].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
             <tr>
               <th scope="row">DOMINGO</th>
-              <td *ngIf="horariosLozaDesayuno[6] != null; else elseBlock">
+              <td *ngIf="horariosLozaDesayuno[6] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaDesayuno[6],6)">
                 <div *ngFor="let estudiante of horariosLozaDesayuno[6].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaAlmuerzo[6] != null; else elseBlock">
+              <td *ngIf="horariosLozaAlmuerzo[6] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaAlmuerzo[6],6)">
                 <div *ngFor="let estudiante of horariosLozaAlmuerzo[6].estudiantes">{{estudiante.nombre}}</div>
               </td>
-              <td *ngIf="horariosLozaCena[6] != null; else elseBlock">
+              <td *ngIf="horariosLozaCena[6] != null; else elseBlock" data-toggle="modal" data-target="#opciones2" style="cursor: pointer;" (click)="horarioSeleccionado(horariosLozaCena[6],6)">
                 <div *ngFor="let estudiante of horariosLozaCena[6].estudiantes">{{estudiante.nombre}}</div>
               </td>
             </tr>
@@ -197,7 +198,7 @@
       <div class="modal-body">
         <td>
           <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
-            data-target="#asignarEstudianteAlLavadoLoza" data-dismiss="modal">Asignar al lavado loza</button>
+            data-target="#asignarEstudianteAlLavadoLoza" data-dismiss="modal" style="margin-right: 5px">Asignar al lavado loza</button>
           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#verMaterias"
             data-dismiss="modal">Ver horario materias</button>
         </td>
@@ -217,8 +218,69 @@
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body" *ngIf="usuarioSeleccionado">
+      <div class="modal-body">
         <app-showcourse identificacion={{selectedUser.identificacion}}></app-showcourse>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="opciones2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Que deseas hacer el horario seleccionado
+        <h5 *ngFor="let estudiante of selectHorario.estudiantes">{{estudiante.nombre}}</h5>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body align-self-center">
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+            data-target="#actualizarHorario" data-dismiss="modal" style="margin-right: 5px">Quitar estudiante</button>
+          <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
+          data-target="#seguridad" data-dismiss="modal">Eliminar turno</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="seguridad">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
+      </div>
+      <h4 class="modal-title text-center">Estás seguro?</h4>
+      <!-- Modal body -->
+      <div class="modal-body align-self-center justify-content-center">
+          <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="deleteHorario()">Aceptar</button>
+          <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="actualizarHorario">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="text-align: center;">
+
+      <!-- Modal Header -->
+      <div class="modal-header text-center">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      <h4 class="modal-title">Quitar estudiante del turno selecionado:</h4>
+      <!-- Modal body -->
+      <div class="modal-body">
+          <div class="row justify-content-center" *ngFor="let estudiante of selectHorario.estudiantes">
+            nombre:  {{estudiante.nombre}}, identificacion:  {{estudiante.identificacion}}  <button type="button" style="margin-bottom: 4px; margin-left: 4px" class="btn btn-danger btn-sm" (click)="quitarEstudiante(estudiante)">Quitar</button>
+          </div>
       </div>
     </div>
   </div>
