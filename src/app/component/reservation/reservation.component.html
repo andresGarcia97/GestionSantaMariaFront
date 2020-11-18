@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="height: 80vh;">
   <div class="card">
     <div class="card-body">
       <blockquote class="blockquote mb-0">
@@ -38,8 +38,8 @@
         </div>
       </blockquote>
     </div>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAgregarReserva"
-      (click)="reservaValida()"> Registrar nueva reserva</button>
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+    data-target="#modalAgregarReserva"> Registrar nueva reserva</button>
   </div>
 
   <!-- The Modal -->
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Modal body -->
-        <div class="modal-header">
+        <div class="modal-body">
 
           <div class="form-row padreCentrarContenido">
 
@@ -101,7 +101,7 @@
           </div>
 
           <!-- Modal footer -->
-          <div class="modal-footer" *ngIf="reservaValida() disabled" style="justify-content: center;">
+          <div class="modal-footer justify-content-center" *ngIf="reservaValida() disabled">
             <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="registrarReserva()">
               Reservar</button>
           </div>
@@ -220,7 +220,7 @@
               {{reservaUpdate.usuario.apellido}}</h4>
             <button type="button" class="close" data-dismiss="modal">×</button>
           </div>
-  
+
           <!-- Modal body -->
           <div class="form-group col-md-12">
             <table class="table table-striped">
@@ -240,7 +240,7 @@
               </tr>
             </table>
           </div>
-  
+
           <!-- Modal footer -->
           <div class="modal-footer" style="justify-content: center;">
             <button type="button" class="btn btn-danger" data-dismiss="modal"

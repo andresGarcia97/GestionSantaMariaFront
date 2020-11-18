@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ERRROR_CAMBIO_CONTRASENA, ERRROR_VISUALIZACION_PERFIL, EXITO_CAMBIO_CONTRASENA, NO_SE_PUDO_CARGAR_FIRMA, NO_TIENE_FIRMA, 
+import { ERRROR_CAMBIO_CONTRASENA, ERRROR_VISUALIZACION_PERFIL, EXITO_CAMBIO_CONTRASENA, NO_SE_PUDO_CARGAR_FIRMA, NO_TIENE_FIRMA,
   VERIFACION_DE_CAMPOS } from 'src/app/consts/messages';
 import { FIRMASTORAGE, TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { DtoChangePassword } from 'src/app/model/changePassword/dto-change-password';
@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   tieneFirma = false;
 
   constructor(private userService: UserService, private router: Router,
-    private utilService: UtilService, private studentService: StudentService) { }
+              private utilService: UtilService, private studentService: StudentService) { }
 
   async ngOnInit() {
     this.user = await JSON.parse(localStorage.getItem(TIPOSTORAGE));

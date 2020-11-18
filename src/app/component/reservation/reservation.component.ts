@@ -45,6 +45,8 @@ export class ReservationComponent implements OnInit {
       this.reservacionUsuarioLogueado.espacio = this.lugares[0].lugar;
       this.reservacionUsuarioLogueado.actividad = this.motivos[0].motivo;
       this.lavadora = LAVANDERIA;
+    }else{
+      this.lugares.splice( 0, 1 );
     }
     this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
     this.tipoUsuario = this.utilService.isEstudent(this.user);
@@ -64,7 +66,17 @@ export class ReservationComponent implements OnInit {
     else {
       this.reservationService.getReservas().subscribe(
         (reservas) => {
-          this.reservas = reservas;
+          if (this.rutaLavadora){
+            this.reservas = reservas;
+          }
+          else{
+            reservas.forEach( reserva => {
+                if (reserva.espacio !== 'LAVANDERIA'){
+                  this.reservas.push(reserva);
+                }
+              }
+            );
+          }
         }
       );
     }

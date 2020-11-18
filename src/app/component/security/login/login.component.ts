@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     });
   }
   constructor(private loginService: LoginService, private router: Router,
-    private util: UtilService, private userService: UserService) { }
+              private util: UtilService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.usuario = new User();
