@@ -190,7 +190,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title text-center">Que deseas hacer con el usuario {{selectedUser.nombre}}
-          {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+          {{selectedUser.apellido}} identificado con: {{selectedUser.identificacion}}</h4>
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
 
@@ -198,7 +198,7 @@
       <div class="modal-body">
         <td>
           <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
-            data-target="#asignarEstudianteAlLavadoLoza" data-dismiss="modal" style="margin-right: 5px">Asignar al lavado loza</button>
+            data-target="#asignarEstudianteAlLavadoLoza" data-dismiss="modal" style="margin-right: 5px">Asignar lavado loza</button>
           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#verMaterias"
             data-dismiss="modal">Ver horario materias</button>
         </td>
@@ -213,7 +213,7 @@
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title text-center">Materias del estudiante {{selectedUser.nombre}}
-          {{selectedUser.apellido}} identificado con {{selectedUser.identificacion}}:</h4>
+          {{selectedUser.apellido}} identificado con: {{selectedUser.identificacion}}</h4>
         <button type="button" class="close" data-dismiss="modal">×</button>
       </div>
 
@@ -232,7 +232,7 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title text-center">Que deseas hacer el horario seleccionado
+        <h4 class="modal-title text-center">¿Que deseas hacer el horario seleccionado?
         <h5 *ngFor="let estudiante of selectHorario.estudiantes">{{estudiante.nombre}}</h5>
         </h4>
         <button type="button" class="close" data-dismiss="modal">×</button>
@@ -256,7 +256,7 @@
       <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
       </div>
-      <h4 class="modal-title text-center">Estás seguro?</h4>
+      <h4 class="modal-title text-center">¿Estás seguro?</h4>
       <!-- Modal body -->
       <div class="modal-body align-self-center justify-content-center">
           <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal" (click)="deleteHorario()">Aceptar</button>

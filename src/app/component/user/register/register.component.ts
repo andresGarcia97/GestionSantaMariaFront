@@ -20,10 +20,10 @@ export class RegisterComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      nombre: new FormControl('', Validators.required),
-      apellido: new FormControl('', Validators.required),
-      identificacion: new FormControl('', Validators.required),
-      telefono: new FormControl('', Validators.required),
+      nombre: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      apellido: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      identificacion: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      telefono: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       correo: new FormControl('', [Validators.required, Validators.email]),
       contrasena: new FormControl('', [Validators.required, Validators.minLength(6)]),
       tipoUsuario: new FormControl('', Validators.required),

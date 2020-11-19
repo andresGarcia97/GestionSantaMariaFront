@@ -45,8 +45,6 @@ export class LoginComponent implements OnInit {
       });
       const usuarioIdentificacion = await JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as User;
       const usuarioTipo = await JSON.parse(localStorage.getItem(TIPOSTORAGE));
-      console.log(usuarioTipo);
-      console.log(usuarioIdentificacion);
       if (usuarioIdentificacion === null && usuarioTipo === null) {
         this.usuario = new User();
         swal({ icon: 'error', title: LOGIN_INCORRECTO });

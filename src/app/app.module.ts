@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AbsencesComponent } from './component/absences/absences.component';
 import { CarouselComponent } from './component/core/carousel/carousel.component';
 import { FooterComponent } from './component/core/footer/footer.component';
-import { HeaderComponent } from './component/core/header/header.component';
 import { LicencesComponent } from './component/core/licences/licences.component';
 import { MenuComponent } from './component/core/menu/menu.component';
 import { NavbarComponent } from './component/core/navbar/navbar.component';
@@ -25,10 +25,9 @@ import { RegisterComponent } from './component/user/register/register.component'
 import { UpdatePasswordComponent } from './component/user/update-password/update-password.component';
 import { UpdateComponent } from './component/user/update/update.component';
 import { BookwashingmachineComponent } from './component/washingmachine/bookwashingmachine/bookwashingmachine.component';
+import { FiltroInasistenciaPipe } from './pipes/filtroInasistenciaPipe/filtro-inasistencia-pipe.pipe';
 import { FiltroReservaPipe } from './pipes/filtroReservaPipe/filtro-reserva-pipe.pipe';
 import { FiltroSalidaPipe } from './pipes/filtroSalidaPipe/filtro-reserva-salida.pipe';
-import { AbsencesComponent } from './component/absences/absences.component';
-import { FiltroInasistenciaPipe } from './pipes/filtroInasistenciaPipe/filtro-inasistencia-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { FiltroInasistenciaPipe } from './pipes/filtroInasistenciaPipe/filtro-in
     UpdatePasswordComponent,
     CarouselComponent,
     FooterComponent,
-    HeaderComponent,
     NavbarComponent,
     PagenotfoundComponent,
     ShowdeparturesComponent,

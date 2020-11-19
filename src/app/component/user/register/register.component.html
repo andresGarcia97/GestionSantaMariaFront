@@ -37,7 +37,7 @@
       <div class="col-md-6 mb-3">
         <label>Identificacion</label>
         <input type="number" class="form-control" formControlName="identificacion"
-          placeholder="Escribe la identificacion" required minlength="3">
+          placeholder="Escribe la identificacion" required minlength="3" maxlength="10">
         <div class="invalid-feedback">
           Por favor ingrese su identificacion.
         </div>
@@ -60,7 +60,7 @@
         <input type="password" class="form-control" placeholder="Escribe una contraseña" formControlName="contrasena"
           required>
         <div class="invalid-feedback">
-          Por favor ingrese una contraseña con más de 8 caracteres.
+          Por favor ingrese una contraseña con más de 6 caracteres.
         </div>
       </div>
       <div class="col-md-6 mb-3">
@@ -84,24 +84,19 @@
               aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Terminos y condiciones</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
                   <div class="modal-body">
                     <ul class="list-group">
-                      <li class="list-group-item active">Reglas para el ingreso a Santa Maria</li>
+                      <li class="list-group-item active">Terminos y condiciones para el ingreso a Santa Maria</li>
                       <li class="list-group-item">Prohibido el consumo de Alcohol.</li>
                       <li class="list-group-item">Prohibido el consumo de Alucinogenos.</li>
                       <li class="list-group-item">Participar en las actividades.</li>
                       <li class="list-group-item">Ayudar cuando sea requerido.</li>
                       <li class="list-group-item">Mantener buenas relaciones interpersonales</li>
+                      <li class="list-group-item">Mantener buenas relaciones interpersonales</li>
                     </ul>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  <div class="modal-header padreCentrarContenido">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
                   </div>
                 </div>
               </div>
