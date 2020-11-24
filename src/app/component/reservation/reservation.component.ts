@@ -45,8 +45,8 @@ export class ReservationComponent implements OnInit {
       this.reservacionUsuarioLogueado.espacio = this.lugares[0].lugar;
       this.reservacionUsuarioLogueado.actividad = this.motivos[0].motivo;
       this.lavadora = LAVANDERIA;
-    }else{
-      this.lugares.splice( 0, 1 );
+    } else {
+      this.lugares.splice(0, 1);
     }
     this.user = JSON.parse(localStorage.getItem(TIPOSTORAGE)) as User;
     this.tipoUsuario = this.utilService.isEstudent(this.user);
@@ -66,16 +66,11 @@ export class ReservationComponent implements OnInit {
     else {
       this.reservationService.getReservas().subscribe(
         (reservas) => {
-          if (this.rutaLavadora){
+          if (this.rutaLavadora) {
             this.reservas = reservas;
           }
-          else{
-            reservas.forEach( reserva => {
-                if (reserva.espacio !== 'LAVANDERIA'){
-                  this.reservas.push(reserva);
-                }
-              }
-            );
+          else {
+            this.reservas = reservas.filter(reserva => reserva.espacio !== LAVANDERIA);
           }
         }
       );
@@ -102,7 +97,7 @@ export class ReservationComponent implements OnInit {
     return fechaInicio < fechaFin;
   }
 
-  registrarReserva(): void {
+  public registrarReserva(): void {
     this.cambiarFechas();
     console.log(this.reservacionUsuarioLogueado);
     if (!this.reservaValida()) {
@@ -126,7 +121,7 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  reservaValida(): boolean {
+  public reservaValida(): boolean {
     return (this.reservacionUsuarioLogueado.espacio !== '' && this.reservacionUsuarioLogueado.actividad !== '' &&
       this.reservacionUsuarioLogueado.fechaInicial !== null && this.reservacionUsuarioLogueado.fechaFinal !== null);
   }
@@ -139,7 +134,7 @@ export class ReservationComponent implements OnInit {
     this.nuevaReserva.actividad = this.reservaUpdate.actividad;
   }
 
-  showPopupUpdate(reserva: Reservation) {
+  public showPopupUpdate(reserva: Reservation) {
     this.reservaUpdate = reserva;
     this.setNuevaReserva();
     const esMismoUsuario = this.reservaUpdate.usuario.identificacion === this.user.identificacion;
@@ -162,7 +157,7 @@ export class ReservationComponent implements OnInit {
     this.nuevaReserva.fechaFinal = new Date(this.nuevaReserva.fechaFinal);
   }
 
-  reservaValidaActualizacion(): boolean {
+  public reservaValidaActualizacion(): boolean {
     return (this.nuevaReserva.espacio !== '' && this.nuevaReserva.actividad !== '' &&
       this.nuevaReserva.fechaInicial !== null && this.nuevaReserva.fechaFinal !== null);
   }
@@ -172,7 +167,7 @@ export class ReservationComponent implements OnInit {
     this.mismoUsuario = false;
   }
 
-  editarReserva(): void {
+  public editarReserva(): void {
     const reservas = [];
     reservas.push(this.reservaUpdate);
     this.cambiarFechasActulizacion();
@@ -201,7 +196,7 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  eliminarReserva(): void {
+  public eliminarReserva(): void {
     this.reservationService.delete(this.reservaUpdate)
       .subscribe(() => {
         swal({ icon: 'success', title: BORRADO_RESERVA_EXITOSO });
