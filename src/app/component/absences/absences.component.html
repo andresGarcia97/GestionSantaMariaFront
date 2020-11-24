@@ -12,7 +12,6 @@
                 <div class="card text-white bg-danger mb-3" *ngIf="inasistencias.length == 0 && tipoUsuario">
                     <h2>No tiene Inasistencias</h2>
                 </div>
-
                 <div *ngIf="inasistencias.length > 0 ">
                     <table class="table table-striped">
                         <thead class="thead-dark">
@@ -42,7 +41,7 @@
     <!-- The Modal -->
     <div class="modal fade" id="modalAgregarInasistencia" *ngIf="tipoUsuario">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content text-center">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -54,7 +53,7 @@
                 <div class="modal-header">
 
                     <div class="form-row padreCentrarContenido">
-
+                        <h6>Nota: la fecha debe tener por lo menos una hora de diferecia con respecto a la hora de alimentación</h6>
                         <div class="form-group col-md-6">
                             <label for="fechaSalida">Fecha Inasistencia</label>
                             <input type="datetime-local" [(ngModel)]="inasistencia.fecha" class="form-control"
