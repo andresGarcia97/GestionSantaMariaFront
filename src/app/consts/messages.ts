@@ -36,6 +36,7 @@ export const BORRADO_RESERVA_ERRONEO = 'Error al Borrar, la reserva';
 export const ERROR_REGISTRO = 'No se pudo realizar el registro';
 export const TIPO_DE_USUARIO = 'Te has logueado como: ';
 export const ERRROR_CONSULTAR_PERFIL = 'Error al consultar la información de su perfil';
+export const ERRROR_AL_INICIAR_SESION = 'Ha ocurrido un error, por favor intentalo de nuevo';
 export const INGRESO_EXITOSO_LABOR = 'Ingreso exitoso de la nueva Labor';
 export const INGRESO_ERRONEO_LABOR = 'Error al ingresar la nueva Labor';
 export const ACTUALIZACION_EXITOSO_LABOR = 'Actualización exitosa de la Labor';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ERRROR_CONSULTAR_PERFIL, LOGIN_INCORRECTO, TIPO_DE_USUARIO } from 'src/app/consts/messages';
+import { ERRROR_AL_INICIAR_SESION, LOGIN_INCORRECTO, TIPO_DE_USUARIO } from 'src/app/consts/messages';
 import { IDENTIFICACIONSTORAGE, TIPOSTORAGE } from 'src/app/consts/StorageKeys';
 import { User } from 'src/app/model/user/user';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -45,17 +45,16 @@ export class LoginComponent implements OnInit {
       });
       const usuarioIdentificacion = await JSON.parse(localStorage.getItem(IDENTIFICACIONSTORAGE)) as User;
       const usuarioTipo = await JSON.parse(localStorage.getItem(TIPOSTORAGE));
-      if (usuarioIdentificacion === null && usuarioTipo === null) {
-        this.usuario = new User();
-        swal({ icon: 'error', title: LOGIN_INCORRECTO });
-      }
-      else if (usuarioIdentificacion === null) {
+      if (usuarioIdentificacion === null) {
         this.usuario = new User();
         swal({ icon: 'error', title: LOGIN_INCORRECTO });
       }
       else if (usuarioTipo === null) {
         this.usuario = new User();
-        swal({ icon: 'warning', title: ERRROR_CONSULTAR_PERFIL });
+        swal({ icon: 'warning', title: ERRROR_AL_INICIAR_SESION});
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       }
       else {
         this.util.changeBooleanMessage(true);
