@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const LOCALHOST = 'https://gestionsantamariaback.herokuapp.com/';
+export const LOCALHOST = 'http://localhost:8080/';
 
 export const LOGIN = LOCALHOST.concat('login');
 
